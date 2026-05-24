@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>多維複合命盤 ． 78張時空塔羅完美上弧卷軸版</title>
+    <title>多維複合命盤 ． 78張時空塔羅巨幅上弧居中版</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght=400;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -40,7 +40,7 @@
 
         .container {
             width: 100%;
-            max-width: 800px;
+            max-width: 850px;
             background: var(--white);
             border-radius: 24px;
             padding: 40px 30px;
@@ -48,21 +48,48 @@
             border: 1px solid var(--cream-light);
         }
 
+        /* 📝 頂部文案優化區塊 */
         header {
             text-align: center;
-            margin-bottom: 35px;
+            margin-bottom: 40px;
+            padding: 10px 0;
         }
 
         header h1 {
-            font-size: 1.8rem;
+            font-size: 2rem;
             color: var(--brown-text);
-            letter-spacing: 2px;
-            margin-bottom: 8px;
+            letter-spacing: 4px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .title-divider {
+            width: 80px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            margin: 0 auto 16px auto;
+            position: relative;
+        }
+        .title-divider::after {
+            content: "✦";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 0.6rem;
+            color: var(--gold);
+            background-color: var(--white);
+            padding: 0 4px;
         }
 
         header p {
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             color: var(--brown-accent);
+            letter-spacing: 1.5px;
+            line-height: 1.8;
+            max-width: 600px;
+            margin: 0 auto;
+            font-weight: 500;
         }
 
         .form-section-title {
@@ -194,20 +221,20 @@
             margin-top: 15px;
         }
 
-        /* 🔮 78張完美大上弧形抽卡互動區 */
+        /* 🔮 78張大卡牌、居中、完美上弧形抽卡欄位 */
         .ritual-section {
             display: none;
             text-align: center;
-            margin-top: 30px;
-            padding: 30px 0 10px 0;
+            margin-top: 35px;
+            padding: 35px 0 15px 0;
             background: var(--cream-light);
-            border-radius: 20px;
+            border-radius: 24px;
             border: 1px dashed var(--brown-accent);
             overflow: hidden;
         }
 
         .ritual-title {
-            font-size: 1.05rem;
+            font-size: 1.1rem;
             color: var(--brown-text);
             margin-bottom: 5px;
             font-weight: bold;
@@ -215,22 +242,22 @@
         }
 
         .ritual-steps-hint {
-            font-size: 1.2rem;
+            font-size: 1.25rem;
             color: var(--red-alert);
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             font-weight: bold;
             letter-spacing: 1px;
             padding: 0 20px;
         }
 
-        /* 左右滾動外殼：容納超寬大弧形 */
+        /* 左右滑動欄位外殼 - 撐高高度以容納放大後的精緻大牌 */
         .scroll-deck-wrapper {
             width: 100%;
             overflow-x: auto;
             overflow-y: hidden;
-            /* 關鍵防遮擋：上方騰出 60px 確保卡牌浮起不被削頭，左右留白 100px 確保首尾完整 */
-            padding: 60px 100px 40px 100px; 
-            margin: 10px 0;
+            /* 上方給足 80px 預留放大浮起空間，左右留白 120px 確保首尾大牌不被邊緣切斷 */
+            padding: 80px 120px 50px 120px; 
+            margin: 15px 0;
             scrollbar-width: none;
             -webkit-overflow-scrolling: touch;
         }
@@ -239,55 +266,59 @@
             display: none;
         }
 
-        /* 扇形展牌容器 */
+        /* 核心置中展牌容器 */
         .scroll-deck-container {
             display: flex;
-            /* 讓卡牌產生完美的緊密覆蓋感，模擬占卜師推牌效果 */
-            gap: -25px; 
             width: max-content;
-            align-items: flex-end; /* 底部對齊，以便向上畫出弧度 */
-            height: 240px; /* 給予足夠的旋轉舞台高度 */
+            align-items: flex-end; 
+            height: 340px; /* 大牌旋轉舞台高度 */
+            position: relative;
+            margin: 0 auto; /* 確保整體大牌陣在欄位裡完美居中 */
         }
 
-        /* 單張卡牌基礎美化 */
+        /* 🃏 大牌震撼視覺美化（卡牌放大） */
         .ritual-card {
             flex-shrink: 0;
-            width: 85px;
-            height: 145px;
-            background: linear-gradient(135deg, #3A2F2E 0%, #1A1211 100%);
-            border: 2px solid var(--gold);
-            border-radius: 10px;
+            width: 150px;  /* 寬度從 85px 大幅放大至 150px */
+            height: 255px; /* 高度隨之精確放大，維持黃金比例 */
+            background: linear-gradient(135deg, #2E2423 0%, #140D0C 100%);
+            border: 3px solid var(--gold); /* 邊框加粗，強化結構 */
+            border-radius: 16px;
             cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-            /* 使用內聯變數處理動態旋轉與位移，並給予極度流暢的過渡特效 */
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+            
+            /* 繼承動態上弧矩陣變數 */
             transform: rotate(var(--rot)) translateY(var(--ty));
-            transform-origin: center bottom; /* 圍繞底部旋轉，形成完美拱形 */
-            transition: transform 0.25s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.25s ease, border-color 0.25s ease;
+            transform-origin: center bottom; /* 以底部為核心旋轉，拉出極致平滑的大拱形 */
+            transition: transform 0.3s cubic-bezier(0.25, 1, 0.2, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+            
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
-            margin-left: -35px; /* 卡牌重疊，展現真實推牌感 */
+            margin-left: -75px; /* 大牌完美交疊，模擬實體推牌厚實感 */
         }
 
         .ritual-card:first-child {
             margin-left: 0;
         }
 
+        /* 大牌核心神祕家徽 */
         .ritual-card::before {
             content: "🔱";
             color: var(--gold);
-            font-size: 1.2rem;
-            opacity: 0.65;
+            font-size: 2.2rem; /* 符號同步放大 */
+            opacity: 0.75;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
         }
 
-        /* ✨ 完美上弧形懸停：卡牌順著原有角度向外彈出，並優雅放大 */
+        /* ✨ 巨幅上弧形懸停：大牌順應原有推牌角度「向外飛躍彈出」 */
         .ritual-card:hover {
-            /* 保持原有的旋轉角度變數，但將位移向上/外多推 30px 並放大 */
-            transform: rotate(var(--rot)) translateY(calc(var(--ty) - 35px)) scale(1.12);
-            box-shadow: 0 15px 35px rgba(197, 168, 128, 0.6);
+            /* 保持角度，向上/向外彈出 60px，並放大 1.15 倍 */
+            transform: rotate(var(--rot)) translateY(calc(var(--ty) - 60px)) scale(1.15);
+            box-shadow: 0 25px 50px rgba(197, 168, 128, 0.7); /* 綻放強烈金色光芒 */
             border-color: var(--white);
-            z-index: 999; /* 確保懸停卡牌永遠在最上層 */
+            z-index: 9999; /* 懸停的大牌永遠在最頂層，不被鄰牌遮擋 */
         }
 
         .ritual-card.selected-drawn {
@@ -298,7 +329,7 @@
         .shuffling-text {
             display: block;
             margin-top: 15px;
-            font-size: 0.85rem;
+            font-size: 0.88rem;
             color: var(--brown-accent);
             font-style: italic;
             padding: 0 20px;
@@ -401,8 +432,14 @@
             .container { padding: 25px 20px; }
             .array-display-container { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
             .waite-tarot-card-body { height: 160px; }
-            .ritual-card { width: 70px; height: 120px; margin-left: -28px; }
-            .scroll-deck-wrapper { padding: 50px 40px 30px 40px; }
+            header h1 { font-size: 1.6rem; }
+            header p { font-size: 0.85rem; }
+            
+            /* 行動端大牌適度微調，避免完全撐爆螢幕，但依舊維持寬大置中質感 */
+            .ritual-card { width: 110px; height: 187px; margin-left: -55px; }
+            .ritual-card::before { font-size: 1.6rem; }
+            .scroll-deck-container { height: 260px; }
+            .scroll-deck-wrapper { padding: 60px 50px 30px 50px; }
         }
     </style>
 </head>
@@ -411,11 +448,11 @@
 <div class="container">
     <header>
         <h1>請說出你的願望</h1>
-        <p>八字五行 ． 紫微靈數 ． 78張偉特塔羅命運聖三角弧形牌陣</p>
+        <div class="title-divider"></div>
+        <p>改變思想，命運就會跟著改變，一切的發生都是最好的安排。</p>
     </header>
 
     <form id="oracleForm" onsubmit="startRitual(event)">
-        <!-- 表單資料結構保持不變 -->
         <div class="form-section-title">👤 您的個人資料（本命盤根基）</div>
         <div class="form-row">
             <div class="form-group">
@@ -515,14 +552,14 @@
         <button type="submit" class="submit-btn" id="initBtn">開始占卜</button>
     </form>
 
-    <!-- 🔮 核心改版：78張大上弧形推牌抽卡區 -->
+    <!-- 🔮 核心優化：巨幅大卡牌、居中、完美大上弧形抽卡區 -->
     <div class="ritual-section" id="ritualSection">
         <p class="ritual-title">🔮 命運羅盤已依您的磁場推開 78 葉天機</p>
         <div class="ritual-steps-hint" id="stepHint">請憑直覺抽取第 1 張牌：【代表過去】</div>
         
         <div class="scroll-deck-wrapper">
             <div class="scroll-deck-container" id="cardContainer">
-                <!-- 由 JS 動態依完美數學矩陣算出完美的「拱形弧度」 -->
+                <!-- 由 JS 依完美數學矩陣動態生成置中且放大版的大上弧形牌組 -->
             </div>
         </div>
         <span class="shuffling-text">—— 左右滑動命運弧形卷軸，當前已抽取 <span id="drawCount">0</span> / 4 張卡牌 ——</span>
@@ -536,7 +573,6 @@
 </div>
 
 <script>
-    // 完整的 78 張偉特塔羅牌資料庫
     const tarotDeck = [
         // 大阿爾克那
         { name: "愚者", element: "風", img: "https://upload.wikimedia.org/wikipedia/commons/0/0b/RWS_Tarot_00_Fool.jpg" },
@@ -672,7 +708,7 @@
         }
     }
 
-    // ✨ 核心算法：動態將 78 張牌鋪成完美大拱形上弧線
+    // 🧮 動態生成放大、置中、上弧拱形的 78 張卡牌
     function startRitual(event) {
         event.preventDefault();
         userDrawnCards = [];
@@ -689,15 +725,12 @@
             cardOpt.className = 'ritual-card';
             cardOpt.setAttribute('onclick', `pickCard(this, ${i})`);
 
-            // 🧮 完美弧形計算公式：
-            // 讓整套牌組以中央(第39張)為頂點，向左右形成拋物線
-            // deg 是旋轉角度，Y軸高度隨著遠離中央而下墜，造就上弧拱形
+            // 完美的弧形精算：因卡牌放大，旋轉角度與垂直沉降比例進行了黃金優化
             let mid = (totalCards - 1) / 2; 
             let diff = i - mid; 
-            let deg = diff * 0.75; // 每一張牌的微調偏轉角度
-            let translateY = Math.abs(diff) * 0.45; // 離中心越遠，越往下沉，呈現出拱形頂點
+            let deg = diff * 0.65; // 減小每張旋轉間距，讓 78 張牌銜接得極其平滑流暢
+            let translateY = Math.abs(diff) * 0.75; // 越遠離中心越下墜，形成優雅的拱橋弧形
 
-            // 將變數存入 CSS custom properties 供懸停動態繼承
             cardOpt.style.setProperty('--rot', `${deg}deg`);
             cardOpt.style.setProperty('--ty', `${translateY}px`);
 
@@ -708,12 +741,11 @@
         document.getElementById('resultSectionBox').style.display = 'none';
         document.getElementById('ritualSection').scrollIntoView({ behavior: 'smooth' });
 
-        // 預滾動至中央，讓顧客一進去就看到壯麗的拱形頂端
+        // 預滾動至最中央，讓顧客一入場就能被正中間最頂端、宏偉對稱的大牌拱形所震懾
         setTimeout(() => {
             const wrapper = document.querySelector('.scroll-deck-wrapper');
             const containerWidth = container.offsetWidth;
             const wrapperWidth = wrapper.offsetWidth;
-            // 滾動到正中間偏左一點的位置
             wrapper.scrollTo({ left: (containerWidth - wrapperWidth) / 2, behavior: 'smooth' });
         }, 400);
     }
@@ -742,7 +774,7 @@
         if (count < 4) {
             document.getElementById('stepHint').innerText = stepHints[count];
         } else {
-            document.getElementById('stepHint').innerText = "✨ 78葉宿命羅盤契合成功，正在為您開啟天機大盤...";
+            document.getElementById('stepHint').innerText = "✨ 78葉宇宙意識契合成功，正在為您解鎖星盤大考...";
             setTimeout(executeFinalDivination, 600);
         }
     }
