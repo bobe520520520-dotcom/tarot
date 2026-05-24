@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>請說出你的願望</title>
+    <title>雙效複合 ． 紫微八字塔羅靈數大運盤</title>
     <!-- Google Fonts 引入美型繁體字體 -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght=400;700&display=swap" rel="stylesheet">
     <style>
@@ -16,6 +16,7 @@
             --white: #FFFFFF;
             --gold: #C5A880;
             --sage: #A39389;
+            --red-alert: #C86B5D;
         }
 
         * {
@@ -232,7 +233,7 @@
             letter-spacing: 2px;
         }
 
-        /* 經典偉特牌 實體圖像視覺容器 */
+        /* 經典偉特牌實體圖像 */
         .waite-tarot-container {
             width: 160px;
             margin: 0 auto 20px;
@@ -260,7 +261,6 @@
             display: block;
         }
 
-        /* 逆位物理反轉 */
         .waite-tarot-card-body.reversed-visual {
             transform: rotate(180deg);
             box-shadow: 0 -12px 35px rgba(0,0,0,0.3);
@@ -277,6 +277,7 @@
         .card-meta {
             display: flex;
             align-items: center;
+            flex-wrap: wrap;
             gap: 12px;
             margin-bottom: 18px;
         }
@@ -284,8 +285,48 @@
         .tarot-badge { background: var(--brown-accent); color: var(--white); padding: 4px 12px; border-radius: 6px; font-size: 0.75rem; font-weight: bold;}
         .ziwei-badge { background: var(--sage); color: var(--white); padding: 4px 12px; border-radius: 6px; font-size: 0.75rem; font-weight: bold;}
         .numerology-badge { background: var(--gold); color: var(--brown-text); padding: 4px 12px; border-radius: 6px; font-size: 0.75rem; font-weight: bold;}
+        .bazi-element-badge { background: #4A3E3D; color: #FFF; padding: 4px 12px; border-radius: 6px; font-size: 0.75rem; font-weight: bold;}
+        .bazi-missing-badge { background: var(--red-alert); color: #FFF; padding: 4px 12px; border-radius: 6px; font-size: 0.75rem; font-weight: bold;}
 
-        /* 細部深度解盤排版 */
+        /* 五行能量分佈條樣式 */
+        .wuxing-chart {
+            margin: 15px 0;
+            background: #FFF;
+            padding: 15px;
+            border-radius: 12px;
+            border: 1px solid var(--cream-dark);
+        }
+        .wuxing-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        .wuxing-name {
+            width: 50px;
+            font-size: 0.85rem;
+            font-weight: bold;
+        }
+        .wuxing-bar-bg {
+            flex: 1;
+            background: #EEE;
+            height: 12px;
+            border-radius: 6px;
+            overflow: hidden;
+            margin: 0 10px;
+        }
+        .wuxing-bar-fill {
+            height: 100%;
+            border-radius: 6px;
+            width: 0%;
+            transition: width 1s ease;
+        }
+        .wuxing-count {
+            width: 40px;
+            font-size: 0.85rem;
+            text-align: right;
+            color: var(--brown-accent);
+        }
+
         .analysis-block {
             margin-bottom: 25px;
             text-align: justify;
@@ -309,7 +350,6 @@
             line-height: 1.8;
         }
 
-        /* 三維度詳細建議方框 */
         .advice-box {
             background: #F4EFE6;
             border-radius: 14px;
@@ -361,7 +401,7 @@
 <div class="container">
     <header>
         <h1>請說出你的願望</h1>
-        <p>心念即流年 ． 萬物皆有靈應</p>
+        <p>八字五行 ． 紫微靈數 ． 經典偉特塔羅命運盤</p>
     </header>
 
     <!-- 諮詢表單 -->
@@ -419,7 +459,7 @@
         </div>
 
         <div class="form-group" id="questionField">
-            <label for="question">您心中的具體問題（請說出你的願望）</label>
+            <label for="question">您心中的具體問題</label>
             <textarea id="question" placeholder="例如：近期換工作會順利嗎？請訴說你的願望與困惑..."></textarea>
         </div>
 
@@ -440,13 +480,13 @@
 
     <!-- 最終解盤結果輸出 -->
     <div class="result-section" id="resultSectionBox">
-        <h2 class="result-title">雙效複合深度解盤報告</h2>
+        <h2 class="result-title">多維度智慧複合解盤報告</h2>
         <div id="resultContent"></div>
     </div>
 </div>
 
 <script>
-    // 引入開源維基標準萊德偉特塔羅牌高清圖片資料庫
+    // 引入經典萊德偉特塔羅牌開源高解析度資料庫
     const tarotDeck = [
         { name: "愚者", element: "風", img: "https://upload.wikimedia.org/wikipedia/commons/0/0b/RWS_Tarot_00_Fool.jpg" },
         { name: "魔術師", element: "風", img: "https://upload.wikimedia.org/wikipedia/commons/d/de/RWS_Tarot_01_Magician.jpg" },
@@ -472,19 +512,31 @@
         { name: "世界", element: "土", img: "https://upload.wikimedia.org/wikipedia/commons/f/ff/RWS_Tarot_21_World.jpg" }
     ];
 
+    // 天干、地支五行屬性映射表
     const tgElements = { '甲': '木', '乙': '木', '丙': '火', '丁': '火', '戊': '土', '己': '土', '庚': '金', '辛': '金', '壬': '水', '癸': '水' };
+    const dzElements = { '子': '水', '丑': '土', '寅': '木', '卯': '木', '辰': '土', '巳': '火', '午': '火', '未': '土', '申': '金', '酉': '金', '戌': '土', '亥': '水' };
+    
     const tgArr = ['甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸'];
     const dzArr = ['子', '丑', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥'];
 
+    // 缺失五行對應的補充指引資料庫
+    const missingWuxingGuides = {
+        '木': { color: '青綠色、碧綠色', element: '綠幽靈、捷克隕石、木質佛珠', action: '多接觸森林大自然、室內栽種常綠植物、早睡以養肝膽之氣。' },
+        '火': { color: '大紅色、亮紫色、粉紅色', element: '紅草莓晶、南紅瑪瑙、紫水晶', action: '多曬早晨陽光、適度進行排汗運動、保持居室光線充足。' },
+        '土': { color: '金黃色、深咖啡色、大地色', element: '黃水晶、虎眼石、琥珀', action: '赤腳踩踏草地接引地氣、飲食定時定量以護脾胃、多與穩重之人來往。' },
+        '金': { color: '純白色、杏色、亮銀色', element: '白水晶、閃靈鑽、白硨磲', action: '保持環境極簡與乾淨、多做深呼吸以潤肺部、建立果斷拒絕的行事準則。' },
+        '水': { color: '純黑色、深藍色', element: '黑曜石、黑髮晶、藍線石', action: '多聽流水音頻冥想、多喝溫開水維持代謝、保持心思沉靜與定力。' }
+    };
+
     const lifeNumberDatabase = {
         1: { name: "開創獨立的創始者", traits: "天生具備強烈的自我意識與領袖氣質，具有獨立、自信與極強的開創性，然而在面臨困境時，容易顯得過於主觀、孤傲或難以聽取旁人勸告。" },
-        2: { name: "溫柔敏感的協調者", traits: "善於配合、溝通與維蹟和平，擁有極強的同理心、直覺力與藝術美感，缺點是在面臨重大抉擇時容易患得患失、依賴他人而難以下決斷。" },
+        2: { name: "溫柔敏感的協調者", traits: "善於配合、溝通與維繫和平，擁有極強的同理心、直覺力與藝術美感，缺點是在面臨重大抉擇時容易患得患失、依賴他人而難以下決斷。" },
         3: { name: "充滿創意的表達者", traits: "才華橫溢、樂觀幽默，思維極度活躍且擅長社交，但有時會因專注力分散、三分鐘熱度而顯得缺乏耐性與持續沉澱的定力。" },
         4: { name: "穩健務實的建構者", traits: "追求安全感、結構與條理，極具責任感、組織力與驚人的執行力，但性格底層容易流於固執、焦慮且極度害怕未知的改變。" },
         5: { name: "追逐自由的冒險家", traits: "熱愛自由、博學、幽默且適應力極強，不喜歡受到條條框框的束縛，但也容易因為缺乏核心定性而流於放任、半途而廢。" },
         6: { name: "充滿大愛的奉獻者", traits: "天生富有強烈的責任感、正義感與療癒能量，極度重視人際和諧與家庭，但極易因過度干涉他人或追求完美而背負過重的心理負擔。" },
         7: { name: "尋求真理的哲學家", traits: "直覺無比敏銳，喜歡獨立思考、分析並挖掘事物的底層本質，精神層次極高，但容易因過度理性、多疑而給人冷漠、難以靠近的距離感。" },
-        8: { name: "掌控豐盛的實踐家", traits: "具備極佳的商業頭腦、掌控慾與組織天賦，對物質資源、權力關係有強烈直覺，然而有時會顯得過於現實、強勢或承擔過大財務壓力。" },
+        8: { name: "掌控豐盛的實踐家", traits: "具備極佳的商業頭腦、掌控慾與組織天賦，對物質資源、權力關係有強烈直覺，然而有時會顯得過於现实、強勢或承擔過大財務壓力。" },
         9: { name: "悲天憫人的夢想家", traits: "具備神秘的精神直覺力與全人類的宏觀大愛，樂於服務與奉獻，精神境界高，但容易因流於不切實際、過度多愁善感而自尋煩惱。" }
     };
 
@@ -521,13 +573,47 @@
         return sum;
     }
 
-    function getBaziProfile(dateStr) {
-        if (!dateStr) return { dayMasterElem: "木", baziStr: "甲子年 丙寅月 戊戌日" };
+    // 高級乾支轉化與五行計數矩陣
+    function getBaziAndWuxing(dateStr) {
+        if (!dateStr) return { dayMaster: "木", baziStr: "甲子年 丙寅月 戊戌日", counts: { '木': 2, '火': 1, '土': 2, '金': 0, '水': 1 }, missing: ['金'] };
+        
         const dateObj = new Date(dateStr);
-        const yIdx = (dateObj.getFullYear() - 4) % 60;
-        const mIdx = (dateObj.getMonth() + dateObj.getDate()) % 12;
-        const dIdx = (dateObj.getDate() + dateObj.getFullYear()) % 10;
-        return { dayMasterElem: tgElements[tgArr[dIdx]] || "土", baziStr: `${tgArr[yIdx % 10]}${dzArr[yIdx % 12]}年 ${tgArr[(yIdx * 2 + 2) % 10]}${dzArr[mIdx]}月 ${tgArr[dIdx]}${dzArr[(dIdx + 2) % 12]}日` };
+        const year = dateObj.getFullYear();
+        const month = dateObj.getMonth() + 1;
+        const day = dateObj.getDate();
+
+        // 依據基礎公式推算簡化干支
+        const yIdx = (year - 4) % 60;
+        const mIdx = (month + day) % 12;
+        const dIdx = (day + year) % 10;
+
+        const yearTG = tgArr[yIdx % 10];
+        const yearDZ = dzArr[yIdx % 12];
+        const monthTG = tgArr[(yIdx * 2 + 2) % 10];
+        const monthDZ = dzArr[mIdx];
+        const dayTG = tgArr[dIdx];
+        const dayDZ = dzArr[(dIdx + 2) % 12];
+
+        const dayMasterElem = tgElements[dayTG] || "土";
+        const baziStr = `${yearTG}${yearDZ}年 ${monthTG}${monthDZ}月 ${dayTG}${dayDZ}日`;
+
+        // 統計六字基本盤之五行分佈 (年柱天干地支、月柱天干地支、日柱天干地支)
+        let counts = { '木': 0, '火': 0, '土': 0, '金': 0, '水': 0 };
+        const elementsInChart = [
+            tgElements[yearTG], dzElements[yearDZ],
+            tgElements[monthTG], dzElements[monthDZ],
+            tgElements[dayTG], dzElements[dayDZ]
+        ];
+
+        elementsInChart.forEach(elem => { if(counts[elem] !== undefined) counts[elem]++; });
+
+        // 篩選出數量為 0 的缺失五行
+        let missing = [];
+        for (let key in counts) {
+            if (counts[key] === 0) missing.push(key);
+        }
+
+        return { dayMaster: dayMasterElem, baziStr: baziStr, counts: counts, missing: missing };
     }
 
     function startRitual(event) {
@@ -537,7 +623,6 @@
         document.getElementById('ritualSection').scrollIntoView({ behavior: 'smooth' });
     }
 
-    // 生成具備極致細節、超大篇幅的定制化解盤長文資料庫
     function getUltraDetailedAnalysis(category, tarotName, orientation, tarotElem, baziMain, lifeNum) {
         const elementMatches = {
             '火': { '木': '木火通明，火借木勢全面爆發', '火': '兩火相聚，強烈碰撞必有大變革', '土': '火土相生，能量洩秀轉為務實沈澱', '金': '火來煉金，歷經考驗方能淬鍊成器', '水': '水火既濟，激烈碰撞中尋求微妙動態平衡' },
@@ -554,18 +639,14 @@
                     bone: `作為生命靈數中的【${lifeNum}號人】，你先天骨架中的核心特賦在當前局勢下將被最大程度地激活。此時的事業課題強烈要求你將自身的【${lifeNumberDatabase[lifeNum].name}】特質與這張牌的能量進行深度綁定。這是一個絕對不容許你繼續低調、隱藏實力或陷入自我懷疑的特殊時期。宇宙的能量流正在用一種近乎強制的力道催促你站到聚光燈下，去接過項目的主導權、去發表你的核心觀點。越是展現自信，你的事業壁壘就越是堅不可摧。`,
                     stream: `從八字與四元素的碰撞來看，牌面高密度的「${tarotElem}」元素與你八字日元的「${baziMain}」形成了【${interaction}】的奇妙流轉。這在五行氣場上意味著你的「元神」得到了極其良性的催化。你過去幾年苦心累積的底層經驗、專業技術、甚至是不起眼的人脈（在命盤中化為印星與比劫的庇護），在此時將正式轉化為實質的推動力（食傷吐秀與財星顯化）。近期你在職場上的直覺會變得無比敏銳，甚至能夠搶在對手之前，精準捕捉到旁人完全忽略的商業空白與利益切入點。`,
                     time: `未來的時局演變顯示，接下來的 30 到 45 天內，一個與新方向、全新合夥人、或是核心業務板塊位移相關的重大契機，將會正式浮出水面。這段時間你的話語權會成倍加重，雖然伴隨而來的具體工作量與管理責任會呈現爆發式增長，但這恰恰是你奠定未來三年職涯至高根基的「黃金建構期」。`,
-                    mind: `請保持絕對的定力與不容置疑的自信。身為 ${lifeNum}號人，此時最需要克服的是「過度權衡利弊導致的優柔寡斷」或「追求完美帶來的行動拖延」。請在心中建立「先開槍、後瞄準、在動態中修正軌道」的悍勇心態。`,
-                    action: `1. 建議在未來兩週內，主動向上級或核心決策圈提交一份關於業務創新的長線提案，展示你的全局掌控觀。<br>2. 辦公桌的左手邊（青龍位）可放置一尊造型穩固的深色物件，並主動與八字屬木或火的關鍵同事進行深度的業務腦力激盪。`,
-                    luck: `多穿著大氣的深色、或帶有微亮金屬質感的服飾；辦公與起居環境必須維持光線充足，每日清晨默誦「我全然承接並顯化我的職涯豐盛」三遍，與數字 ${lifeNum} 的頻率進行磁場共振。`
+                    mind: `請保持絕對的定力與不容置疑的自信。身為 ${lifeNum}號人，此時最需要克服的是「過度權衡利弊導致的優柔寡斷」或「追求完美帶來的行動拖延」。請在心中建立「先開槍、後瞄準、在動態中修正軌道」的悍勇心態。`
                 },
                 '逆位': {
-                    apparent: `當前您的事業領域顯現出【${tarotName}（逆位）】的警示。這代表外在的推进力此時正陷入一種「表面看似繁華、實則內部耗損」的遲滯狀態。你可能感覺到某項已經板上釘釘的合約細節突然變得模糊、團隊內部的溝通成本高到令人窒息，或是原本承諾給你的核心資源與資金未能按時到位。這張牌的逆位物理圖像在提醒你，地基出現了肉眼未察覺的暗裂，如果此時盲目加速衝刺，只會加速危機的暴露。`,
+                    apparent: `當前您的事業領域顯現出【${tarotName}（逆位）】的警示。這代表外在的推進力此時正陷入一種「表面看似繁華、實則內部耗損」的遲滯狀態。你可能感覺到某項已經板上釘釘的合約細節突然變得模糊、團隊內部的溝通成本高到令人窒息，或是原本承諾給你的核心資源與資金未能按時到位。這張牌的逆位物理圖像在提醒你，地基出現了肉眼未察覺的暗裂，如果此時盲目加速衝刺，只會加速危機的暴露。`,
                     bone: `這張牌的逆位，狠狠踩中了你作為【${lifeNum}號人】性格底層的致命盲點。你此時極易因為局勢發展不如預期，而陷入慢性的精神焦慮、盲目的自我否定；或者走向另一個極端——產生了不顧現實、想要用玉石俱焚的方式去強行破局的衝動。當前的課題是：學會與「不確定性」和「停滯感」和平共處，收斂急躁的羽翼。`,
                     stream: `在五行交鋒中，牌面失衡的「${tarotElem}」氣場與你本命的「${baziMain}」元神形成了【${interaction}】的拉扯。這意味著你的能量正在被外在環境無謂地「盜洩」或「強烈壓制」。此時切忌盲目開拓全新戰場、或者是進行沒有退路的裸辭跳槽。因為在五行磁場混亂時做出的衝動決策，往往會帶有先天性的運勢漏洞，後患無窮。`,
                     time: `未來時局演變暗示，這段沈悶或混亂的修正期大約會持續 4 到 6 週。在此期間，內部的人事重組、規章制度的推倒重來、或是過去遺留的財務與法律問題會主動找上門來。這是一次宇宙對你事業進行的「強制排毒」，唯有耐著性子清理乾淨，乾淨的新局才能真正開啟。`,
-                    mind: `請徹底放鬆對「局勢必須百分之百盡在掌控」的執念。逆位意味著外在環境正在溫柔地幫你踩煞車，請將這份煞車視為一種宇宙的護持，避免你在看不見的盲區裡翻車。`,
-                    action: `1. 立即暫停任何高風險的職場口頭承諾，將大份精力投入到對現有合約、數據、流程的「除錯」與安全覆盤中。<br>2. 職場人際關係上採取「主動示弱、不表態、不加入任何派系爭鬥」的邊緣防守策略，冷眼旁觀方能看清誰是真正的盟友。`,
-                    luck: `穿著大自然色系（如大地棕、草木綠）的服飾來穩固虛浮的磁場；在臥室東方放置一小杯乾淨的清水（每日更換），藉由水木相生的自然力量去化解逆位帶來的燥氣。`
+                    mind: `請徹底放鬆對「局勢必須百分之百盡在掌控」的執念。逆位意味著外在環境正在溫柔地幫你踩煞車，請將這份煞車視為一種宇宙的護持，避免你在看不見的盲區裡翻車。`
                 }
             },
             '感情': {
@@ -573,39 +654,31 @@
                     apparent: `您的情感磁場此時正散發出極為溫暖且動人的正向光芒。抽得【${tarotName}（正位）】，意味著無論您當前是處於熱戀、婚姻還是單身尋覓的狀態，一種「靈魂層面的深度連結與宿命共鳴」正在發生。雙方能夠在彼此身上看見未來的無限可能性，交流不再僅限於物質現實與柴米油鹽，而是能夠深深觸及到彼此靈魂深處最柔軟、最脆弱的渴望。`,
                     bone: `身為生命靈數【${lifeNum}號人】，你先天對於愛的防備心、或者是因為害怕受傷而對完美的刻板苛求，在此時會被這張牌的慈悲能量徹底融化。你將展現出前所未有的頂級共情天賦，終於懂得如何「用對方需要的方式去愛」，而不是「用你以為正確的方式去強加」，關係將迎來史詩般的和諧。`,
                     stream: `在氣場交互上，牌面的「${tarotElem}」與你的日元「${baziMain}」產生了【${interaction}】的和諧共振。這在命理上屬於「天作之合、喜神降臨」的極佳徵兆。單身者極易在未來 30 天內，在帶有文藝氣息、深度對話、或是學習成長的環境中，邂逅一位與你本命五行高度互補、談吐極具深度的高質量正緣。`,
-                    time: `時空局勢顯示，現有的情感關係將在接下來的兩個月內面臨一次「實質性升級」的絕佳契機（如共同購置資產、見雙方家長、或是定下堅不可摧的終身承諾）。這是一個高度被宇宙祝福的窗口期，只要順應直覺向前推进，任何外在的阻礙都將化為烏有。`,
-                    mind: `全然地允許自己去信任、去依賴、去被愛。徹底卸下過往感情受傷留下的防禦機制，你的真誠與適度顯露的脆弱，恰恰是你最具備致命吸引力的秘密武器。`,
-                    action: `1. 安排一次只有彼此、徹底遠離電子設備干擾的深度心靈旅行，在深夜聊聊彼此童年的故事與未來的恐懼。<br>2. 單身者請多出入城市東方或南方的社交場合，配戴圓潤、無稜角的天然飾品來加速催旺桃花。`,
-                    luck: `日常多使用帶有玫瑰、沉香或佛手柑氣息的天然香氛；服飾以粉暖色調或乳白色為主，這能讓數字 ${lifeNum} 的守護能量化作最溫柔的磁場引力。`
+                    time: `時空局勢顯示，現有的情感關係將在接下來的兩個月內面臨一次「實質性升級」的絕佳契機（如共同購置資產、見雙方家長、或是定下堅不可摧的終身承諾）。這是一個高度被宇宙祝福的窗口期，只要順應直覺向前推進，任何外在的阻礙都將化為烏有。`,
+                    mind: `全然地允許自己去信任、去依賴、去被愛。徹底卸下過往感情受傷留下的防禦機制，你的真誠與適度顯露的脆弱，恰恰是你最具備致命吸引力的秘密武器。`
                 },
                 '逆位': {
                     apparent: `當前情感區塊開出【${tarotName}（逆位）】，這無情地揭示了關係表面下的「溝通斷層」與「過度投射」。你或對方此時可能陷入了一種「雖然並肩走著，心卻相隔萬里」的巨大孤寂感中。逆位往往代表某一方正在用「冷漠與忽視」作為無形的武器，或是將過往情感中累積的陰影，不自覺地投射到了當前的伴侶身上，導致兩人都筋疲力盡。`,
                     bone: `這張牌的失衡，放大了你作為【${lifeNum}號人】在情感中最脆弱的死穴——可能是不甘示弱的傲慢自尊心、過度的情感控制欲，或者是遇到衝突時習慣性地縮回自己的「絕對保護殼」中進行無聲抗議。你此時的考驗是：直面內心對「被拋棄」或「被否定」的深層恐懼。`,
                     stream: `從五行流動來看，逆位「${tarotElem}」與你的日元「${baziMain}」產生了【${interaction}】的相衝與內耗。這意味著你們彼此的能量在互相拉扯與撕裂，而非互相滋養。近期極易因為微不足道的生活瑣事（如家務分配、財務觀念的微小分歧）而引爆深層的冷戰或翻舊帳。`,
                     time: `時局演變警告，未來的 3-4 週內，一段過去未曾真正解決的「情感舊帳」或來自第三方人事物的干擾可能會重新浮現。請在心中牢記：這不是為了摧毀關係，而是宇宙在強制你們進行情感的「膿包挑破」，逃避只會讓誤會化膿。`,
-                    mind: `立即停止盲目的猜忌與一廂情願的自我感動。學會用理智去傾聽對方「言語背後的無助與呼喊」，而非僅僅對其表面帶刺的話語做出防禦性的反擊。`,
-                    action: `1. 主動打破僵局，但談話絕不爭論對錯，而是嚴格使用「我感到...」的心理句型來表達你的真實受傷感。<br>2. 暫時減少高頻率的黏在一起，給予彼此 24-48 小時的絕對私人空間，讓混亂的五行氣場自行沈澱穩定。`,
-                    luck: `配戴深海藍色或黑色的天然水晶（如藍線石、黑曜石）來沉澱浮躁情緒；多去靠近大自然水源（如海邊、溪流）的地方散步，藉由水元素洗滌負面磁場。`
+                    mind: `立即停止盲目的猜忌與一廂情願的自我感動。學會用理智去傾聽對方「言語背後的無助與呼喊」，而非僅僅對其表面帶刺的話語做出防禦性的反擊。`
                 }
             },
             '健康': {
                 '正位': {
-                    apparent: `在健康的守護領域，【${tarotName}（正位）】帶來了极为豐沛的元氣修復能量。這張牌表明你的身體正處於一個「新陳代謝自我平衡、生命力重組」的良性循環中。如果你之前經歷了長期的慢性疲勞、精神壓力或是疾病困擾，此時身體的免疫系統正在全面收復失地。`,
-                    bone: `作為【${lifeNum}號人】，你的精神狀態與身體健康往往有著極高強度的「身心靈聯動」。當前正位的顯現，意味著你近期的心理防禦力處於高位，焦慮感減輕，進而反哺了身體，使肌肉張力、消化系統都處於極佳的運作狀態。`,
+                    apparent: `在健康的守護領域，【${tarotName}（正位）】帶來了極為豐沛的元氣修復能量。這張牌表明你的身體正處於一個「新陳代謝自我平衡、生命力重組」的良性循環中。如果你之前經歷了長期的慢性疲勞、精神壓力或是疾病困擾，此時身體的免疫系統正在全面收復失地。`,
+                    bone: `作為【${lifeNum}號人】，你的精神狀態與身體健康往往有著極高強度的「身心靈連動」。當前正位的顯現，意味著你近期的心理防禦力處於高位，焦慮感減輕，進而反哺了身體，使肌肉張力、消化系統都處於極佳的運作狀態。`,
                     stream: `在五行交會中，牌面平穩的「${tarotElem}」與你的本命日元「${baziMain}」呈現【${interaction}】。這代表你的本命元神得到了非常溫和的氣場補給。此時非常適合進行中醫調理、規律的健身計畫、甚至是深度的斷食排毒，身體對能量與營養的吸收與轉化率將達到顛峰。`,
                     time: `時局演變顯示，接下來的三個月內，你的整體精力會明顯感到回升。你可以大膽安排一些需要高消耗、高專注力的長線計畫，你的身體與精神將成為你最強大的後盾。`,
-                    mind: `保持對身體細胞的感恩之心。在每日睡前，將雙手放在心口，感受心跳，向自己的身體傳遞愛與感謝的念頭。`,
-                    action: `1. 非常建議在近期開始接觸太極、瑜伽或靜坐冥想，這能將牌面的精神能量固化在你的筋骨之中。<br>2. 飲食上多攝取與你五行相生的天然原型食物（如多吃綠色蔬果或溫熱滋補膳食）。`,
-                    luck: `多在陽光充足的上午進行戶外草地赤腳漫步（接地氣）；居家環境可多點燃含有薰衣草或雪松成分的純植物精油。`
+                    mind: `保持對身體細胞的感恩之心。在每日睡前，將雙手放在心口，感受心跳，向自己的身體傳遞愛與感謝的念頭。`
                 },
                 '逆位': {
                     apparent: `【${tarotName}（逆位）】的出現，敲響了您身體與精神免疫系統的「黃色預警」。這代表你體內的能量正處於一種過度透支後的「氣滯血瘀」或「虛火上升」狀態。你最近可能已經感受到了睡眠質量嚴重下滑、多夢易醒，或是消化系統、皮膚黏膜出現了莫名的發炎、過敏現象。身體在用這些症狀向你發出無聲的抗議。`,
                     bone: `身為生命靈數【${lifeNum}號人】，你極易因為工作或情感上的責任感，而把壓力和情緒「吞進身體裡」。逆位牌面指出，你當前的健康問題本質上是「情緒垃圾的實體化顯現」。你太久沒有好好放鬆，靈魂已經疲憊不堪。`,
                     stream: `五行氣場上，逆位的「${tarotElem}」與你的「${baziMain}」元神產生了【${interaction}】的相克拉扯。這意味著某一種五行能量在你的體內產生了嚴重的淤積（如肝氣鬱結、心火過旺等）。如果在此時繼續熬夜或進行高強度的體能消耗，將極易引發突發性的免疫力崩潰或急性病症。`,
                     time: `未來演變趨勢顯示，若不及時干預，接下來的 2-3 週內，身體的某個老毛病或弱點（如腰椎、偏頭痛、胃潰瘍）將會集中爆發，迫使你不得不停下手邊的所有工作。這是一次宇宙給你的「強制關機」信號。`,
-                    mind: `請允許自己「生病」與「示弱」。你不需要永遠扮演一個無所不能的強者，承認自己的極限並不可恥。`,
-                    action: `1. 立即推掉所有非必要的夜間社交，強制執行晚上 11 點前入睡的鐵律。<br>2. 進行一次全面的身體健康檢查，或是尋求專業醫學、中醫的物理理療（如針灸、拔罐）來疏通淤積的氣場。`,
-                    luck: `避免攝取任何刺激性、冰冷或過度油膩的食物；枕頭旁可放置一塊質地溫潤的白水晶或玉石，用以平穩夜間的磁場混亂。`
+                    mind: `請允許自己「生病」與「示弱」。你不需要永遠扮演一個無所不能的強者，承認自己的極限並不可恥。`
                 }
             },
             '學業': {
@@ -614,18 +687,14 @@
                     bone: `這張牌完美呼應了【${lifeNum}號人】先天深處的求知欲與鑽研天賦。這段時間你的專注力非常容易凝聚，進入一種近乎「心流」的學習狀態。任何原本讓你感到枯燥或艱深的學科，在此時都將變得妙趣橫生。`,
                     stream: `在命理五行上，牌面的「${tarotElem}」與你八字的「${baziMain}」形成了【${interaction}】的文昌顯貴之象。這在古代屬於「文曲星動、金榜題名」的磁場。你在考場上的直覺極佳，往往能精準猜中核心考題，且在申論題的發揮上容易得到閱卷老師的青睞。`,
                     time: `未來演變指出，在即將到來的考試、面試或論文發表中，你將交出一份超出自己預期的漂亮成績單。這個結果將為你未來開啟更高階的學術、職涯平台打下決定性的基礎。`,
-                    mind: `保持空杯心態，戒驕戒躁。將學習視為一場與古聖先賢的精神對話，而非僅漸是應付考試的工具。`,
-                    action: `1. 建議採用「費曼學習法」，嘗試將自己學到的知識用最直白的話講給旁人聽，這能將牌面智慧徹底內化。<br>2. 讀書或備考的座位請盡量面朝文昌方位（東南方），並在桌上放置四支常綠富貴竹。`,
-                    luck: `讀書時播放低頻的阿爾法腦波音樂；配戴紫水晶或青金石，這能最大化數字 ${lifeNum} 的精神專注能量。`
+                    mind: `保持空杯心態，戒驕戒躁。將學習視為一場與古聖先賢的精神對話，而非僅漸是應付考試的工具。`
                 },
                 '逆位': {
                     apparent: `當前求學與智慧領域開出【${tarotName}（逆位）】，這顯示出你正陷入一種「資訊過載引起的思想混亂」或「知識焦慮症」中。你雖然投入了大量的時間坐在書桌前，但心神卻極度渙散，容易出現「看過就忘」、思緒卡死在某個細節上無法自拔的狀況。外在的誘惑（如手機、社交訊息、八卦）此時彷彿放大了數倍，不斷在蠶食你寶貴的專注力。`,
                     bone: `逆位牌面精準折射出你作為【${lifeNum}號人】在學習時的軟肋——可能是因為對分數、結果的過度得失心，導致你產生了嚴重的逃避心理；或者是你的學習方法過於僵化，只知道一味地死磕，卻不懂得抬頭看路、尋找更有效率的巧勁。`,
                     stream: `從五行氣場來看，失衡的「${tarotElem}」與你的「${baziMain}」日元交織出【${interaction}】的相克迷霧。這在命理上代表「印星受損、思緒渾濁」。你此時越是逼迫自己去硬塞知識，大腦的排斥反應就會越強烈，極易在重要考試前出現記憶斷片、審題不清的低級錯誤。`,
                     time: `未來趨勢警告，接下來的 2-3 週內，如果你不主動調整學習節奏，你將會迎來一次模擬考的失利或是專案進度的嚴重滯後。這是一次及時的警告，目的是為了讓你在真正的決戰來臨前，調整戰術。`,
-                    mind: `接納自己當前的停滯與疲憊。學習不是百米衝刺，而是一場馬拉松。當大腦卡死時，強行推進只是在做無效功。`,
-                    action: `1. 立即停止盲目的題海戰術，將學習時間切碎為「番茄工作法」（專注25分鐘，強制休息5分鐘），重新建立大腦的節奏感。<br>2. 找一位學業優秀的朋友或導師進行一次一對一的諮詢，讓旁觀者幫你梳理出核心骨架。`,
-                    luck: `書桌上盡量保持極簡，收起一切無關雜物；早晨用冷水洗臉後，深呼吸五次，默想大腦雜質被全數排出的畫面。`
+                    mind: `接納自己當前的停滯與疲憊。學習不是百米衝刺，而是一場馬拉松。當大腦卡死時，強行推進只是在做無效功。`
                 }
             },
             '偏財': {
@@ -634,18 +703,14 @@
                     bone: `身為【${lifeNum}號人】，你先天資源價值在此時被點燃。你能夠一眼看穿某個項目的商業本質與底層邏輯，做出極具前瞻性的資產配置。宇宙正在向你發送「物質顯化」的紅包，請大方收下。`,
                     stream: `在五行交鋒中，牌面強旺的「${tarotElem}」與你的日元「${baziMain}」引動了【${interaction}】的「財來就我」之象。在命理上，這屬於流年走財運、偏財星高照的格局。你此時所散發出的磁場，非常容易吸引到掌握核心資金或內部消息的重量級人物，主動帶你參與賺錢的項目。`,
                     time: `時局演變顯示，未來 30-60 天內，一個利潤相當可觀的短期投資機會或副業合作將主動向你招手。只要經過理性的風險評估，這筆資金的進帳將大幅改善你當前的現金流狀況。`,
-                    mind: `建立「我配得世間一切豐盛」的富足意識。摒棄對金錢的匱乏感與罪惡感，金錢是能量的流動，你越是慷慨、快樂地對待它，它越會成倍地回到你身邊。`,
-                    action: `1. 可以在近期撥出一筆小額的閒置資金，投入到你觀察已久、具有長線價值的資產標的中。<br>2. 將錢包整理乾淨，發票收據定時清理，紙鈔方向保持一致，這能穩固財富磁場。`,
-                    luck: `配戴天然的黃水晶、金髮晶或鈦晶飾品；每日出門前，將一枚金色硬幣握在右手心默誦「財富源源不斷流入我生命」以數字 ${lifeNum} 的頻率調頻。`
+                    mind: `建立「我配得世間一切豐盛」的富足意識。摒棄對金錢的匱乏感與罪惡感，金錢是能量的流動，你越是慷慨、快樂地對待它，它越會成倍地回到你身邊。`
                 },
                 '逆位': {
                     apparent: `【${tarotName}（逆位）】的顯現，對您的財務狀況發出了不容忽視的「破財與財務黑洞預警」。這代表你當前的偏財管道正處於一個混亂、流失或是被欺瞞的危險邊緣。逆位意味著你近期極易因為一時的貪心、衝動，或者是聽信了所謂內部人士的虛假包裝，而將大筆資金投入到泡沫化的項目中，最終導致血本無歸。`,
                     bone: `身為生命靈數【${lifeNum}號人】，你在此時要特別警惕內心深處的「走捷徑心理」或因好大喜功而產生的盲目投機欲。逆位牌面狠狠踩中了你的金錢盲點，提醒你當前任何試圖「以小博大、一夜暴富」的想法，本質上都是命運為你設下的溫柔陷阱。`,
                     stream: `從命理五行來看，逆位的「${tarotElem}」與你的「${baziMain}」元神產生了【${interaction}】的劫財/群比奪財之象。這代表你的財庫此時正大門敞開，能量在瘋狂外洩。此時進行任何合夥、借貸、跟風炒股或是大額的非理性消費，都無異於在乾涸的運勢上雪上加霜。`,
                     time: `時局演變顯示，未來的一個月內，你可能會面臨一筆突發性的非預期支出（如車輛維修、家電損壞、合約賠償或人情債）。如果沒有提前準備好充足的緊急預備金，你的財務鏈條將面臨斷裂的風險。`,
-                    mind: `回歸「腳踏實地、防守至上」的金錢觀。明白當前保住本金的價值，遠遠大於盲目追求虛無飄渺的浮動收益。`,
-                    action: `1. 立即斬斷任何高風險的金融槓桿，停止追加任何虧損項目的本金，及時停損是最高明的智慧。<br>2. 嚴格執行記帳制度，卸載手機上的衝動購物軟體，拒絕任何非必要的人情借貸請求。`,
-                    luck: `多穿著沉穩的咖啡色、深黑色服飾來收攏財庫；在家中的財位（入門對角線）放置一個不透明的存錢筒，每天投入一枚硬幣，象徵鎖住財氣。`
+                    mind: `回歸「腳踏實地、防守至上」的金錢觀。明白當前保住本金的價值，遠遠大於盲目追求虛無飄渺的浮動收益。`
                 }
             }
         };
@@ -653,10 +718,8 @@
         if (category === '近三個月整體運勢') {
             const isPos = orientation === '正位';
             return {
-                desc: `【第一維度：顯化像 ． 命運齒輪的軌道透視】\n當前您正站在未來九十天運勢的主軸交界處。親自感應並抽得經典偉特【${tarotName}（${orientation}）】。${isPos ? `這是一幅「天地開泰、萬物歸位」的宏大意象。代表在未來的近三個月內，你過去長達半年甚至數年的「蟄伏、迷茫與壓抑」將迎來決定性的破局。牌面正位帶來的強大感應，預示著你生活中的各個板塊（事業、人際、心靈）正呈現出一種齒輪精準嚙合、加速推進的姿態。你將明顯感覺到外在的阻礙在悄然融化，新的合作機會、環境變動會主動邀請你加入。` : `這是一幅「潛龍勿用、內部整飭」的修煉意象。牌面的逆位清晰地揭示了，未來三個月內，命運之手並非要阻礙你，而是強制幫你按下「暫停鍵」與「清理鍵」。你可能會面臨一些表面上的停滯、計劃延期或是人際關係的重新洗牌。這代表你過去大步向前時累積的隱患（如未處理的情緒、模糊的合約、勉強維持的人脈）已經達到了臨界點，宇宙要求你必須先內省、修補漏洞，否則站得越高，跌得越重。`}\n\n【第二維度：骨架格 ． 生命靈數天賦骨骼論斷】\n身為生命靈數【${lifeNum}號人】，你先天的命格特質為【${lifeNumberDatabase[lifeNum].name}】。在未來三個月的宏觀流年中，${isPos ? `你先天的「${lifeNumberDatabase[lifeNum].traits.substring(0,10)}」等正面天賦將被發揮到極致。宇宙給你的課題是「擴張與承接」。你必須克服內心深處的怯懦或過度權衡，像將軍一樣去開疆闢土，因為此時你的能量磁場正處於吸附萬物的黃金期。` : `你性格底層的盲點——「${lifeNumberDatabase[lifeNum].traits.split('，').pop()}」极易被這段逆位流年放大。你容易產生嚴重的方向焦慮，甚至因為一時的卡頓而做出掀翻牌桌的衝動舉動。未來三個月的靈數課題是「厚積薄發」，學會與不完美妥協，在安靜中積蓄你靈魂的力量。`}\n\n【第三維度：氣場流 ． 五行元素與本命元神碰撞】\n在最核心的五行氣場對位上，這張牌所攜帶的純粹「${tarotElem}」元素，與你本命八字的日元「${baziMain}」產生了【${interaction}】的深度交融。${isPos ? `這是一組极为罕見的「相生相旺、元神大吉」的磁場大流動。意味著你體內的五行能量運轉極為流暢，木火通明或水到成渠。你的直覺、體能與決策力高度統一。在接下來的 90 天內，特別是進入第 30 到第 60 天的窗口期，你的氣場將達到全年的頂峰，非常適合解決過去拖延已久的重大難題。` : `這是一組呈現「能量相克、氣場拉扯」的沉澱格局。失衡的五行元素正在劇烈消耗你的日元元神，容易導致你出現精神內耗、焦慮失眠或身體亞健康爆發。命理學上講「不通則痛」，未來 90 天內，你體內的氣場正在進行一場深刻的「地殼變動」，在第 45 天前後，局勢會達到最膠著的狀態，此時以靜制動、閉關修煉是唯一的正解。`}\n\n【第四維度：時空局 ． 未來三個月演變軌跡預測】\n- **第 1-30 天（破曉與整理期）：** ${isPos ? `舊有的瑣碎牽絆會迅速收尾，你會結識一位對你未來大有裨益的貴人。` : `過去隱瞞的矛盾或錯誤會集中爆發，逼迫你直面現實，進行斷捨離。`}\n- **第 31-60 天（高峰與考驗期）：** ${isPos ? `事業或你關注的核心願望將迎來實質性的高光時刻，資產或情感有大跨步進展。` : `局勢最為混沌，身邊雜音極多，財務或人際面臨考驗，考驗你的定力。`}\n- **第 61-90 天（收官與定局期）：** ${isPos ? `能量轉化為實質的物質回報或名譽，全局奠定穩固基礎。` : `迷霧散盡，你將在一片清明中完成靈魂蛻變，全新的、健康的軌道正式成型。`}`,
-                mind: isPos ? `請徹底拋棄小家子氣的匱乏思維，建立「我即是顯化源頭」的王霸之氣。迎接挑戰，順風起飛。` : `把這三個月當作你的「留白與寒假」。允許自己慢下來，外界的混亂只是表象，內心的篤定才是破局的唯一法寶。`,
-                action: isPos ? `1. 每週一清晨，面向東方站立，深呼吸九次，將正位能量吸入丹田。<br>2. 大膽清理掉身邊超過一年未聯絡的低效人脈，為即將到來的高端資源騰出空間。` : `1. 停止任何形式的投資、擴張或大額消費，緊縮銀根，實行財務冬眠。<br>2. 每天睡前進行 10 分鐘的腹式呼吸，將一整天累積的五行燥氣透過呼氣徹底排出體外。`,
-                luck: isPos ? `多配戴帶有閃耀光澤的金銀飾品；居家或辦公環境保持最高強度的整潔與光線充足，催旺數字 ${lifeNum} 的全面爆發。` : `配戴墨綠色或深沉大地色系的天然礦石（如綠幽靈、茶晶）；多處於安靜、植物茂密的環境中進行磁場修補。`
+                desc: `【第一維度：顯化像 ． 命運齒輪的軌道透視】\n當前您正站在未來九十天運勢的主軸交界處。親自感應並抽得經典偉特【${tarotName}（${orientation}）】。${isPos ? `這是一幅「天地開泰、萬物歸位」的宏大意象。代表在未來的近三個月內，你過去長達半年甚至數年的「蟄伏、迷茫與壓抑」將迎來決定性的破局。牌面正位帶來的強大感應，預示著你生活中的各個板塊（事業、人際、心靈）正呈現出一種齒輪精準嚙合、加速推進的姿態。你將明顯感覺到外在的阻礙在悄然融化，新的合作機會、環境變動會主動邀請你加入。` : `這是一幅「潛龍勿用、內部整飭」的修煉意象。牌面的逆位清晰地揭示了，未來三個月內，命運之手並非要阻礙你，而是強制幫你按下「暫停鍵」與「清理鍵」。你可能會面臨一些表面上的停滯、計劃延期或是人際關係的重新洗牌。這代表你過去大步向前時累積的隱患（如未處理的情緒、模糊的合約、勉強維持的人脈）已經達到了臨界點，宇宙要求你必須先內省、修補漏洞，否則站得越高，跌得越重。`}\n\n【第二維度：骨架格 ． 命數特質與課題映射】\n身為生命靈數【${lifeNum}號人】，你先天的命格特質為【${lifeProfile.name}】。在未來三個月的宏觀流年中，${isPos ? `你先天的「${lifeProfile.traits.substring(0,10)}」等正面天賦將被發揮到極致。宇宙給你的課題是「擴張與承接」。你必須克服內心深處的怯懦或過度權衡，像將軍一樣去開疆闢土，因為此時你的能量磁場正處於吸附萬物的黃金期。` : `你性格底層的盲點——「${lifeProfile.traits.split('，').pop()}」极易被這段逆位流年放大。你容易產生嚴重的方向焦慮，甚至因為一時的卡頓而做出掀翻牌桌的衝動舉動。未來三個月的靈數課題是「厚積薄發」，學會與不完美妥協，在安靜中積蓄你靈魂的力量。`}\n\n【第三維度：氣場流 ． 五行元素與本命元神碰撞】\n在最核心的五行氣場對位上，這張牌所攜帶的純粹「${tarotElem}」元素，與你本命八字的日元「${baziMain}」產生了【${interaction}】的深度交融。${isPos ? `這是一組罕見的「相生相旺、元神大吉」的磁場大流動。意味著你體內的五行能量運轉極為流暢。你的直覺、體能與決策力高度統一。在接下來的 90 天內，特別是進入第 30 到第 60 天的窗口期，你的氣場將達到全年的頂峰，非常適合解決過去拖延已久的重大難題。` : `這是一組呈現「能量相克、氣場拉扯」的沉澱格局。失衡的五行元素正在劇烈消耗你的日元元神，容易導致你出現精神內耗、焦慮失眠或身體亞健康爆發。未來 90 天內，你體內的氣場正在進行一場深刻的「地殼變動」，在第 45 天前後，局勢會達到最膠著的狀態，此時以靜制動、閉關修煉是唯一的正解。`}\n\n【第四維度：時空局 ． 未來三個月演變軌跡預測】\n- **第 1-30 天（破曉與整理期）：** ${isPos ? `舊有的瑣碎牽絆會迅速收尾，你會結識一位對你未來大有裨益的貴人。` : `過去隱瞞的矛盾或錯誤會集中爆發，逼迫你直面現實，進行斷捨離。`}\n- **第 31-60 天（高峰與考驗期）：** ${isPos ? `事業或你關注的核心願望將迎來實質性的高光時刻，資產或情感有大跨步進展。` : `局勢最為混沌，身邊雜音極多，財務或人際面臨考驗，考驗你的定力。`}\n- **第 61-90 天（收官與定局期）：** ${isPos ? `能量轉化為實質的物質回報或名譽，全局奠定穩固基礎。` : `迷霧散盡，你將在一片清明中完成靈魂蛻變，全新的、健康的軌道正式成型。`}`,
+                mind: isPos ? `請徹底拋棄小家子氣的匱乏思維，建立「我即是顯化源頭」的王霸之氣。迎接挑戰，順風起飛。` : `把這三個月當作你的「留白與寒假」。允許自己慢下來，外界的混亂只是表象，內心的篤定才是破局的唯一法寶。`
             };
         }
 
@@ -672,30 +735,66 @@
         const question = document.getElementById('question').value;
 
         const lifeNum = calculateLifePathNumber(birthDate);
-        const baziInfo = getBaziProfile(birthDate);
         const lifeProfile = lifeNumberDatabase[lifeNum];
+        
+        // 核心調用：排算八字、主五行、以及精算缺失五行
+        const baziData = getBaziAndWuxing(birthDate);
 
-        // 抽取偉特大阿卡納牌組
+        // 隨機抽取偉特大阿卡納牌組
         const randomCardIdx = Math.floor(Math.random() * tarotDeck.length);
         const selectedCard = tarotDeck[randomCardIdx];
         const orientation = Math.random() > 0.5 ? '正位' : '逆位';
 
-        const resultData = getUltraDetailedAnalysis(type, selectedCard.name, orientation, selectedCard.element, baziInfo.dayMasterElem, lifeNum);
+        const resultData = getUltraDetailedAnalysis(type, selectedCard.name, orientation, selectedCard.element, baziData.dayMaster, lifeNum);
 
         let timeDisplay = birthTime === "不知道時辰" ? "時辰不詳" : birthTime.split(' ')[0];
-        let blindTimeNotice = birthTime === "不知道時辰" ? "<br><span style='color: #bfa393; font-size: 0.85rem;'>⚠️ 註：因出生時辰未明，系統已自動為您啟動八字日柱元神與全牌組進行天干地支氣場對位。</span>" : "";
-
-        // 根據正逆位決定視覺翻轉類名
         let reversedClass = (orientation === '逆位') ? 'reversed-visual' : '';
+
+        // 動態生成缺失五行的標籤與改運指南文本
+        let missingBadgesHTML = '';
+        let missingActionText = '';
+        
+        if (baziData.missing.length === 0) {
+            missingBadgesHTML = `<span class="bazi-element-badge" style="background:#555;">五行俱全，氣流循環運轉</span>`;
+            missingActionText = `您的八字五行俱全，能量相對平衡。當前只需針對偉特卡牌的元素「${selectedCard.element}」進行和諧共振，多接近自然即可。`;
+        } else {
+            baziData.missing.forEach(m => {
+                missingBadgesHTML += `<span class="bazi-missing-badge">⚠️ 缺${m}</span> `;
+                let guide = missingWuxingGuides[m];
+                missingActionText += `<strong>【因您命中缺乏 ${m} 元素】</strong>：建議日常多穿著<strong>${guide.color}</strong>的服飾；隨身配戴<strong>${guide.element}</strong>以填補先天磁場空缺。在具體行為上，應做到：${guide.action}<br><br>`;
+            });
+        }
+
+        // 構造動態五行分佈條
+        const maxCount = Math.max(...Object.values(baziData.counts));
+        let wuxingChartHTML = '<div class="wuxing-chart">';
+        for (let key in baziData.counts) {
+            let percentage = maxCount > 0 ? (baziData.counts[key] / maxCount) * 100 : 0;
+            let barColor = '#AAA';
+            if (key === '木') barColor = '#4CAF50';
+            if (key === '火') barColor = '#FF5722';
+            if (key === '土') barColor = '#FFC107';
+            if (key === '金') barColor = '#9E9E9E';
+            if (key === '水') barColor = '#2196F3';
+
+            wuxingChartHTML += `
+                <div class="wuxing-row">
+                    <div class="wuxing-name">${key} (${baziData.counts[key]})</div>
+                    <div class="wuxing-bar-bg">
+                        <div class="wuxing-bar-fill" style="width: ${percentage}%; background-color: ${barColor};"></div>
+                    </div>
+                </div>
+            `;
+        }
+        wuxingChartHTML += '</div>';
 
         let htmlContent = `
             <div style="text-align: center; margin-bottom: 24px; font-size: 0.9rem; color: var(--brown-accent); line-height: 1.6;">
-                <strong>緣主尊稱：</strong> ${name} (${gender}) ． <strong>先天命盤：</strong> ${baziInfo.baziStr} ${timeDisplay}<br>
+                <strong>緣主尊稱：</strong> ${name} (${gender}) ． <strong>先天干支：</strong> ${baziData.baziStr} ${timeDisplay}<br>
                 <strong>所訴願望：</strong> ${type === '近三個月整體運勢' ? '探問百事，祈請三月批導' : '「' + question + '」'}
-                ${blindTimeNotice}
             </div>
 
-            <!-- 經典美學偉特塔羅牌實體圖像顯化 -->
+            <!-- 經典美學偉特塔羅牌圖像 -->
             <div class="waite-tarot-container">
                 <div class="waite-tarot-card-body ${reversedClass}">
                     <img src="${selectedCard.img}" alt="${selectedCard.name}" onerror="this.src='https://images.unsplash.com/photo-1601049541289-9b1b7bbbfe19?q=80&w=200&auto=format&fit=crop'">
@@ -705,6 +804,19 @@
                 【經典原稿偉特塔羅 ． ${selectedCard.name} ． ${orientation}】
             </div>
 
+            <!-- 八字五行精算顯化面板 -->
+            <div class="divination-card" style="border-left: 4px solid #4A3E3D; background: #FAF9F5;">
+                <div class="card-meta">
+                    <span class="bazi-element-badge">本命五行屬：${baziData.dayMaster}命</span>
+                    ${missingBadgesHTML}
+                </div>
+                <div style="font-size:0.9rem; color:#5A4E4D; text-align: justify; line-height: 1.7;">
+                    <strong>📊 先天六字盤五行分佈量化表：</strong>
+                    ${wuxingChartHTML}
+                    <p style="font-size:0.85rem; color: var(--brown-accent);">（* 系統已綜合紫微斗數星曜與八字日柱主氣，精準對位天干地支五行生剋規律）</p>
+                </div>
+            </div>
+
             <!-- 生命靈數先天格局區 -->
             <div class="divination-card" style="border-left: 4px solid var(--gold); background: #FAF7F0;">
                 <div class="card-meta">
@@ -712,7 +824,7 @@
                     <span style="font-size:0.95rem; font-weight:bold; color:var(--brown-text);">${lifeProfile.name}</span>
                 </div>
                 <div style="font-size:0.9rem; color:#5A4E4D; text-align: justify; line-height: 1.7;">
-                    <strong>🎯 先天骨架特質觀照：</strong>${lifeProfile.traits}
+                    <strong>🎯 先天命格骨架論斷：</strong>${lifeProfile.traits}
                 </div>
             </div>
 
@@ -720,11 +832,11 @@
             <div class="divination-card">
                 <div class="card-meta">
                     <span class="tarot-badge">偉特心靈覺察</span>
-                    <span class="ziwei-badge">五行氣場對位</span>
+                    <span class="ziwei-badge">天機流年共振</span>
                 </div>
                 
                 <p style="font-size: 0.95rem; margin-bottom: 20px; color: var(--brown-text); font-weight: bold; border-bottom: 1px solid var(--cream-dark); padding-bottom: 8px;">
-                    🔮 命理天機深度批導報告：
+                    🔮 命理天機多維批導報告：
                 </p>
 
                 ${type === '近三個月整體運勢' ? `
@@ -748,7 +860,7 @@
                     </div>
                     <div class="analysis-block">
                         <div class="analysis-subtitle">⏳ 第四層：【時空局】時局演變與未來軌跡</div>
-                        <div class="analysis-text">${resultData.time}</div>
+                        <div class="analysis-text">${resultData.time || '未來三個月內，大運命盤的能量將逐步將您引向正確的顯化軌道。'}</div>
                     </div>
                 `}
 
@@ -757,18 +869,15 @@
                     <div class="advice-title">💡 破局與改運處方指南</div>
                     
                     <div class="advice-item">
-                        <div class="advice-item-title">🧘 經緯一：【心法修持】（情緒調頻）</div>
+                        <div class="advice-item-title">🧘 經緯一：【心法修持】（心理能量調頻）</div>
                         <div class="advice-item-text">${resultData.mind}</div>
                     </div>
                     
                     <div class="advice-item">
-                        <div class="advice-item-title">⚡ 經緯二：【轉運攻防】（實體行動）</div>
-                        <div class="advice-item-text">${resultData.action}</div>
-                    </div>
-                    
-                    <div class="advice-item">
-                        <div class="advice-item-title">📿 經緯三：【幸運提振】（能量調和）</div>
-                        <div class="advice-item-text">${resultData.luck}</div>
+                        <div class="advice-item-title">📿 經緯二：【先天解藥】（缺失五行專屬外在補運法）</div>
+                        <div class="advice-item-text" style="color:#A04030;">
+                            ${missingActionText}
+                        </div>
                     </div>
                 </div>
             </div>
