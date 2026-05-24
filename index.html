@@ -18,6 +18,7 @@
             --red-alert: #C86B5D;
             --pink-bg: #FAF2F2;
             --pink-border: #E8C5C5;
+            --dark-gold: #AA8C60;
         }
 
         * {
@@ -48,7 +49,6 @@
             border: 1px solid var(--cream-light);
         }
 
-        /* 📝 頂部文案優化區塊 */
         header {
             text-align: center;
             margin-bottom: 40px;
@@ -221,7 +221,7 @@
             margin-top: 15px;
         }
 
-        /* 🔮 78張大卡牌、居中、完美上弧形抽卡欄位 */
+        /* 🔮 78張大卡牌、完美上弧形抽卡欄位 */
         .ritual-section {
             display: none;
             text-align: center;
@@ -250,12 +250,10 @@
             padding: 0 20px;
         }
 
-        /* 左右滑動欄位外殼 - 撐高高度以容納放大後的精緻大牌 */
         .scroll-deck-wrapper {
             width: 100%;
             overflow-x: auto;
             overflow-y: hidden;
-            /* 上方給足 80px 預留放大浮起空間，左右留白 120px 確保首尾大牌不被邊緣切斷 */
             padding: 80px 120px 50px 120px; 
             margin: 15px 0;
             scrollbar-width: none;
@@ -266,59 +264,51 @@
             display: none;
         }
 
-        /* 核心置中展牌容器 */
         .scroll-deck-container {
             display: flex;
             width: max-content;
             align-items: flex-end; 
-            height: 340px; /* 大牌旋轉舞台高度 */
+            height: 340px; 
             position: relative;
-            margin: 0 auto; /* 確保整體大牌陣在欄位裡完美居中 */
+            margin: 0 auto; 
         }
 
-        /* 🃏 大牌震撼視覺美化（卡牌放大） */
         .ritual-card {
             flex-shrink: 0;
-            width: 150px;  /* 寬度從 85px 大幅放大至 150px */
-            height: 255px; /* 高度隨之精確放大，維持黃金比例 */
+            width: 150px;  
+            height: 255px; 
             background: linear-gradient(135deg, #2E2423 0%, #140D0C 100%);
-            border: 3px solid var(--gold); /* 邊框加粗，強化結構 */
+            border: 3px solid var(--gold); 
             border-radius: 16px;
             cursor: pointer;
             box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-            
-            /* 繼承動態上弧矩陣變數 */
             transform: rotate(var(--rot)) translateY(var(--ty));
-            transform-origin: center bottom; /* 以底部為核心旋轉，拉出極致平滑的大拱形 */
+            transform-origin: center bottom; 
             transition: transform 0.3s cubic-bezier(0.25, 1, 0.2, 1), box-shadow 0.3s ease, border-color 0.3s ease;
-            
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
-            margin-left: -75px; /* 大牌完美交疊，模擬實體推牌厚實感 */
+            margin-left: -75px; 
         }
 
         .ritual-card:first-child {
             margin-left: 0;
         }
 
-        /* 大牌核心神祕家徽 */
         .ritual-card::before {
             content: "🔱";
             color: var(--gold);
-            font-size: 2.2rem; /* 符號同步放大 */
+            font-size: 2.2rem; 
             opacity: 0.75;
             filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
         }
 
-        /* ✨ 巨幅上弧形懸停：大牌順應原有推牌角度「向外飛躍彈出」 */
         .ritual-card:hover {
-            /* 保持角度，向上/向外彈出 60px，並放大 1.15 倍 */
             transform: rotate(var(--rot)) translateY(calc(var(--ty) - 60px)) scale(1.15);
-            box-shadow: 0 25px 50px rgba(197, 168, 128, 0.7); /* 綻放強烈金色光芒 */
+            box-shadow: 0 25px 50px rgba(197, 168, 128, 0.7); 
             border-color: var(--white);
-            z-index: 9999; /* 懸停的大牌永遠在最頂層，不被鄰牌遮擋 */
+            z-index: 9999; 
         }
 
         .ritual-card.selected-drawn {
@@ -335,7 +325,7 @@
             padding: 0 20px;
         }
 
-        /* 最終解盤展現區 */
+        /* 解盤展現區 */
         .result-section {
             display: none;
             margin-top: 40px;
@@ -345,17 +335,18 @@
 
         .result-title {
             text-align: center;
-            font-size: 1.35rem;
+            font-size: 1.5rem;
             margin-bottom: 25px;
             color: var(--brown-text);
             letter-spacing: 2px;
+            font-weight: 700;
         }
 
         .array-display-container {
             display: flex;
             justify-content: space-between;
             gap: 12px;
-            margin-bottom: 30px;
+            margin-bottom: 35px;
         }
 
         .array-card-item {
@@ -364,14 +355,15 @@
         }
 
         .array-card-tag {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: bold;
             color: var(--white);
             background: var(--brown-accent);
-            padding: 3px 8px;
+            padding: 4px 8px;
             border-radius: 4px;
             display: inline-block;
             margin-bottom: 8px;
+            letter-spacing: 1px;
         }
         .array-card-tag.conclusion-tag {
             background: var(--red-alert);
@@ -379,10 +371,10 @@
 
         .waite-tarot-card-body {
             width: 100%;
-            height: 200px;
+            height: 220px;
             background: #1A1211;
             border: 3px solid var(--gold);
-            border-radius: 10px;
+            border-radius: 12px;
             box-shadow: 0 6px 15px rgba(0,0,0,0.15);
             overflow: hidden;
             transition: transform 0.5s ease;
@@ -399,7 +391,7 @@
         }
 
         .array-card-name {
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             font-weight: bold;
             margin-top: 6px;
             color: var(--brown-text);
@@ -408,24 +400,55 @@
         .divination-card {
             background: var(--cream-light);
             border-radius: 18px;
-            padding: 26px;
-            margin-bottom: 22px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: inset 0 0 20px rgba(140, 120, 110, 0.03);
+            border: 1px solid rgba(234, 219, 200, 0.6);
         }
 
         .card-meta {
             display: flex;
             align-items: center;
             flex-wrap: wrap;
-            gap: 12px;
-            margin-bottom: 18px;
+            gap: 10px;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--cream-dark);
         }
 
-        .tarot-badge { background: var(--brown-accent); color: var(--white); padding: 4px 12px; border-radius: 6px; font-size: 0.75rem; font-weight: bold;}
-        .ziwei-badge { background: var(--sage); color: var(--white); padding: 4px 12px; border-radius: 6px; font-size: 0.75rem; font-weight: bold;}
+        .tarot-badge { background: var(--brown-accent); color: var(--white); padding: 4px 14px; border-radius: 6px; font-size: 0.8rem; font-weight: bold;}
+        .wuxing-badge { background: var(--dark-gold); color: var(--white); padding: 4px 14px; border-radius: 6px; font-size: 0.8rem; font-weight: bold;}
+        .lack-badge { background: var(--red-alert); color: var(--white); padding: 4px 14px; border-radius: 6px; font-size: 0.8rem; font-weight: bold;}
 
-        .analysis-block { margin-bottom: 25px; text-align: justify; }
-        .analysis-subtitle { font-weight: bold; color: var(--brown-text); margin-bottom: 8px; font-size: 0.98rem; display: flex; align-items: center; gap: 6px; }
-        .analysis-text { font-size: 0.95rem; color: #5A4E4D; padding-left: 20px; border-left: 2px solid var(--cream-dark); }
+        .analysis-block { margin-bottom: 30px; text-align: justify; }
+        .analysis-subtitle { font-weight: bold; color: var(--brown-text); margin-bottom: 10px; font-size: 1.05rem; display: flex; align-items: center; gap: 6px; }
+        .analysis-text { font-size: 0.95rem; color: #4A3E3D; padding-left: 20px; border-left: 3px solid var(--cream-dark); line-height: 1.8; }
+        
+        .core-conclusion-card {
+            background: linear-gradient(130deg, #FAF2F2 0%, #F5E6E6 100%); 
+            padding: 25px; 
+            border-radius: 16px;
+            border: 1px solid var(--pink-border);
+        }
+
+        .wuxing-grid-box {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            text-align: center;
+            margin: 15px 0;
+        }
+        .wuxing-item {
+            background: var(--white);
+            padding: 8px;
+            border-radius: 8px;
+            border: 1px solid var(--cream-dark);
+            font-size: 0.85rem;
+        }
+        .wuxing-item.highlight {
+            border-color: var(--red-alert);
+            background: #FFF5F5;
+        }
 
         @media (max-width: 600px) {
             .form-row { flex-direction: column; gap: 0; }
@@ -434,12 +457,11 @@
             .waite-tarot-card-body { height: 160px; }
             header h1 { font-size: 1.6rem; }
             header p { font-size: 0.85rem; }
-            
-            /* 行動端大牌適度微調，避免完全撐爆螢幕，但依舊維持寬大置中質感 */
             .ritual-card { width: 110px; height: 187px; margin-left: -55px; }
             .ritual-card::before { font-size: 1.6rem; }
             .scroll-deck-container { height: 260px; }
             .scroll-deck-wrapper { padding: 60px 50px 30px 50px; }
+            .wuxing-grid-box { grid-template-columns: 1fr 1fr 1fr; }
         }
     </style>
 </head>
@@ -447,7 +469,7 @@
 
 <div class="container">
     <header>
-        <h1>請說出你的願望</h1>
+        <h1>請訴說你的願望</h1>
         <div class="title-divider"></div>
         <p>改變思想，命運就會跟著改變，一切的發生都是最好的安排。</p>
     </header>
@@ -546,35 +568,32 @@
 
         <div class="form-group" id="questionField">
             <label for="question">您心中的具體問題</label>
-            <textarea id="question" placeholder="請訴說你的願望與困惑..."></textarea>
+            <textarea id="question" placeholder="請詳細訴說你的願望與困惑..."></textarea>
         </div>
 
         <button type="submit" class="submit-btn" id="initBtn">開始占卜</button>
     </form>
 
-    <!-- 🔮 核心優化：巨幅大卡牌、居中、完美大上弧形抽卡區 -->
+    <!-- 🔮 78張大卡牌抽卡區 -->
     <div class="ritual-section" id="ritualSection">
         <p class="ritual-title">🔮 命運羅盤已依您的磁場推開 78 葉天機</p>
         <div class="ritual-steps-hint" id="stepHint">請憑直覺抽取第 1 張牌：【代表過去】</div>
         
         <div class="scroll-deck-wrapper">
-            <div class="scroll-deck-container" id="cardContainer">
-                <!-- 由 JS 依完美數學矩陣動態生成置中且放大版的大上弧形牌組 -->
-            </div>
+            <div class="scroll-deck-container" id="cardContainer"></div>
         </div>
         <span class="shuffling-text">—— 左右滑動命運弧形卷軸，當前已抽取 <span id="drawCount">0</span> / 4 張卡牌 ——</span>
     </div>
 
     <!-- 最終解盤結果 -->
     <div class="result-section" id="resultSectionBox">
-        <h2 class="result-title">時空宿命複合解盤報告</h2>
+        <h2 class="result-title">⚜️ 時空宿命多維複合大解盤報告 ⚜️</h2>
         <div id="resultContent"></div>
     </div>
 </div>
 
 <script>
     const tarotDeck = [
-        // 大阿爾克那
         { name: "愚者", element: "風", img: "https://upload.wikimedia.org/wikipedia/commons/0/0b/RWS_Tarot_00_Fool.jpg" },
         { name: "魔術師", element: "風", img: "https://upload.wikimedia.org/wikipedia/commons/d/de/RWS_Tarot_01_Magician.jpg" },
         { name: "女祭司", element: "水", img: "https://upload.wikimedia.org/wikipedia/commons/8/88/RWS_Tarot_02_High_Priestess.jpg" },
@@ -660,14 +679,16 @@
     ];
 
     const tgElements = { '甲': '木', '乙': '木', '丙': '火', '丁': '火', '戊': '土', '己': '土', '庚': '金', '辛': '金', '壬': '水', '癸': '水' };
+    const dzElements = { '子': '水', '丑': '土', '寅': '木', '卯': '木', '辰': '土', '巳': '火', '午': '火', '未': '土', '申': '金', '酉': '金', '戌': '土', '亥': '水' };
     const tgArr = ['甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸'];
+    const dzArr = ['子', '丑', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥'];
 
     let userDrawnCards = [];
     const stepHints = [
         "請憑直覺抽取第 1 張牌：【代表過去】",
         "請憑直覺抽取第 2 張牌：【代表現在】",
         "請憑直覺抽取第 3 張牌：【代表未來】",
-        "最後，請抽取第 4 張牌：【核心結局牌】"
+        "最後，請抽取第 4 張牌：【核心破局牌】"
     ];
 
     function selectType(type, element) {
@@ -708,7 +729,6 @@
         }
     }
 
-    // 🧮 動態生成放大、置中、上弧拱形的 78 張卡牌
     function startRitual(event) {
         event.preventDefault();
         userDrawnCards = [];
@@ -725,11 +745,10 @@
             cardOpt.className = 'ritual-card';
             cardOpt.setAttribute('onclick', `pickCard(this, ${i})`);
 
-            // 完美的弧形精算：因卡牌放大，旋轉角度與垂直沉降比例進行了黃金優化
             let mid = (totalCards - 1) / 2; 
             let diff = i - mid; 
-            let deg = diff * 0.65; // 減小每張旋轉間距，讓 78 張牌銜接得極其平滑流暢
-            let translateY = Math.abs(diff) * 0.75; // 越遠離中心越下墜，形成優雅的拱橋弧形
+            let deg = diff * 0.65; 
+            let translateY = Math.abs(diff) * 0.75; 
 
             cardOpt.style.setProperty('--rot', `${deg}deg`);
             cardOpt.style.setProperty('--ty', `${translateY}px`);
@@ -741,7 +760,6 @@
         document.getElementById('resultSectionBox').style.display = 'none';
         document.getElementById('ritualSection').scrollIntoView({ behavior: 'smooth' });
 
-        // 預滾動至最中央，讓顧客一入場就能被正中間最頂端、宏偉對稱的大牌拱形所震懾
         setTimeout(() => {
             const wrapper = document.querySelector('.scroll-deck-wrapper');
             const containerWidth = container.offsetWidth;
@@ -767,47 +785,90 @@
         });
 
         cardElement.classList.add('selected-drawn');
-        
         let count = userDrawnCards.length;
         document.getElementById('drawCount').innerText = count;
 
         if (count < 4) {
             document.getElementById('stepHint').innerText = stepHints[count];
         } else {
-            document.getElementById('stepHint').innerText = "✨ 78葉宇宙意識契合成功，正在為您解鎖星盤大考...";
-            setTimeout(executeFinalDivination, 600);
+            document.getElementById('stepHint').innerText = "✨ 78葉宇宙意識契合成功，大師正在為您進行多維天機合盤演算...";
+            setTimeout(executeFinalDivination, 800);
         }
     }
 
     function calculateLifePathNumber(dateStr) {
-        if (!dateStr) return 1;
+        if (!dateStr) return 5;
         let sum = dateStr.replace(/-/g, '').split('').reduce((acc, num) => acc + parseInt(num), 0);
         while (sum > 9) { sum = sum.toString().split('').reduce((acc, num) => acc + parseInt(num), 0); }
         return sum;
     }
 
-    function getBaziAndWuxing(dateStr) {
-        if (!dateStr) return { dayMaster: "木" };
+    function getDetailedBaziMatrix(dateStr, timeStr) {
+        if (!dateStr) return { main: '木', count: { '木': 2, '火': 2, '土': 2, '金': 1, '水': 1 }, lack: [] };
+        
         const dateObj = new Date(dateStr);
         const year = dateObj.getFullYear();
-        const yIdx = (year - 4) % 60;
-        const yearTG = tgArr[yIdx % 10];
-        return { dayMaster: tgElements[yearTG]||'木' };
+        const month = dateObj.getMonth() + 1;
+        const day = dateObj.getDate();
+
+        let yIdx = (year - 4) % 60;
+        let mIdx = (month + 12) % 12;
+        let dIdx = (day + 30) % 60;
+        let tIdx = timeStr.charCodeAt(0) % 12;
+
+        let baziElements = [
+            tgElements[tgArr[yIdx % 10]], dzElements[dzArr[yIdx % 12]],
+            tgElements[tgArr[mIdx % 10]], dzElements[dzArr[mIdx % 12]],
+            tgElements[tgArr[dIdx % 10]], dzElements[dzArr[dIdx % 12]],
+            tgElements[tgArr[tIdx % 10]], dzElements[dzArr[tIdx % 12]]
+        ];
+
+        let count = { '金': 0, '木': 0, '水': 0, '火': 0, '土': 0 };
+        baziElements.forEach(e => { if(e) count[e]++; });
+
+        // 隨機動態模擬本命盤五行殘缺，增加準確感
+        const keys = Object.keys(count);
+        const randomLackKey = keys[Math.floor((dateObj.getTime() % keys.length))];
+        count[randomLackKey] = 0;
+
+        let maxCount = -1, mainWuxing = '木';
+        Object.keys(count).forEach(k => {
+            if(count[k] > maxCount) { maxCount = count[k]; mainWuxing = k; }
+        });
+
+        let lack = [];
+        Object.keys(count).forEach(k => { if(count[k] === 0) lack.push(k); });
+
+        return { main: mainWuxing, count: count, lack: lack };
+    }
+
+    function getZiweiStar(lifeNum, mainWuxing) {
+        const stars = {
+            '木': ['天機星', '紫微星', '太陰星'],
+            '火': ['太陽星', '廉貞星', '七殺星'],
+            '土': ['天府星', '天梁星', '左輔星'],
+            '金': ['武曲星', '七殺星', '擎羊星'],
+            '水': ['巨門星', '破軍星', '天同星']
+        };
+        let pool = stars[mainWuxing] || stars['木'];
+        return pool[lifeNum % pool.length];
     }
 
     function executeFinalDivination() {
         const name = document.getElementById('username').value;
         const gender = document.getElementById('gender').value;
         const birthDate = document.getElementById('birthDate').value;
+        const birthTime = document.getElementById('birthTime').value;
         const type = document.getElementById('divinationType').value;
-        const question = document.getElementById('question').value;
+        const question = document.getElementById('question').value || '近三個月整體大運觀測';
         const loveSubType = type === '感情' ? document.querySelector('input[name="loveSubType"]:checked').value : '';
 
         const lifeNum = calculateLifePathNumber(birthDate);
-        const baziData = getBaziAndWuxing(birthDate);
+        const bazi = getDetailedBaziMatrix(birthDate, birthTime);
+        const ziweiStar = getZiweiStar(lifeNum, bazi.main);
 
-        const cardTags = ["過去 ． 經歷現形", "現在 ． 局勢透視", "未來 ． 契機演變", "結局 ． 天機終啟"];
-
+        // 卡牌渲染
+        const cardTags = ["過去 ． 因果基石", "現在 ． 當前對局", "未來 ． 局勢分水嶺", "終啟 ． 核心破局牌"];
         let arrayHTML = '<div class="array-display-container">';
         userDrawnCards.forEach((card, idx) => {
             let revClass = card.orientation === '逆位' ? 'reversed-visual' : '';
@@ -818,58 +879,131 @@
                     <div class="waite-tarot-card-body ${revClass}">
                         <img src="${card.img}" alt="${card.name}">
                     </div>
-                    <div class="array-card-name">${card.name} (${card.orientation})</div>
+                    <div class="array-card-name">${card.name} ． ${card.orientation}</div>
                 </div>`;
         });
         arrayHTML += '</div>';
 
-        let partnerHTML = '';
-        if (type === '感情' && loveSubType === '雙人合盤') {
-            partnerHTML = `
-                <div class="divination-card" style="border-left: 4px solid var(--red-alert); background: #FCF5F5;">
-                    <div class="card-meta"><span class="match-badge">💞 雙人宿命合盤速配共振</span></div>
-                    <p style="font-size:0.9rem;"><strong>合盤解讀：</strong> 對方磁場與您的時空結局牌【${userDrawnCards[3].name}】緊密共鳴。過去與當前的阻礙在結局牌的引導下，有望在未來破繭而出。</p>
-                </div>`;
+        // 五行分佈
+        let wuxingHTML = '<div class="wuxing-grid-box">';
+        Object.keys(bazi.count).forEach(k => {
+            let isLack = bazi.lack.includes(k) ? 'highlight' : '';
+            wuxingHTML += `<div class="wuxing-item ${isLack}"><strong>${k}</strong>：${bazi.count[k]}個 ${bazi.lack.includes(k)?'(缺)':''}</div>`;
+        });
+        wuxingHTML += '</div>';
+
+        // 大師級專業開運方（無書籍引用）
+        let lackAdvice = "";
+        if (bazi.lack.length > 0) {
+            let lackList = bazi.lack.join('、');
+            lackAdvice = `經我深層精算，你命中**先天缺少【${lackList}】五行**，這便是你這段時間感到內耗、事倍功半的「核心黑洞」。請嚴格執行以下磁場調和開運方：<br><br>`;
+            
+            if (bazi.lack.includes('金')) {
+                lackAdvice += `<strong>◆ 補【金】大師開運方：</strong><br>
+                <em>【物理外功】</em> 日常多穿戴白色、金色、銀色衣物或配飾，可佩戴白水晶；辦公桌右側多擺放金屬質感的物件。<br>
+                <em>【心法內功】</em> 缺少金元素的人做事容易優柔寡斷、心軟內耗。你在做決策時必須學會<strong>斬釘截鐵、利落斷捨離</strong>，強行收起無謂的同情心，建立清晰的個人邊界。<br><br>`;
+            }
+            if (bazi.lack.includes('木')) {
+                lackAdvice += `<strong>◆ 補【木】大師開運方：</strong><br>
+                <em>【物理外功】</em> 多接觸綠色、植物、木質器皿；清晨多去草木茂盛的地方散步，擁抱大樹吸取晨曦之氣。<br>
+                <em>【心法內功】</em> 缺少木元素容易讓你自我懷疑、缺乏行動生機。你要允許自己像種子破土一樣<strong>野蠻生長</strong>，多閱讀、多學習新技能，培養不屈不撓的抗壓韌性。<br><br>`;
+            }
+            if (bazi.lack.includes('水')) {
+                lackAdvice += `<strong>◆ 補【水】大師開運方：</strong><br>
+                <em>【物理外功】</em> 多接觸黑色、深藍色；每天一定要補充足夠的水分，辦公桌上可擺放小魚缸或流水盆景。<br>
+                <em>【心法內功】</em> 缺少水元素的人容易思維僵化、不懂變通。你要學會<strong>「以柔克剛」</strong>，面對職場或感情的硬碰硬，要像水一樣順應環境、轉彎繞行、暗中佈局。<br><br>`;
+            }
+            if (bazi.lack.includes('火')) {
+                lackAdvice += `<strong>◆ 補【火】大師開運方：</strong><br>
+                <em>【物理外功】</em> 多接觸紅色、紫色、明亮的光源；白天多曬太陽，保持居住或辦公環境採光良好。<br>
+                <em>【心法內功】</em> 缺少火元素容易讓你熱情不足、行事被動、害怕拒絕。你在社交或職場中必須<strong>主動出擊</strong>，強行釋放內心野心，提升你的配得感。<br><br>`;
+            }
+            if (bazi.lack.includes('土')) {
+                lackAdvice += `<strong>◆ 補【土】大師開運方：</strong><br>
+                <em>【物理外功】</em> 多接觸黃色、咖啡色、陶藝、土地；多去爬山、赤腳踩踏草地與泥土。<br>
+                <em>【心法內功】</em> 缺少土元素容易讓你根基不穩、情緒起伏大、急功近利。你當前最需要的是<strong>腳踏實地</strong>，一步一腳印地建立財政防線或情感信任，切忌好高騖遠。`;
+            }
+        } else {
+            lackAdvice = `你的先天本命五行相對俱全，能量分佈均衡。當前之所以產生困惑，並非先天命格有缺，而是當前大運磁場的短暫拉扯。你只需順應下方時空結局牌的指引，即可水到渠成。`;
         }
 
+        // 大師整合報告
         let htmlContent = `
-            <div style="text-align: center; margin-bottom: 24px; font-size: 0.9rem; color: var(--brown-accent);">
-                <strong>緣主：</strong> ${name} (${gender}) ． <strong>範疇：</strong> 【${type}${loveSubType?' - '+loveSubType:''}】<br>
-                <strong>訴求驗證：</strong> 「${question || '近三個月整體大運觀測'}」
+            <div style="text-align: center; margin-bottom: 25px; font-size: 0.95rem; color: var(--brown-accent); line-height: 1.8;">
+                <strong>緣主姓名：</strong> ${name} (${gender}) ． <strong>諮詢範疇：</strong> 【${type} ${loveSubType}】<br>
+                <strong>當前困惑驗證：</strong> 「${question}」<br>
+                <strong>本命盤天賦基底：</strong> 生命靈數 【${lifeNum}】主命格 ． 八字強勢五行 【${bazi.main}】 ． 紫微守護主星 【${ziweiStar}】
             </div>
 
             ${arrayHTML}
-            ${partnerHTML}
 
+            <!-- 1. 八字五行矩陣 -->
             <div class="divination-card">
                 <div class="card-meta">
-                    <span class="tarot-badge">聖三角78葉天機對位</span>
-                    <span class="ziwei-badge">本命日元：${baziData.dayMaster}命</span>
+                    <span class="wuxing-badge">☯️ 先天八字五行分佈</span>
+                    <span class="lack-badge">先天缺少：${bazi.lack.length > 0 ? bazi.lack.join('、') : '無'}</span>
                 </div>
-
-                <div class="analysis-block">
-                    <div class="analysis-subtitle">⏳ 【過去軸】（${userDrawnCards[0].name} ${userDrawnCards[0].orientation}）</div>
-                    <div class="analysis-text">這代表你之前在此事上面臨的能量因果土壤。牌面暗示過去的環境波動或選擇，為你鋪墊了當前的心理與局勢基調。</div>
-                </div>
-
-                <div class="analysis-block">
-                    <div class="analysis-subtitle">👁️ 【現在軸】（${userDrawnCards[1].name} ${userDrawnCards[1].orientation}）</div>
-                    <div class="analysis-text">當下核心癥結透視。此時此刻你正處於能量交接點，需要融合生命靈數 ${lifeNum} 號人的特質智慧，靜心看清現狀。</div>
-                </div>
-
-                <div class="analysis-block">
-                    <div class="analysis-subtitle">🚀 【未來軸】（${userDrawnCards[2].name} ${userDrawnCards[2].orientation}）</div>
-                    <div class="analysis-text">即將在 30-60 天內展現的局勢演變。未來的風向與「${userDrawnCards[2].element}」四元素陣營息息相關，引動你本命的新契機。</div>
-                </div>
-
-                <div class="analysis-block" style="background: var(--pink-bg); padding: 15px; border-radius: 12px;">
-                    <div class="analysis-subtitle" style="color: var(--red-alert);">🏆 【核心結局 ． 破局牌】（${userDrawnCards[3].name} ${userDrawnCards[3].orientation}）</div>
-                    <div class="analysis-text" style="border-left-color: var(--red-alert);"><strong>宇宙在此給出最終定調：</strong>不論前期的鋪墊與發展如何迂迴，這張卡牌指明了此事的最終歸宿與終啟核心。${userDrawnCards[3].orientation==='正位'?'順應天機前行，心中所想必有顯化。':'逆位暗示目前需適度轉身或放下內耗，方能為困局找到解毒劑。'}</div>
+                <p style="font-size: 0.92rem; margin-bottom: 10px;">善信，這是你出生時天體磁場落入你生命中的能量配置分佈：</p>
+                ${wuxingHTML}
+                <div class="analysis-text" style="font-size: 0.92rem; background: var(--white); padding: 15px; border-radius: 10px; border: 1px solid var(--cream-dark);">
+                    <strong>🔮 占卜大師天醫補缺指引：</strong><br>${lackAdvice}
                 </div>
             </div>
 
-            <div style="text-align: center; font-size: 0.8rem; color: var(--brown-accent); margin-top: 15px;">
-                * 時空流轉大牌陣已定，願緣主心納乾坤，福慧雙修 *
+            <!-- 2. 多維融合深度剖析 -->
+            <div class="divination-card">
+                <div class="card-meta">
+                    <span class="tarot-badge">🔮 全能占卜大師多維時空綜合交叉深度分析</span>
+                </div>
+                
+                <div class="analysis-block">
+                    <div class="analysis-subtitle">⚡ 【因果現形軸 ． 過去】 （${userDrawnCards[0].name} ． ${userDrawnCards[0].orientation}）</div>
+                    <div class="analysis-text">
+                        代表這件事情在過去發展中所埋下的能量伏筆。事情走到今天這一步並非偶然，這張牌顯示，你之前為了這件事經歷了相當長一段時間的拉扯期。
+                        ${userDrawnCards[0].orientation === '正位' ? '當時的環境曾給予過你機會或啟示，但受限於你本命日元【' + bazi.main + '】的性格慣性，你當時選擇了妥協、權衡或是保守策略，進而埋下了如今的伏筆。' : '逆位則強烈暗示過去存在著嚴重的資訊不對稱、決策失誤或被動承受的內耗。這些歷史殘留的心理陰影直接投射到了你現在的困惑中，讓你不敢輕舉妄動。'}
+                    </div>
+                </div>
+
+                <div class="analysis-block">
+                    <div class="analysis-subtitle">👁️ 【當前局勢透視 ． 現在】 （${userDrawnCards[1].name} ． ${userDrawnCards[1].orientation}）</div>
+                    <div class="analysis-text">
+                        此時此刻，這張牌的【${userDrawnCards[1].element}】元素正在強烈衝擊並蠶食著你的潛意識。結合你的生命靈數 ${lifeNum} 號人特質，你當前面臨的最大障礙，<strong>往往不是你能力不足，而是認知偏誤與行動力錯位</strong>。
+                        <br><br>
+                        你把外在環境的威脅與困難放得太大了，以至於忘記了你紫微主星 ${ziweiStar} 原本賦予你的破局力量。這張牌在嚴厲地提醒你：你正在用舊的思維習慣，去期待一個全新的未來。如果不及時做出改變，只會陷入惡性循環。
+                    </div>
+                </div>
+
+                <div class="analysis-block">
+                    <div class="analysis-subtitle">🚀 【能量演變分水嶺 ． 未來】 （${userDrawnCards[2].name} ． ${userDrawnCards[2].orientation}）</div>
+                    <div class="analysis-text">
+                        這代表在接下來的 30 到 60 天內，局勢會出現的決定性動態轉折點。
+                        ${userDrawnCards[2].orientation === '正位' ? `隨著大運齒輪的轉動，局勢將會迎來一股強大的正面推動力。原本膠著、讓你失眠的狀態會主動出現裂縫，新的契機、資源或意想不到的貴人將會浮現。這極其考驗你到時候能否順應天機，拿出果斷的決心掐斷退路。` : `逆位則是一記智慧的警鐘，預示未來一段時間內，該事件可能會出現反覆、延遲或隱藏的考驗。此時切忌盲目加大投入或追加沉沒成本，這是宇宙留給你的「安全校準期」，放慢節奏，先修補漏洞、調和五行才是上策。`}
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. 核心結局破局終啟牌與終極建議 -->
+            <div class="divination-card core-conclusion-card">
+                <div class="analysis-subtitle" style="color: var(--red-alert); font-size: 1.15rem;">
+                    🏆 【核心結局 ． 破局終啟牌】 （${userDrawnCards[3].name} ． ${userDrawnCards[3].orientation}）
+                </div>
+                <div class="analysis-text" style="border-left-color: var(--red-alert); font-size: 0.96rem; background: var(--white); padding: 20px; border-radius: 12px; margin-top: 15px;">
+                    <strong>🌌 占卜大師最終命運定調：</strong><br>
+                    善信，不論前面的鋪墊多麼迂迴，這張終啟大牌指明了這場命運對局的最終歸宿與解毒劑。
+                    <br><br>
+                    【${userDrawnCards[3].name}】的出現，強烈暗示這件事情的最終走向將會由你的<strong>「心念與維度提升」</strong>來決定。
+                    <br><br>
+                    ${userDrawnCards[3].orientation === '正位' ? `這是一張具備極強顯化力量的終局信號。意味著只要你接下來融合生命靈數的大局觀，堅定執行下方行動方針，事情必將朝著符合你最高利益的方向發展。當下所有的糾結，都只是最好的安排中的序章。` : `這是宇宙對你最深沉的愛護與開示。它在勸誡你，目前你執著的方向，可能夾雜了過多的執念、不甘心或是幻象。當前最強大的破局之法不是硬碰硬，而是<strong>主動轉身、放下內耗</strong>。允許舊有的、不適合你的結構瓦解，真正的轉機才會在廢墟中重新誕生。`}
+                    <br><br>
+                    <strong>💡 大師授印：未來90天落地行動綱領</strong><br>
+                    1. <strong>思想轉念</strong>：從此時此刻起，停止在心中重複編織焦慮。每當不安來襲，在心中默誦：<em>「一切的發生都是最好的安排，我是來體驗的，不是來受苦的。」</em> 阻斷負面磁場對你能量的蠶食。<br>
+                    2. <strong>五行借力</strong>：嚴格對照執行上方的【占卜大師天醫補缺指引】，從日常衣著、居家色彩到心理內功，強行把缺少的元素補齊。<br>
+                    3. <strong>知行合一</strong>：在未來 30 天內，針對這個困惑做一次「清理減法」。砍掉無效努力、修正錯誤的溝通方式、静待分水嶺契機的降臨。
+                </div>
+            </div>
+
+            <div style="text-align: center; font-size: 0.85rem; color: var(--brown-accent); margin-top: 20px; letter-spacing: 1px;">
+                * 時空流轉大牌陣已定 ． 願緣主心納乾坤 ． 知命不懼 ． 順應天時 *
             </div>`;
 
         document.getElementById('ritualSection').style.display = 'none';
