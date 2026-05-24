@@ -1,259 +1,236 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>萌萌星愿 · 少女心全息塔罗占卜</title>
+    <title>請說出你的願望</title>
+    <!-- Google Fonts 引入美型繁體字體 -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght=400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-gradient: linear-gradient(135deg, #e0f2f1 0%, #f3e5f5 100%);
-            --mint: #a5d6a7;
-            --peach: #ffb74d;
-            --pink: #ff8a80;
-            --cream-yellow: #fff59d;
-            --text-brown: #5d4037;
-            --panel-bg: rgba(255, 255, 255, 0.85);
+            --bg-color: #FDFBF7;
+            --cream-light: #F7F3EB;
+            --cream-dark: #EADBC8;
+            --brown-text: #4A3E3D;
+            --brown-accent: #8C786E;
+            --white: #FFFFFF;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Noto Serif TC', serif, sans-serif;
         }
 
         body {
-            margin: 0;
-            padding: 0;
-            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
-            background: var(--bg-gradient);
-            color: var(--text-brown);
+            background-color: var(--bg-color);
+            color: var(--brown-text);
+            line-height: 1.6;
+            padding: 20px 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             min-height: 100vh;
-            overflow-x: hidden;
         }
 
         .container {
-            max-width: 700px;
-            margin: 0 auto;
-            padding: 20px;
-            box-sizing: border-box;
+            width: 100%;
+            max-width: 650px;
+            background: var(--white);
+            border-radius: 24px;
+            padding: 40px 30px;
+            box-shadow: 0 10px 30px rgba(140, 120, 110, 0.1);
+            border: 1px solid var(--cream-light);
         }
 
         header {
             text-align: center;
-            padding: 30px 0 10px 0;
-            position: relative;
-        }
-
-        /* 可爱睡梦月亮元素 */
-        .moon-icon {
-            font-size: 3rem;
-            animation: float 4s ease-in-out infinite;
-            display: inline-block;
-            margin-bottom: 5px;
-        }
-
-        @keyframes float {
-            0% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-10px) rotate(5deg); }
-            100% { transform: translateY(0px) rotate(0deg); }
+            margin-bottom: 35px;
         }
 
         header h1 {
-            color: #7e57c2;
             font-size: 1.8rem;
-            margin: 5px 0;
+            color: var(--brown-text);
             letter-spacing: 2px;
+            margin-bottom: 8px;
         }
 
         header p {
-            font-size: 0.85rem;
-            color: #78909c;
-            margin-top: 0;
+            font-size: 0.9rem;
+            color: var(--brown-accent);
         }
-
-        /* 治愈系卡板 */
-        .panel {
-            background: var(--panel-bg);
-            border: 3px solid #fff;
-            border-radius: 24px;
-            padding: 25px;
-            box-shadow: 0 12px 24px rgba(126, 87, 194, 0.1);
-            margin-bottom: 25px;
-            backdrop-filter: blur(10px);
-        }
-
-        .hidden { display: none !important; }
 
         .form-group {
-            margin-bottom: 18px;
+            margin-bottom: 20px;
         }
 
-        .form-group label {
+        .form-row {
+            display: flex;
+            gap: 15px;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        label {
             display: block;
+            font-size: 0.85rem;
             margin-bottom: 8px;
             font-weight: bold;
-            color: #7e57c2;
-            font-size: 0.9rem;
+            color: var(--brown-accent);
         }
 
-        .form-group input, .form-group select, .form-group textarea {
+        input[type="text"], input[type="date"], select, textarea {
             width: 100%;
-            padding: 12px;
-            background: #ffffff;
-            border: 2px solid #b2ebf2;
-            border-radius: 14px;
-            color: var(--text-brown);
-            box-sizing: border-box;
-            font-size: 0.95rem;
-        }
-
-        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
-            outline: none;
-            border-color: #b39ddb;
-            box-shadow: 0 0 8px rgba(179, 157, 219, 0.5);
-        }
-
-        /* 萌系Q弹按钮 */
-        .btn {
-            background: linear-gradient(135deg, #ff8a80 0%, #ffb74d 100%);
-            color: white;
-            border: none;
-            padding: 14px 28px;
-            font-size: 1.05rem;
-            font-weight: bold;
-            border-radius: 40px;
-            cursor: pointer;
-            width: 100%;
-            letter-spacing: 1px;
-            box-shadow: 0 6px 12px rgba(255, 138, 128, 0.3);
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .btn:hover {
-            transform: scale(1.02);
-            box-shadow: 0 8px 16px rgba(255, 138, 128, 0.4);
-        }
-
-        .btn:active { transform: scale(0.98); }
-
-        /* 洗牌区 */
-        .ritual-box { text-align: center; padding: 20px; }
-        
-        .cute-card-back {
-            width: 100px;
-            height: 150px;
-            background: #b39ddb;
-            border: 3px solid #fff;
+            padding: 12px 16px;
+            border: 1px solid var(--cream-dark);
             border-radius: 12px;
-            margin: 20px auto;
-            position: relative;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.05);
+            background-color: var(--bg-color);
+            color: var(--brown-text);
+            font-size: 0.95rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--brown-accent);
+            box-shadow: 0 0 0 3px rgba(140, 120, 110, 0.15);
+        }
+
+        textarea {
+            resize: none;
+            height: 90px;
+        }
+
+        .quick-btn-group {
             display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 2rem;
-            animation: wobble 2s infinite ease-in-out;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 8px;
         }
 
-        @keyframes wobble {
-            0% { transform: rotate(-5deg); }
-            50% { transform: rotate(5deg) scale(1.02); }
-            100% { transform: rotate(-5deg); }
-        }
-
-        /* 星糖六芒星牌阵区 */
-        .hexagram-container {
-            position: relative;
-            width: 100%;
-            height: 480px;
-            margin: 10px auto;
-            /* 糖果色星星组成的六芒星背景 */
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><polygon points="50,8 88,74 12,74" fill="none" stroke="rgba(255,183,77,0.3)" stroke-width="1" stroke-dasharray="2,2"/><polygon points="50,92 88,26 12,26" fill="none" stroke="rgba(255,183,77,0.3)" stroke-width="1" stroke-dasharray="2,2"/></svg>') no-repeat center center;
-            background-size: contain;
-        }
-
-        /* 萌系爪子/翅膀形状的槽位 */
-        .tarot-slot {
-            position: absolute;
-            width: 70px;
-            height: 100px;
-            border: 2px dashed #b39ddb;
-            border-radius: 14px;
-            background: rgba(255, 255, 255, 0.9);
-            transform: translate(-50%, -50%);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            font-size: 0.75rem;
-            color: #9575cd;
-            text-align: center;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.03);
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .tarot-slot:hover {
-            transform: translate(-50%, -50%) scale(1.08);
-            border-color: var(--pink);
-        }
-
-        .tarot-slot.filled {
-            border: 2px solid var(--pink);
-            background: #fff3e0;
-            color: #e65100;
-            box-shadow: 0 6px 12px rgba(255,138,128,0.2);
-        }
-
-        /* 槽位坐标微调 */
-        #slot1 { top: 10%; left: 50%; }   
-        #slot2 { top: 72%; left: 86%; }  
-        #slot3 { top: 72%; left: 14%; }  
-        #slot4 { top: 90%; left: 50%; }  
-        #slot5 { top: 28%; left: 14%; }  
-        #slot6 { top: 28%; left: 86%; }  
-        #slot7 { top: 50%; left: 50%; }  
-
-        .slot-title { font-weight: bold; margin-bottom: 2px; }
-        .card-name-display { font-size: 0.7rem; color: #ff7043; font-weight: bold; }
-
-        /* 可爱综合分析面板 */
-        .summary-card {
-            background: linear-gradient(135deg, #fffde7 0%, #fff3e0 100%);
-            border: 2px solid #ffb74d;
-            padding: 20px;
+        .tag-btn {
+            background-color: var(--cream-light);
+            border: 1px solid transparent;
+            padding: 6px 14px;
             border-radius: 20px;
-            margin-bottom: 25px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            color: var(--brown-text);
+            transition: all 0.2s;
         }
 
-        .summary-title {
-            color: #f57c00;
-            font-size: 1.1rem;
-            margin-top: 0;
+        .tag-btn.active, .tag-btn:hover {
+            background-color: var(--brown-accent);
+            color: var(--white);
+        }
+
+        .submit-btn {
+            width: 100%;
+            background-color: var(--brown-accent);
+            color: var(--white);
+            border: none;
+            padding: 16px;
+            border-radius: 14px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            letter-spacing: 2px;
+            margin-top: 15px;
+            transition: background 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background-color: #766359;
+        }
+
+        /* 預測結果區塊 */
+        .result-section {
+            display: none;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px dashed var(--cream-dark);
+            animation: fadeIn 0.6s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .result-title {
+            text-align: center;
+            font-size: 1.3rem;
+            margin-bottom: 25px;
+            color: var(--brown-text);
+            position: relative;
+        }
+
+        .result-title::after {
+            content: '';
+            display: block;
+            width: 40px;
+            height: 2px;
+            background: var(--brown-accent);
+            margin: 8px auto 0;
+        }
+
+        .divination-card {
+            background: var(--cream-light);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .card-meta {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 15px;
+            margin-bottom: 15px;
         }
 
-        .report-section {
-            border-bottom: 1px dashed #e0e0e0;
-            padding: 15px 0;
-        }
-        .report-section:last-child { border-bottom: none; }
-        
-        .position-tag {
-            display: inline-block;
-            background: #e8eaf6;
-            color: #3f51b5;
-            padding: 3px 8px;
-            border-radius: 8px;
-            font-size: 0.8rem;
-            font-weight: bold;
-            margin-bottom: 6px;
+        .tarot-badge {
+            background: var(--brown-accent);
+            color: var(--white);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.75rem;
         }
 
-        .card-meta { font-size: 1rem; font-weight: bold; color: var(--text-brown); }
-        .soul-card-banner {
-            background: #f3e5f5;
-            border: 2px dashed #b39ddb;
-            padding: 12px;
-            border-radius: 16px;
-            margin-bottom: 20px;
+        .ziwei-badge {
+            background: #A39389;
+            color: var(--white);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+        }
+
+        .analysis-text {
+            font-size: 0.95rem;
+            white-space: pre-line;
+            text-align: justify;
+        }
+
+        .advice-box {
+            background: #F0EAE1;
+            border-left: 4px solid var(--brown-accent);
+            padding: 15px;
+            border-radius: 0 12px 12px 0;
             font-size: 0.9rem;
+            margin-top: 15px;
+        }
+
+        /* 手機板防擠壓優化 */
+        @media (max-width: 480px) {
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            .container {
+                padding: 25px 20px;
+            }
         }
     </style>
 </head>
@@ -261,257 +238,308 @@
 
 <div class="container">
     <header>
-        <div class="moon-icon">🌙</div>
-        <h1>萌萌星愿 · 少女心全息塔罗占卜</h1>
-        <p>让宇宙的可爱能量，治愈你今天的小困惑 🧸</p>
+        <h1>請說出你的願望</h1>
+        <p>心念即流年 ． 萬物皆有靈應</p>
     </header>
 
-    <!-- 步骤1：信息输入 -->
-    <div id="step1" class="panel">
+    <form id="oracleForm" onsubmit="generateDestiny(event)">
+        <div class="form-row">
+            <div class="form-group">
+                <label for="username">您的姓名</label>
+                <input type="text" id="username" placeholder="請輸入姓名" required>
+            </div>
+            <div class="form-group">
+                <label for="gender">您的性別</label>
+                <select id="gender" required>
+                    <option value="男">男</option>
+                    <option value="女">女</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="birthDate">出生日期（陽曆）</label>
+                <input type="date" id="birthDate" required>
+            </div>
+            <div class="form-group">
+                <label for="birthTime">出生時辰</label>
+                <select id="birthTime" required>
+                    <option value="不知道時辰">不知道時辰（由命理靈感定盤）</option>
+                    <option value="子時 (23:00-01:00)">子時 (23:00-01:00)</option>
+                    <option value="丑時 (01:00-03:00)">丑時 (01:00-03:00)</option>
+                    <option value="寅時 (03:00-05:00)">寅時 (03:00-05:00)</option>
+                    <option value="卯時 (05:00-07:00)">卯時 (05:00-07:00)</option>
+                    <option value="辰時 (07:00-09:00)">辰時 (07:00-09:00)</option>
+                    <option value="巳時 (09:00-11:00)">巳時 (09:00-11:00)</option>
+                    <option value="午時 (11:00-13:00)">午時 (11:00-13:00)</option>
+                    <option value="未時 (13:00-15:00)">未時 (13:00-15:00)</option>
+                    <option value="申時 (15:00-17:00)">申時 (15:00-17:00)</option>
+                    <option value="酉時 (17:00-19:00)">酉時 (17:00-19:00)</option>
+                    <option value="戌時 (19:00-21:00)">戌時 (19:00-21:00)</option>
+                    <option value="亥時 (21:00-23:00)">亥時 (21:00-23:00)</option>
+                </select>
+            </div>
+        </div>
+
         <div class="form-group">
-            <label for="username">怎么称呼你呀？</label>
-            <input type="text" id="username" placeholder="输入你的小昵称~" value="小蝴蝶">
-        </div>
-        <div class="form-group">
-            <label for="gender">你的专属能量磁场</label>
-            <select id="gender">
-                <option value="温柔小仙女">温柔小仙女 🎀</option>
-                <option value="阳光小王子">阳光小王子 ☀️</option>
-                <option value="神秘魔法师">纯粹原生态 ✨</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="birthday">出生日期（算算你的守护牌）</label>
-            <input type="date" id="birthday" value="2002-08-18">
-        </div>
-        <div class="form-group">
-            <label for="problem">今天有什么小困惑想悄悄告诉星空？</label>
-            <textarea id="problem" placeholder="例如：我和好朋友最近有点小别扭，该怎么和好呀？"></textarea>
-        </div>
-        <button class="btn" onclick="startRitual()">向星空许愿 彡☆</button>
-    </div>
-
-    <!-- 步骤2：洗牌 -->
-    <div id="step2" class="panel hidden">
-        <div class="ritual-box">
-            <h3>闭上眼睛小冥想...</h3>
-            <p style="font-size: 0.9rem; color:#78909c;">小猫咪正在帮你认真洗牌中，把烦恼都拍飞！</p>
-            <div class="cute-card-back">🐱</div>
-            <p id="shuffle-text" style="color: #ff8a80; font-weight: bold;">正在捕捉你的专属心愿磁场...</p>
-            <button class="btn" id="cut-btn" style="margin-top: 15px;" onclick="goToDraw()">连结成功！开启六芒星阵</button>
-        </div>
-    </div>
-
-    <!-- 步骤3：抽牌 -->
-    <div id="step3" class="panel hidden">
-        <h3 style="text-align: center; color: #7e57c2; margin-bottom: 5px;">伸出手指，依直觉点亮小派对！</h3>
-        <p class="tips" id="draw-count-tip" style="color:#ff7043; font-weight:bold;">当前要召唤：【1. 过去位】</p>
-        
-        <div class="hexagram-container">
-            <div class="tarot-slot" id="slot1" onclick="drawCard(1)"><span class="slot-title">1.过去</span><span>✨点我</span></div>
-            <div class="tarot-slot" id="slot2" onclick="drawCard(2)"><span class="slot-title">2.现在</span><span>✨点我</span></div>
-            <div class="tarot-slot" id="slot3" onclick="drawCard(3)"><span class="slot-title">3.未来</span><span>✨点我</span></div>
-            <div class="tarot-slot" id="slot4" onclick="drawCard(4)"><span class="slot-title">4.环境</span><span>✨点我</span></div>
-            <div class="tarot-slot" id="slot5" onclick="drawCard(5)"><span class="slot-title">5.潜意识</span><span>✨点我</span></div>
-            <div class="tarot-slot" id="slot6" onclick="drawCard(6)"><span class="slot-title">6.对策</span><span>✨点我</span></div>
-            <div class="tarot-slot" id="slot7" onclick="drawCard(7)"><span class="slot-title">7.启示</span><span>✨点我</span></div>
+            <label>想諮詢的命理範疇</label>
+            <div class="quick-btn-group">
+                <button type="button" class="tag-btn active" onclick="selectType('事業', this)">💼 事業</button>
+                <button type="button" class="tag-btn" onclick="selectType('感情', this)">❤️ 感情</button>
+                <button type="button" class="tag-btn" onclick="selectType('健康', this)">🌿 健康</button>
+                <button type="button" class="tag-btn" onclick="selectType('學業', this)">🎓 學業</button>
+                <button type="button" class="tag-btn" onclick="selectType('偏財', this)">🪙 偏財</button>
+                <button type="button" class="tag-btn" onclick="selectType('近三個月整體運勢', this)">✨ 近三個月整體運勢</button>
+            </div>
+            <input type="hidden" id="divinationType" value="事業">
         </div>
 
-        <button class="btn hidden" id="view-report-btn" onclick="generateReport()">拆开星愿回信 ✉️</button>
-    </div>
+        <div class="form-group" id="questionField">
+            <label for="question">您心中的具體問題（請說出你的願望）</label>
+            <textarea id="question" placeholder="例如：近期換工作會順利嗎？請訴說你的願望與困惑..."></textarea>
+        </div>
 
-    <!-- 步骤4：可爱报告 -->
-    <div id="step4" class="panel hidden">
-        <h2 style="text-align: center; color: #7e57c2; border-bottom: 3px dashed #b39ddb; padding-bottom: 15px;">🧸 星愿悄悄话回信</h2>
-        
-        <div class="soul-card-banner" id="soul-card-zone"></div>
+        <button type="submit" class="submit-btn">洗牌、排盤並融合解讀</button>
+    </form>
 
-        <div class="summary-card" id="ai-analysis-zone"></div>
-
-        <h3 style="color: #7e57c2; margin-top: 30px;">🌸 每一个小卡盘的碎碎念</h3>
-        <div id="report-content"></div>
-
-        <button class="btn" style="margin-top: 25px;" onclick="window.location.reload()">抱抱宇宙，再次许愿</button>
+    <!-- 結果輸出 -->
+    <div class="result-section" id="resultSection">
+        <h2 class="result-title">雙效複合解盤結果</h2>
+        <div id="resultContent"></div>
     </div>
 </div>
 
 <script>
-    // 萌化塔罗牌库（融入可爱治愈、无压力的语言风格）
+    // 完整的78張塔羅牌定義與其四元素屬性
     const tarotDeck = [
-        { name: "愚人宝宝 (The Fool)", type: "风", pos: "像小鸭子一样快乐出发！充满好奇，不害怕跌倒。", neg: "哎呀小粗心！有点小冒失，出门前记得检查口袋哦。", advise: "别想那么多啦！迈开小碎步勇敢往前冲，宇宙会托住你的！" },
-        { name: "天才魔术师 (The Magician)", type: "风", pos: "小脑袋转得飞快，你手里拿满了百宝箱的钥匙！", neg: "魔法有点点卡顿，或者心思太散啦，先别乱丢技能哦。", advise: "你本身就很有办法！相信自己的聪明才智，专注做好眼前这一个决定。" },
-        { name: "猫咪女祭司 (The High Priestess)", type: "水", pos: "安静的小灵猫，直觉超级准，适合一个人静静补充能量。", neg: "有点小傲娇、或者把自己憋坏啦，不要和世界捉迷藏。", advise: "现在不需要急着和别人辩解。闭上眼睛，你内心的第一个直觉就是标准答案。" },
-        { name: "富足女皇 (The Empress)", type: "土", pos: "被软绵绵的爱和糖果包围！今天适合吃点甜的犒劳自己。", neg: "稍微有点小贪心、或者爱操心过度，变成了啰嗦的大管家。", advise: "试着去拥抱和赞美周围。对自己好一点，去买束花或者吃顿大餐吧！" },
-        { name: "胖橘皇帝 (The Emperor)", type: "火", pos: "威风凛凛的傲娇猫猫王！超级有安全感，秩序感满满。", neg: "有点小倔强、死要面子活受罪，或者控制欲爆棚啦。", advise: "需要你拿出定海神针的气魄，不能再妥协了，制定好你自己的规矩！" },
-        { name: "树懒教皇 (The Hierophant)", type: "土", pos: "稳重的暖心大树。身边会有贴心长辈或者好规矩保护你。", neg: "有点小死板、被奇怪的思想捆住了手脚，不敢打破常规。", advise: "听听班主任或行业老手怎么说，老一辈的经验虽然传统，但这次真的管用。" },
-        { name: "贴贴恋人 (The Lovers)", type: "风", pos: "两只小动物快乐地抱在一起！人际关系甜度爆表。", neg: "有点小纠结、选择综合症发作，或者在和人闹别扭。", advise: "顺从让你感到最舒服、最快乐的那个选项，真诚地和对方去沟通。" },
-        { name: "冲锋战车 (The Chariot)", type: "火", pos: "开着玩具跑车一往无前！克服小困难，冲锋鸭！", neg: "方向盘有点失控，或者冲过头和小伙伴撞车啦，踩踩刹车。", advise: "咬紧牙关，哪怕现在有些小混乱，只要瞄准终点冲过去，胜利就是你的！" },
-        { name: "温柔力量 (Strength)", type: "火", pos: "给大狮子顺毛的勇敢小姑娘！用温柔融化一切冰雪。", neg: "哎呀没力气了，或者有点小暴躁，想用拳头解决问题。", advise: "不要硬碰硬哦。顺着毛摸，用你的耐心、温柔和甜甜的微笑去融化僵局。" },
-        { name: "面壁隐士 (The Hermit)", type: "土", pos: "提着小灯笼找路的小刺猬。现在是舒服的独处充电期。", neg: "把自己关在小黑屋里生闷气，变成了拒绝沟通的孤僻鬼。", advise: "暂时把手机静音，推掉无用的社交，先花时间把自己的内心整理干净。" },
-        { name: "幸运轮盘 (Wheel of Fortune)", type: "火", pos: "好运魔力转圈圈！惊喜的小转折马上就要来临啦！", neg: "小齿轮卡住了一下下，或者是被突如其来的小插曲打乱了计划。", advise: "风水轮流转，不要抗拒变化。大方地对新事物说『哈罗』！" },
-        { name: "天平正义 (Justice)", type: "风", pos: "公正的小裁判，不偏不倚，做决定超级理性清爽。", neg: "感觉受了一点小委屈，或者天平歪了，心里在纠结公不公平。", advise: "把情绪先放一边，像第三方一样理智地列出利弊。做到问心无愧就好。" },
-        { name: "倒挂小蝠 (The Hanged Man)", type: "水", pos: "倒挂在树上看世界，发现天上的云朵原来是倒过来的，真好玩！", neg: "感觉委屈巴巴、白白付出了好多，在白费力气。", advise: "既然现在动不了，不如换个快乐的咸鱼视角。暂时的等待是为了更华丽的翻盘。" },
-        { name: "蜕变死神 (Death)", type: "水", pos: "勇敢跟旧玩具说拜拜！拍拍灰尘，准备迎接全新的礼物。", neg: "舍不得丢掉过期的糖果，抱着旧包袱在偷偷抹眼泪。", advise: "别哭啦，旧的不去新的不来。勇敢地给不合适的关系和习惯画上句号吧！" },
-        { name: "调味节制 (Temperance)", type: "火", pos: "快乐的小试管。把水和果汁调配成最好喝的特调饮料！", neg: "水倒多啦！或者生活作息乱糟糟，沟通频率没对上。", advise: "找回你的生活节奏。和对方沟通时多一点耐心，像调酒一样慢慢融合。" },
-        { name: "小馋猫恶魔 (The Devil)", type: "土", pos: "被心爱的小零食和小欲望勾引，偶尔放纵一下也超开心！", neg: "被奶茶或执念深深套牢啦，变成了小欲望的奴隶，有点小痛苦。", advise: "其实困住你的小笼子压根没锁门。认清自己的依恋，随时可以拍拍屁股走人。" },
-        { name: "惊扰高塔 (The Tower)", type: "火", pos: "积木城堡突然塌啦！没关系，正好可以重新搭一个更漂亮的！", neg: "感觉天塌下来一样受惊吓，在焦虑的废墟里瑟瑟发抖。", advise: "虽然被吓了一跳，但这未尝不是一次彻底的解脱。拍拍灰尘，重新搭建新生活！" },
-        { name: "亮晶晶星 (The Star)", type: "风", pos: "夜空里最闪亮的小星星，带给你满满的治愈和新希望！", neg: "觉得目标太远迷路了，或者有点小自卑，觉得自己不发光。", advise: "卸下你的小面具和防备。你是最棒的，美好的事情已经在路上了，保持期待！" },
-        { name: "梦境月亮 (The Moon)", type: "水", pos: "充满迷雾的童话森林，虽然有点小黑，但藏着好玩的秘密。", neg: "黑夜恐惧症发作，捕风捉影，自己把自己吓得睡不着觉。", advise: "不安只是你大脑里的小怪兽在作祟。允许自己现在有点迷茫，天很快就亮啦。" },
-        { name: "向日葵阳 (The Sun)", type: "火", pos: "超级无敌元气弹！暖洋洋的快乐，所有人都会被你治愈！", neg: "稍微有一点点小骄傲，或者热得中暑了，活力有些短暂打折。", advise: "尽情地大笑、去玩耍！把你的快乐分享给每一个人，你是今天最耀眼的太阳！" },
-        { name: "重逢审判 (The Judgement)", type: "火", pos: "魔法小喇叭吹响啦！收到一份非常关键的心灵召唤！", neg: "假装听不见闹钟，在原地赖床，不敢迈向人生新阶段。", advise: "别再犹豫啦，这是宇宙在敲你的小门。勇敢地按下那个『重获新生』的按钮！" },
-        { name: "满分世界 (The World)", type: "土", pos: "大圆满！顺利通关打通大Boss，拿到了属于你的宇宙小红花！", neg: "差一点点就通关了，稍微卡在了最后一关的门槛上。", advise: "你已经做得很棒了！好好复盘这一路的风景，奖励自己一朵小红花，准备开启新冒险！" }
+        // 大阿爾克那 (0-21)
+        { name: "愚者", type: "Major", element: "風" }, { name: "魔術師", type: "Major", element: "風" },
+        { name: "女祭司", type: "Major", element: "水" }, { name: "女皇", type: "Major", element: "土" },
+        { name: "皇帝", type: "Major", element: "火" }, { name: "教皇", type: "Major", element: "土" },
+        { name: "戀人", type: "Major", element: "風" }, { name: "戰車", type: "Major", element: "水" },
+        { name: "力量", type: "Major", element: "火" }, { name: "隱者", type: "Major", element: "土" },
+        { name: "命運之輪", type: "Major", element: "火" }, { name: "正義", type: "Major", element: "風" },
+        { name: "倒吊人", type: "Major", element: "水" }, { name: "死神", type: "Major", element: "水" },
+        { name: "節制", type: "Major", element: "火" }, { name: "惡魔", type: "Major", element: "土" },
+        { name: "高塔", type: "Major", element: "火" }, { name: "星星", type: "Major", element: "風" },
+        { name: "月亮", type: "Major", element: "水" }, { name: "太陽", type: "Major", element: "火" },
+        { name: "審判", type: "Major", element: "火" }, { name: "世界", type: "Major", element: "土" },
+        
+        // 小阿爾克那 - 權杖屬火 (14張)
+        { name: "權杖一", type: "Wands", element: "火" }, { name: "權杖二", type: "Wands", element: "火" },
+        { name: "權杖三", type: "Wands", element: "火" }, { name: "權杖四", type: "Wands", element: "火" },
+        { name: "權杖五", type: "Wands", element: "火" }, { name: "權杖六", type: "Wands", element: "火" },
+        { name: "權杖七", type: "Wands", element: "火" }, { name: "權杖八", type: "Wands", element: "火" },
+        { name: "權杖九", type: "Wands", element: "火" }, { name: "權杖十", type: "Wands", element: "火" },
+        { name: "權杖侍從", type: "Wands", element: "火" }, { name: "權杖騎士", type: "Wands", element: "火" },
+        { name: "權杖皇后", type: "Wands", element: "火" }, { name: "權杖國王", type: "Wands", element: "火" },
+
+        // 小阿爾克那 - 聖杯屬水 (14張)
+        { name: "聖杯一", type: "Cups", element: "水" }, { name: "聖杯二", type: "Cups", element: "水" },
+        { name: "聖杯三", type: "Cups", element: "水" }, { name: "聖杯四", type: "Cups", element: "水" },
+        { name: "聖杯五", type: "Cups", element: "水" }, { name: "聖杯六", type: "Cups", element: "水" },
+        { name: "聖杯七", type: "Cups", element: "水" }, { name: "聖杯八", type: "Cups", element: "水" },
+        { name: "聖杯九", type: "Cups", element: "水" }, { name: "聖杯十", type: "Cups", element: "水" },
+        { name: "聖杯侍從", type: "Cups", element: "水" }, { name: "聖杯騎士", type: "Cups", element: "水" },
+        { name: "聖杯皇后", type: "Cups", element: "水" }, { name: "聖杯國王", type: "Cups", element: "水" },
+
+        // 小阿爾克那 - 寶劍屬風 (14張)
+        { name: "寶劍一", type: "Swords", element: "風" }, { name: "寶劍二", type: "Swords", element: "風" },
+        { name: "寶劍三", type: "Swords", element: "風" }, { name: "寶劍四", type: "Swords", element: "風" },
+        { name: "寶劍五", type: "Swords", element: "風" }, { name: "寶劍六", type: "Swords", element: "風" },
+        { name: "寶劍七", type: "Swords", element: "風" }, { name: "寶劍八", type: "Swords", element: "風" },
+        { name: "寶劍九", type: "Swords", element: "風" }, { name: "寶劍十", type: "Swords", element: "風" },
+        { name: "寶劍侍從", type: "Swords", element: "風" }, { name: "寶劍騎士", type: "Swords", element: "風" },
+        { name: "寶劍皇后", type: "Swords", element: "風" }, { name: "寶劍國王", type: "Swords", element: "風" },
+
+        // 小阿爾克那 - 星幣屬土 (14張)
+        { name: "星幣一", type: "Coins", element: "土" }, { name: "星幣二", type: "Coins", element: "土" },
+        { name: "星幣三", type: "Coins", element: "土" }, { name: "星幣四", type: "Coins", element: "土" },
+        { name: "星幣五", type: "Coins", element: "土" }, { name: "星幣六", type: "Coins", element: "土" },
+        { name: "星幣七", type: "Coins", element: "土" }, { name: "星幣八", type: "Coins", element: "土" },
+        { name: "星幣九", type: "Coins", element: "土" }, { name: "星幣十", type: "Coins", element: "土" },
+        { name: "星幣侍從", type: "Coins", element: "土" }, { name: "星幣騎士", type: "Coins", element: "土" },
+        { name: "星幣皇后", type: "Coins", element: "土" }, { name: "星幣國王", type: "Coins", element: "土" }
     ];
 
-    const positionIntro = {
-        1: "【1. 过去位】🐾 之前的小脚印：",
-        2: "【2. 现在位】🐾 现在的萌状态：",
-        3: " {3. 未来位} 🐾 自然发生的小趋势：",
-        4: "【4. 环境位】🐾 周围小伙伴的磁场：",
-        5: "【5. 潜意识位】🐾 肚子里藏着的小秘密：",
-        6: " {对策位} 🐾 宇宙给你的超级魔法棒：",
-        7: " *最终启示* 🐾 月亮树下的最终悄悄话："
-    };
+    // 八字天干地支五行映射
+    const tgElements = { '甲': '木', '乙': '木', '丙': '火', '丁': '火', '戊': '土', '己': '土', '庚': '金', '辛': '金', '壬': '水', '癸': '水' };
+    const dzElements = { '子': '水', '丑': '土', '寅': '木', '卯': '木', '辰': '土', '巳': '火', '午': '火', '未': '土', '申': '金', '酉': '金', '戌': '土', '亥': '水' };
 
-    let userData = { name: "", gender: "", birthday: "", problem: "" };
-    let currentStepToDraw = 1;
-    let drawnCards = {}; 
+    const tgArr = ['甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸'];
+    const dzArr = ['子', '丑', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥'];
 
-    function startRitual() {
-        userData.name = document.getElementById("username").value || "小蝴蝶";
-        userData.gender = document.getElementById("gender").value;
-        userData.birthday = document.getElementById("birthday").value;
-        userData.problem = document.getElementById("problem").value || "当下的生活状态解析";
+    function selectType(type, element) {
+        document.getElementById('divinationType').value = type;
+        const buttons = document.querySelectorAll('.tag-btn');
+        buttons.forEach(btn => btn.classList.remove('active'));
+        element.classList.add('active');
 
-        if(!userData.birthday){
-            alert("选一下生日嘛，星空需要你的时间坐标哦~");
-            return;
-        }
-
-        document.getElementById("step1").classList.add("hidden");
-        document.getElementById("step2").classList.remove("hidden");
-
-        setTimeout(() => {
-            document.getElementById("shuffle-text").innerText = "✨ 能量卡片洗好啦！软萌法阵已准备就绪...";
-        }, 2000);
-    }
-
-    function goToDraw() {
-        document.getElementById("step2").classList.add("hidden");
-        document.getElementById("step3").classList.remove("hidden");
-    }
-
-    function drawCard(slotId) {
-        if (slotId !== currentStepToDraw) {
-            alert(`哎呀，先点亮第 ${currentStepToDraw} 个位置哦~`);
-            return;
-        }
-
-        let availableCards = tarotDeck.filter(c => !Object.values(drawnCards).map(dc => dc.card.name).includes(c.name));
-        let randomCard = availableCards[Math.floor(Math.random() * availableCards.length)];
-        let isOrientationPositive = Math.random() > 0.55; // 正位概率稍高一点，更治愈
-
-        drawnCards[slotId] = { card: randomCard, isPositive: isOrientationPositive };
-
-        let slotEl = document.getElementById(`slot${slotId}`);
-        slotEl.classList.add("filled");
-        let orientationText = isOrientationPositive ? "正位" : "逆位";
-        slotEl.innerHTML = `<span class="slot-title">${slotId}.${orientationText}</span><div class="card-name-display">${randomCard.name.split(" ")[0]}</div>`;
-
-        currentStepToDraw++;
+        const questionField = document.getElementById('questionField');
+        const questionInput = document.getElementById('question');
         
-        if (currentStepToDraw <= 7) {
-            let nextName = positionIntro[currentStepToDraw].split("】")[0].replace('【','').replace('{','').trim();
-            document.getElementById("draw-count-tip").innerText = `当前要召唤：【${nextName}】`;
+        if (type === '近三個月整體運勢') {
+            questionField.style.display = 'none';
+            questionInput.removeAttribute('required');
         } else {
-            document.getElementById("draw-count-tip").innerText = "🎈 哇！七星连珠，法阵大成功！";
-            document.getElementById("view-report-btn").classList.remove("hidden");
+            questionField.style.display = 'block';
+            questionInput.setAttribute('required', 'true');
+            questionInput.placeholder = `請在此處述說您關於【${type}】的願望或具體困惑...`;
         }
     }
 
-    function calculateSoulCard(dateString) {
-        const nums = dateString.split("-").map(Number);
-        let sum = nums[0] + nums[1] + nums[2];
-        while (sum > 22) {
-            let temp = 0;
-            String(sum).split("").forEach(d => temp += Number(d));
-            sum = temp;
-        }
-        if (sum === 22) sum = 0; 
-        return tarotDeck[sum];
-    }
-
-    function generateComprehensiveAnalysis() {
-        let nowCard = drawnCards[2];       
-        let subconCard = drawnCards[5];    
-        let strategyCard = drawnCards[6];  
-        let finalCard = drawnCards[7];     
-
-        let coreBlockage = "";
-        if (nowCard.isPositive && subconCard.isPositive) {
-            coreBlockage = "你的表里意识超级合拍！就像开开心心的小火箭。现在的苦恼只是外在的一点小考验，你的内心其实很有底气。";
-        } else if (!nowCard.isPositive && subconCard.isPositive) {
-            coreBlockage = "典型的『身体好累，但梦想还醒着』。现实里可能遇到了点小疙瘩，但你潜意识里那只聪明的小猫咪其实清楚得很，别泄气！";
-        } else if (nowCard.isPositive && !subconCard.isPositive) {
-            coreBlockage = "属于『强颜欢笑的小逞强』。表面上你对大家都说没事、很坚强，但小肚子里（潜意识）其实偷偷藏了好多小委屈和缺乏安全感的气泡。要抱抱自己哦。";
-        } else {
-            coreBlockage = "小脑袋和外在世界都在一起放假迷路啦。不过没关系，《其实你已经很塔罗了》里说，这往往是旧魔法失效、宇宙要送你全新大礼包的蜕变信号！";
-        }
-
-        let elements = { "火":0, "水":0, "风":0, "土":0 };
-        for(let i=1; i<=7; i++) { elements[drawnCards[i].card.type]++; }
-        let dominantElement = Object.keys(elements).reduce((a, b) => elements[a] > elements[b] ? a : b);
+    // 基於八字與塔羅元素碰撞的動態解盤算法庫
+    function getDynamicAnalysis(category, tarotName, orientation, tarotElem, baziInfo) {
+        const baziMain = baziInfo.dayMasterElem; // 日元五行屬性
         
-        let elementAnalysis = "";
-        if(dominantElement === "火") elementAnalysis = "星阵里<b>『火苗能量』</b>足足的！说明你现在内心很有冲劲，但要小心偶尔的小脾气或者心太急吃不了热豆腐。";
-        if(dominantElement === "水") elementAnalysis = "星阵里<b>『水滴能量』</b>水汪汪的~ 你的直觉和情感现在超级细腻，容易被小事感动或多愁善感，多给自己一点温柔的抱抱。";
-        if(dominantElement === "风") elementAnalysis = "星阵里<b>『风儿能量』</b>在吹拂。你脑子里的小点子太多啦，信息有点小爆炸，需要静下心来把小线头理一理。";
-        if(dominantElement === "土") elementAnalysis = "星阵里<b>『泥土能量』</b>很扎实。问题跟金钱、繁重的小学业或稳固的生活环境有关，虽然走得慢，但每一步都是真金白银的成长。";
+        // 四元素與五行交叉點解盤邏輯
+        const elementMatches = {
+            '火': { '木': '生旺催化', '火': '強烈碰撞', '土': '能量洩秀', '金': '強烈煉化', '水': '水火既濟' },
+            '水': { '木': '潤澤滋養', '火': '水火既濟', '土': '受困阻礙', '金': '金水源流', '水': '情緒共振' },
+            '風': { '木': '思緒梳理', '火': '風助火勢', '土': '鬆土開墾', '金': '鋒芒對立', '水': '波瀾起伏' },
+            '土': { '木': '固本培元', '火': '火土相生', '土': '厚實沉穩', '金': '土中埋金', '水': '築堤防洪' }
+        };
 
-        return `
-            针对你提问的：<span style="color: #e65100; font-weight:bold;">“${userData.problem}”</span>，月亮树下的小诊断来啦：<br><br>
-            🎀 <b>你的能量卡点</b>：${coreBlockage}<br><br>
-            🎀 <b>宇宙天意势能</b>：${elementAnalysis}<br><br>
-            🎀 <b>你的终极魔法棒（怎么做）</b>：请认真挥舞6号对策位给你的指导——<i>“${strategyCard.card.advise}”</i>。用这个可爱的态度去打破当前的尴尬吧！<br><br>
-            🎀 <b>月亮给你的悄悄话</b>：7号中心位<b>【${finalCard.card.name.split(" ")[0]}】</b>在提醒你，这次小波折的出现，只是为了带给你『${finalCard.isPositive ? finalCard.card.pos.split("、")[0] : finalCard.card.neg.split("、")[0]}』的小小灵魂升级礼包。
-        `;
+        const interaction = elementMatches[tarotElem][baziMain] || "氣場交織";
+
+        // 動態生成各範疇的細緻口語解析文本
+        const templates = {
+            '事業': {
+                '正位': `此時抽出的【${tarotName}】呈現正位，在結構上帶有鮮明的「${tarotElem}」元素，與你八字本命的「${baziMain}」產生了【${interaction}】的效應。這意味著你在職場上的推進力正值高峰。如果問的是換工作或專案，目前的環境能給予你相應的施展舞台，你的直覺與外在機會正在對齊。`,
+                '逆位': `此時【${tarotName}】呈現逆位，其「${tarotElem}」的能量有所受阻，與你的日元五行「${baziMain}」產生【${interaction}】的拉扯。這說明目前事業上存在盲點，可能是合約細節模糊，或是團隊內部溝通出現風暴。現在不適合盲目大步向前，應先停下腳步盤點手邊的現成資源。`
+            },
+            '感情': {
+                '正位': `情感波動與心靈磁場此時被【${tarotName}（正位）】牢牢吸引。牌面展現的「${tarotElem}」特質，融入你的八字全局，形成了【${interaction}】的和諧局面。無論你目前是否有對象，這段時間你的情感共情能力極佳，容易吸引到與你靈魂頻率相近、且能給予你實質關懷的緣分。`,
+                '逆位': `當前情感範疇開出了【${tarotName}（逆位）】。當「${tarotElem}」元素失衡，與你本身的「${baziMain}」氣場碰撞出【${interaction}】。暗示你近期容易陷入一種自我執著或過度保護的內耗狀態。雙方可能在認知上存在落差，亦或你將過去的陰影投射到了現在。`
+            },
+            '健康': {
+                '正位': `在健康守護上，【${tarotName}（正位）】的「${tarotElem}」元素帶來了平衡。與你八字元神「${baziMain}」相互引動，呈【${interaction}】之象。目前身體的自我修復機能正在良好運轉，之前的疲累或慢性壓力將得到緩解，非常適合維持規律作息與身心排毒。`,
+                '逆位': `健康方面開出【${tarotName}（逆位）】，當「${tarotElem}」氣場受阻，與你的「${baziMain}」元神產生【${interaction}】的消耗。提醒你注意近期可能因為壓力引發的睡眠不佳、內分泌失調或消化系統的負擔，身體正在透過微小的痠痛向你發出警訊。`
+            },
+            '學業': {
+                '正位': `關於學業與深造，【${tarotName}（正位）】釋放出高密度的「${tarotElem}」智慧能量，配合你八字流年呈現的【${interaction}】。你的思維邏輯此時變得非常清晰，理解力與專注度大幅提升。這是一個攻克難關、備考或撰寫核心報告的極佳時機。`,
+                '逆位': `求學與備考狀態此時顯現為【${tarotName}（逆位）】。受到「${tarotElem}」混亂與八字「${baziMain}」產生【${interaction}】的干擾。你可能容易受到外界社交、八卦或電子產品的誘惑而無法集中精神。此時需要重新規劃讀書時間表，由淺入深。`
+            },
+            '偏財': {
+                '正位': `金錢能量池中，【${tarotName}（正位）】注入了「${tarotElem}」的富足養分，與你的財帛五行及日元「${baziMain}」產生了【${interaction}】。暗示你近期的財務直覺相當敏銳，在投資理財上容易有非預期性的好消息，或是平時累積的福報在此時轉化為物質回報。`,
+                '逆位': `偏財庫此時開出【${tarotName}（逆位）】。當「${tarotElem}」元素呈現流失，與你的「${baziMain}」氣場產生【${interaction}】的漏財點。近期切記不可聽信來路不明的內部消息，亦不宜盲目跟風跟投，同時要控制好自己的衝動消費慾望。`
+            },
+            '整體運勢': {
+                '正位': `近三個月的命運齒輪隨之轉動，【${tarotName}（正位）】的主導能量「${tarotElem}」與你的八字全局產生【${interaction}】的大流動。這是一個破局與擴展的時期，過去停滯不前的阻礙會悄然化解，新的合作機會、人際關係或環境變動會主動邀請你加入。`,
+                '逆位': `未來三個月的運勢在【${tarotName}（逆位）】的洗禮下，呈現「${tarotElem}」的沉澱期，與八字交會出【${interaction}】。這段時間命運在提醒你進行內部整理。不要急著向外開疆闢土，反而是要修補舊有計畫的漏洞，潛龍勿用，蓄勢待發。`
+            }
+        };
+
+        const categoryKey = category === '近三個月整體運勢' ? '整體運勢' : category;
+        const mainDesc = templates[categoryKey][orientation];
+
+        // 客製化專屬大師指引建議
+        let advice = "";
+        if (orientation === '正位') {
+            advice = `順應「${tarotElem}-${baziMain}」的${interaction}之勢，此時應借力使力，主動向世界表達你的意願，切忌過度猶豫而錯失良機。`;
+        } else {
+            advice = `由於目前呈現${interaction}的拉扯，建議您在未來一段時間內「內斂守成」。把發言權和決定權先放慢半拍，多聽少說，自然能化煞為吉。`;
+        }
+
+        return { desc: mainDesc, advice: advice };
     }
 
-    function generateReport() {
-        document.getElementById("step3").classList.add("hidden");
-        document.getElementById("step4").classList.remove("hidden");
+    // 模擬八字排盤邏輯（根據陽曆日期與時辰推算簡單的字根）
+    function getBaziProfile(dateStr, timeStr) {
+        if (!dateStr) return { yearGz: "甲子", dayMasterElem: "木", baziStr: "甲子年 丙寅月 戊戌日" };
+        
+        const dateObj = new Date(dateStr);
+        const yIdx = (dateObj.getFullYear() - 4) % 60;
+        const mIdx = (dateObj.getMonth() + dateObj.getDate()) % 12;
+        const dIdx = (dateObj.getDate() + dateObj.getFullYear()) % 10;
+        
+        const yearGz = tgArr[yIdx % 10] + dzArr[yIdx % 12];
+        const monthGz = tgArr[(yIdx * 2 + 2) % 10] + dzArr[mIdx];
+        const dayGz = tgArr[dIdx] + dzArr[(dIdx + 2) % 12];
+        
+        const dayMaster = tgArr[dIdx];
+        const dayMasterElem = tgElements[dayMaster];
 
-        let soulCard = calculateSoulCard(userData.birthday);
-        document.getElementById("soul-card-zone").innerHTML = `
-            <strong>🐣 守护兽降临 · 你的塔罗灵魂原型：</strong><br>
-            亲爱的 <strong>${userData.name}</strong> (${userData.gender})，经过星盘换算，你的本命元气守护神是 
-            <span style="color:#7e57c2; font-weight:bold;">【${soulCard.name}】</span>。它会全程在暗中保护你通过这次小迷茫哦！
-        `;
+        return {
+            yearGz: yearGz,
+            dayMasterElem: dayMasterElem,
+            baziStr: `${yearGz}年 ${monthGz}月 ${dayGz}日`
+        };
+    }
 
-        document.getElementById("ai-analysis-zone").innerHTML = `
-            <h3 class="summary-title">💌 闪亮亮 · 全息星愿综合回信</h3>
-            <p style="line-height: 1.7; color: var(--text-brown); font-size: 0.95rem; margin: 0;">
-                ${generateComprehensiveAnalysis()}
-            </p>
-        `;
+    function generateDestiny(event) {
+        event.preventDefault();
 
-        let reportHtml = "";
-        for (let i = 1; i <= 7; i++) {
-            let data = drawnCards[i];
-            let title = positionIntro[i];
-            let cardName = data.card.name;
-            let statusText = data.isPositive ? "【正位 🌟】" : " =【逆位 🌀】=";
-            let interpretation = data.isPositive ? data.card.pos : data.card.neg;
+        // 讀取表單資料
+        const name = document.getElementById('username').value;
+        const gender = document.getElementById('gender').value;
+        const birthDate = document.getElementById('birthDate').value;
+        const birthTime = document.getElementById('birthTime').value;
+        const type = document.getElementById('divinationType').value;
+        const question = document.getElementById('question').value;
 
-            reportHtml += `
-                <div class="report-section">
-                    <div class="position-tag">${title}</div>
-                    <div class="card-meta" style="color:#7e57c2;">${cardName} <span style="color: ${data.isPositive ? '#ff7043' : '#5c6bc0'}">${statusText}</span></div>
-                    <p style="line-height: 1.6; color: var(--text-brown); margin: 6px 0 3px 0;"><b>卡牌碎碎念：</b>${interpretation}</p>
-                    <p style="line-height: 1.6; color: #78909c; margin: 0; font-size:0.85rem;"><b>可爱小叮嘱：</b>${data.card.advise}</p>
+        // 1. 八字核心氣場演算
+        const baziInfo = getBaziProfile(birthDate, birthTime);
+
+        // 2. 78張塔羅牌隨機洗牌抽牌 + 正逆位判定
+        const randomCardIdx = Math.floor(Math.random() * tarotDeck.length);
+        const selectedCard = tarotDeck[randomCardIdx];
+        const orientation = Math.random() > 0.5 ? '正位' : '逆位';
+
+        // 3. 獲取深度交融解析
+        const resultData = getDynamicAnalysis(type, selectedCard.name, orientation, selectedCard.element, baziInfo);
+
+        // 4. 不知時辰貼心提醒
+        let timeDisplay = birthTime;
+        let blindTimeNotice = "";
+        if (birthTime === "不知道時辰") {
+            timeDisplay = "時辰不詳";
+            blindTimeNotice = "<br><span style='color: #bfa393; font-size: 0.85rem;'>⚠️ 註：因出生時辰未明，系統已自動為您啟動八字日柱元神與全牌組進行天干地支氣場對位。</span>";
+        } else {
+            timeDisplay = birthTime.split(' ')[0];
+        }
+
+        // 5. 渲染結果介面
+        let htmlContent = `
+            <div style="text-align: center; margin-bottom: 20px; font-size: 0.9rem; color: var(--brown-accent);">
+                <strong>緣主尊稱：</strong> ${name} (${gender}) ． <strong>先天命盤：</strong> ${baziInfo.baziStr} ${timeDisplay}<br>
+                <strong>所訴願望：</strong> ${type === '近三個月整體運勢' ? '探問百事，祈請三月批導' : '「' + question + '」'}
+                ${blindTimeNotice}
+            </div>
+
+            <div class="divination-card">
+                <div class="card-meta">
+                    <span class="tarot-badge">心靈覺察</span>
+                    <span class="ziwei-badge">五行對位</span>
                 </div>
-            `;
-        }
-        document.getElementById("report-content").innerHTML = reportHtml;
+                <div style="font-weight: bold; margin-bottom: 15px; color: var(--brown-accent); font-size: 1.1rem; border-bottom: 1px dashed var(--cream-dark); padding-bottom: 8px;">
+                    🔮 當前抽得：${selectedCard.name} (${orientation}) <span style="font-size:0.85rem; font-weight:normal; color:#A39389;">[牌面元素：${selectedCard.element} ｜ 本命元神：${baziInfo.dayMasterElem}]</span>
+                </div>
+                <div class="analysis-text">
+                    緣主吉祥。為您悉心探測天地磁場的流轉。將您本命八字的元神氣場，與當前隨機顯現的塔羅全牌組進行深度交融與解盤：
+                    
+                    ${resultData.desc}
+                </div>
+                <div class="advice-box">
+                    <strong>💡 大師給您的願望指引：</strong><br>
+                    ${resultData.advice}
+                </div>
+            </div>
+            
+            <div style="text-align: center; font-size: 0.8rem; color: var(--brown-accent); margin-top: 15px;">
+                * 命盤流轉，心念即流年。願望已悉，祝願您心想事成，福慧雙修 *
+            </div>
+        `;
+
+        const resultSection = document.getElementById('resultSection');
+        const resultContent = document.getElementById('resultContent');
+        
+        resultContent.innerHTML = htmlContent;
+        resultSection.style.display = 'block';
+
+        // 平滑滾動至結果畫面
+        resultSection.scrollIntoView({ behavior: 'smooth' });
     }
 </script>
 
