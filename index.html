@@ -1,14 +1,3 @@
-這裡為您調整優化了 HTML 原始碼。
-
-本次更新重點：
-
-1. **反轉為上弧形（拱橋形）**：調整了 CSS 3D 旋轉的圓心位置 (`transform-origin`) 與定位，卡牌現在會像天邊的彩虹、拱橋一樣，優雅地**向上彎曲弧形**展開。
-2. **文字精簡微調**：將原本較長的按鈕文字正式調整為 **「開始占卜」**。
-3. **優化懸停（Hover）動效**：配合上弧形的結構，滑鼠懸停時卡牌會順著射線方向往外、向上突顯彈出，充滿靈動的觸覺反饋。
-
-完整代碼如下，您可以直接複製另存新檔：
-
-```html
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
@@ -613,7 +602,6 @@
         container.innerHTML = '';
 
         const totalCards = 15;
-        // 反轉旋轉角度（從正變負），配合下移的中心點，使卡牌頂端朝上拱起
         const startAngle = 35; 
         const endAngle = -35;   
         const angleStep = (endAngle - startAngle) / (totalCards - 1);
@@ -623,7 +611,6 @@
             cardOpt.className = 'ritual-card';
             const currentAngle = startAngle + (i * angleStep);
             
-            // 負角度與圓心定位交織，形成完美的向上拱橋弧形
             cardOpt.style.transform = `rotate(${currentAngle}deg)`;
             cardOpt.style.zIndex = i;
             cardOpt.setAttribute('onclick', `pickCard(this, ${i})`);
@@ -763,5 +750,3 @@
 
 </body>
 </html>
-
-```
