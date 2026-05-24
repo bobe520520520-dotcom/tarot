@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>多維複合命盤 ． 3+1張時空塔羅牌陣版</title>
+    <title>多維複合命盤 ． 78張時空塔羅無限卷軸版</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght=400;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -194,12 +194,12 @@
             margin-top: 15px;
         }
 
-        /* 🔮 卷軸式抽卡互動區 */
+        /* 🔮 78張無盡命運卷軸抽卡區 */
         .ritual-section {
             display: none;
             text-align: center;
             margin-top: 30px;
-            padding: 30px 0; /* 左右內縮設為0，讓卷軸可以貼邊切出 */
+            padding: 30px 0;
             background: var(--cream-light);
             border-radius: 20px;
             border: 1px dashed var(--brown-accent);
@@ -223,41 +223,40 @@
             padding: 0 20px;
         }
 
-        /* ✨ 核心優化：左右延伸循環滾動外殼 */
+        /* 左右延伸 78 張超長傳送帶外殼 */
         .scroll-deck-wrapper {
             width: 100%;
-            overflow-x: auto; /* 開啟橫向滾動 */
+            overflow-x: auto;
             overflow-y: hidden;
-            padding: 30px 0; /* 給予卡牌懸浮騰出的上方與下方空間，確保不被截斷 */
+            padding: 30px 0;
             margin: 10px 0;
-            scrollbar-width: none; /* 隱藏火狐滾動條 */
-            -webkit-overflow-scrolling: touch; /* 讓手機端滑動極度絲滑 */
+            scrollbar-width: none;
+            -webkit-overflow-scrolling: touch; /* 手機端如絲般順滑 */
         }
 
-        /* 隱藏 Chrome/Safari 滾動條 */
         .scroll-deck-wrapper::-webkit-scrollbar {
             display: none;
         }
 
-        /* 卡牌傳送帶 */
+        /* 容納 78 張牌的超寬度容器 */
         .scroll-deck-container {
             display: flex;
-            gap: 15px; /* 卡牌之間的精緻間距 */
-            padding: 0 50px; /* 兩端留白，讓前後卡牌滑動時有呼吸感 */
-            width: max-content; /* 根據卡牌數量自動延伸寬度 */
+            gap: 12px;
+            padding: 0 60px; /* 給予首尾充足的留白 */
+            width: max-content;
         }
 
         /* 單張卡牌基礎美化 */
         .ritual-card {
-            flex-shrink: 0; /* 防止擠壓變形 */
-            width: 95px;
-            height: 165px;
+            flex-shrink: 0;
+            width: 90px;
+            height: 155px;
             background: linear-gradient(135deg, #3A2F2E 0%, #1A1211 100%);
             border: 2px solid var(--gold);
             border-radius: 12px;
             cursor: pointer;
             box-shadow: 0 6px 12px rgba(0,0,0,0.3);
-            transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+            transition: transform 0.25s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.25s ease, border-color 0.25s ease;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -267,19 +266,18 @@
         .ritual-card::before {
             content: "🔱";
             color: var(--gold);
-            font-size: 1.4rem;
-            opacity: 0.7;
+            font-size: 1.3rem;
+            opacity: 0.65;
         }
 
-        /* ✨ 懸停互動：卡牌向上滑出並放大，增加尊榮感 */
+        /* 懸停滑出效果 */
         .ritual-card:hover {
-            transform: translateY(-20px) scale(1.08);
+            transform: translateY(-18px) scale(1.06);
             box-shadow: 0 15px 30px rgba(197, 168, 128, 0.5);
             border-color: var(--white);
             z-index: 10;
         }
 
-        /* 已被選中抽起的卡片隱藏 */
         .ritual-card.selected-drawn {
             visibility: hidden;
             pointer-events: none;
@@ -294,7 +292,7 @@
             padding: 0 20px;
         }
 
-        /* 最終解盤牌陣展現區 */
+        /* 最終解盤展現區 */
         .result-section {
             display: none;
             margin-top: 40px;
@@ -310,7 +308,7 @@
             letter-spacing: 2px;
         }
 
-        /* 3+1 四張牌排版 */
+        /* 3+1 排版 */
         .array-display-container {
             display: flex;
             justify-content: space-between;
@@ -392,7 +390,7 @@
             .container { padding: 25px 20px; }
             .array-display-container { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
             .waite-tarot-card-body { height: 160px; }
-            .ritual-card { width: 80px; height: 140px; }
+            .ritual-card { width: 75px; height: 130px; }
             .scroll-deck-container { padding: 0 30px; }
         }
     </style>
@@ -402,10 +400,11 @@
 <div class="container">
     <header>
         <h1>請說出你的願望</h1>
-        <p>八字五行 ． 紫微靈數 ． 3+1時空流轉聖三角牌陣</p>
+        <p>八字五行 ． 紫微靈數 ． 78張時空流轉聖三角全像牌陣</p>
     </header>
 
     <form id="oracleForm" onsubmit="startRitual(event)">
+        <!-- 表單個人資料部分維持不變 -->
         <div class="form-section-title">👤 您的個人資料（本命盤根基）</div>
         <div class="form-row">
             <div class="form-group">
@@ -505,17 +504,17 @@
         <button type="submit" class="submit-btn" id="initBtn">開始占卜</button>
     </form>
 
-    <!-- 🔮 完美優化：左右延伸循環卷軸抽卡區 -->
+    <!-- 🔮 78張無限延伸卷軸抽卡區 -->
     <div class="ritual-section" id="ritualSection">
         <p class="ritual-title">🔮 命運卷軸已依據您的磁場鋪開</p>
         <div class="ritual-steps-hint" id="stepHint">請憑直覺抽取第 1 張牌：【代表過去】</div>
         
         <div class="scroll-deck-wrapper">
             <div class="scroll-deck-container" id="cardContainer">
-                <!-- 由 JavaScript 動態生成完美左右延伸、可自由滑動的卡牌陣容 -->
+                <!-- 經 JavaScript 載入 78 張完整的神祕占卜卡 -->
             </div>
         </div>
-        <span class="shuffling-text">—— 左右滑動命運卷軸，當前已抽取 <span id="drawCount">0</span> / 4 張卡牌 ——</span>
+        <span class="shuffling-text">—— 左右滑動命運卷軸，當前已從完整78張大/小牌中抽取 <span id="drawCount">0</span> / 4 張卡牌 ——</span>
     </div>
 
     <!-- 最終解盤結果 -->
@@ -526,7 +525,9 @@
 </div>
 
 <script>
+    // 🔮 完美擴充：全套 78 張偉特塔羅牌資料庫 (22張大阿爾克那 + 56張小阿爾克那)
     const tarotDeck = [
+        // 大阿爾克那 (0-21)
         { name: "愚者", element: "風", img: "https://upload.wikimedia.org/wikipedia/commons/0/0b/RWS_Tarot_00_Fool.jpg" },
         { name: "魔術師", element: "風", img: "https://upload.wikimedia.org/wikipedia/commons/d/de/RWS_Tarot_01_Magician.jpg" },
         { name: "女祭司", element: "水", img: "https://upload.wikimedia.org/wikipedia/commons/8/88/RWS_Tarot_02_High_Priestess.jpg" },
@@ -548,7 +549,71 @@
         { name: "月亮", element: "水", img: "https://upload.wikimedia.org/wikipedia/commons/7/7f/RWS_Tarot_18_Moon.jpg" },
         { name: "太陽", element: "火", img: "https://upload.wikimedia.org/wikipedia/commons/1/17/RWS_Tarot_19_Sun.jpg" },
         { name: "審判", element: "火", img: "https://upload.wikimedia.org/wikipedia/commons/d/dd/RWS_Tarot_20_Judgement.jpg" },
-        { name: "世界", element: "土", img: "https://upload.wikimedia.org/wikipedia/commons/f/ff/RWS_Tarot_21_World.jpg" }
+        { name: "世界", element: "土", img: "https://upload.wikimedia.org/wikipedia/commons/f/ff/RWS_Tarot_21_World.jpg" },
+
+        // 權杖牌組 (Wands - 火元素)
+        { name: "權杖一", element: "火", img: "https://upload.wikimedia.org/wikipedia/commons/1/11/Wands01.jpg" },
+        { name: "權杖二", element: "火", img: "https://upload.wikimedia.org/wikipedia/commons/0/0f/Wands02.jpg" },
+        { name: "權杖三", element: "火", img: "https://upload.wikimedia.org/wikipedia/commons/b/b3/Wands03.jpg" },
+        { name: "權杖四", element: "火", img: "https://upload.wikimedia.org/wikipedia/commons/a/a4/Wands04.jpg" },
+        { name: "權杖五", element: "火", img: "https://upload.wikimedia.org/wikipedia/commons/9/9d/Wands05.jpg" },
+        { name: "權杖六", element: "火", img: "https://upload.wikimedia.org/wikipedia/commons/3/3b/Wands06.jpg" },
+        { name: "權杖七", element: "火", img: "https://upload.wikimedia.org/wikipedia/commons/e/e4/Wands07.jpg" },
+        { name: "權杖八", element: "火", img: "https://upload.wikimedia.org/wikipedia/commons/6/6b/Wands08.jpg" },
+        { name: "權杖九", element: "火", img: "https://upload.wikimedia.org/wikipedia/commons/4/4d/Wands09.jpg" },
+        { name: "權杖十", element: "火", img: "https://upload.wikimedia.org/wikipedia/commons/0/0b/Wands10.jpg" },
+        { name: "權杖侍從", element: "火", img: "https://upload.wikimedia.org/wikipedia/commons/6/6a/Wands11.jpg" },
+        { name: "權杖騎士", element: "火", img: "https://upload.wikimedia.org/wikipedia/commons/1/16/Wands12.jpg" },
+        { name: "權杖皇后", element: "火", img: "https://upload.wikimedia.org/wikipedia/commons/0/0d/Wands13.jpg" },
+        { name: "權杖國王", element: "火", img: "https://upload.wikimedia.org/wikipedia/commons/c/ce/Wands14.jpg" },
+
+        // 聖杯牌組 (Cups - 水元素)
+        { name: "聖杯一", element: "水", img: "https://upload.wikimedia.org/wikipedia/commons/3/36/Cups01.jpg" },
+        { name: "聖杯二", element: "水", img: "https://upload.wikimedia.org/wikipedia/commons/f/f8/Cups02.jpg" },
+        { name: "聖杯三", element: "水", img: "https://upload.wikimedia.org/wikipedia/commons/7/7a/Cups03.jpg" },
+        { name: "聖杯四", element: "水", img: "https://upload.wikimedia.org/wikipedia/commons/3/35/Cups04.jpg" },
+        { name: "聖杯五", element: "水", img: "https://upload.wikimedia.org/wikipedia/commons/d/d7/Cups05.jpg" },
+        { name: "聖杯六", element: "水", img: "https://upload.wikimedia.org/wikipedia/commons/1/17/Cups06.jpg" },
+        { name: "聖杯七", element: "水", img: "https://upload.wikimedia.org/wikipedia/commons/a/ae/Cups07.jpg" },
+        { name: "聖杯八", element: "水", img: "https://upload.wikimedia.org/wikipedia/commons/6/60/Cups08.jpg" },
+        { name: "聖杯九", element: "水", img: "https://upload.wikimedia.org/wikipedia/commons/2/24/Cups09.jpg" },
+        { name: "聖杯十", element: "水", img: "https://upload.wikimedia.org/wikipedia/commons/8/84/Cups10.jpg" },
+        { name: "聖杯侍從", element: "水", img: "https://upload.wikimedia.org/wikipedia/commons/a/ad/Cups11.jpg" },
+        { name: "聖杯騎士", element: "水", img: "https://upload.wikimedia.org/wikipedia/commons/f/fa/Cups12.jpg" },
+        { name: "聖杯皇后", element: "水", img: "https://upload.wikimedia.org/wikipedia/commons/6/62/Cups13.jpg" },
+        { name: "聖杯國王", element: "水", img: "https://upload.wikimedia.org/wikipedia/commons/0/04/Cups14.jpg" },
+
+        // 寶劍牌組 (Swords - 風元素)
+        { name: "寶劍一", element: "風", img: "https://upload.wikimedia.org/wikipedia/commons/1/1a/Swords01.jpg" },
+        { name: "寶劍二", element: "風", img: "https://upload.wikimedia.org/wikipedia/commons/9/9e/Swords02.jpg" },
+        { name: "寶劍三", element: "風", img: "https://upload.wikimedia.org/wikipedia/commons/0/02/Swords03.jpg" },
+        { name: "寶劍四", element: "風", img: "https://upload.wikimedia.org/wikipedia/commons/b/bf/Swords04.jpg" },
+        { name: "寶劍五", element: "風", img: "https://upload.wikimedia.org/wikipedia/commons/9/98/Swords05.jpg" },
+        { name: "寶劍六", element: "風", img: "https://upload.wikimedia.org/wikipedia/commons/2/29/Swords06.jpg" },
+        { name: "寶劍七", element: "風", img: "https://upload.wikimedia.org/wikipedia/commons/3/34/Swords07.jpg" },
+        { name: "寶劍八", element: "風", img: "https://upload.wikimedia.org/wikipedia/commons/a/a7/Swords08.jpg" },
+        { name: "寶劍九", element: "風", img: "https://upload.wikimedia.org/wikipedia/commons/2/2f/Swords09.jpg" },
+        { name: "寶劍十", element: "風", img: "https://upload.wikimedia.org/wikipedia/commons/d/d4/Swords10.jpg" },
+        { name: "寶劍侍從", element: "風", img: "https://upload.wikimedia.org/wikipedia/commons/4/4c/Swords11.jpg" },
+        { name: "寶劍騎士", element: "風", img: "https://upload.wikimedia.org/wikipedia/commons/b/b0/Swords12.jpg" },
+        { name: "寶劍皇后", element: "風", img: "https://upload.wikimedia.org/wikipedia/commons/d/d4/Swords13.jpg" },
+        { name: "寶劍國王", element: "風", img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Swords14.jpg" },
+
+        // 星幣牌組 (Pentacles - 土元素)
+        { name: "星幣一", element: "土", img: "https://upload.wikimedia.org/wikipedia/commons/f/fd/Pents01.jpg" },
+        { name: "星幣二", element: "土", img: "https://upload.wikimedia.org/wikipedia/commons/9/9f/Pents02.jpg" },
+        { name: "星幣三", element: "土", img: "https://upload.wikimedia.org/wikipedia/commons/4/42/Pents03.jpg" },
+        { name: "星幣四", element: "土", img: "https://upload.wikimedia.org/wikipedia/commons/a/aa/Pents04.jpg" },
+        { name: "星幣五", element: "土", img: "https://upload.wikimedia.org/wikipedia/commons/9/96/Pents05.jpg" },
+        { name: "星幣六", element: "土", img: "https://upload.wikimedia.org/wikipedia/commons/a/a6/Pents06.jpg" },
+        { name: "星幣七", element: "土", img: "https://upload.wikimedia.org/wikipedia/commons/6/6a/Pents07.jpg" },
+        { name: "星幣八", element: "土", img: "https://upload.wikimedia.org/wikipedia/commons/e/e0/Pents08.jpg" },
+        { name: "星幣九", element: "土", img: "https://upload.wikimedia.org/wikipedia/commons/f/f0/Pents09.jpg" },
+        { name: "星幣十", element: "土", img: "https://upload.wikimedia.org/wikipedia/commons/3/39/Pents10.jpg" },
+        { name: "星幣侍從", element: "土", img: "https://upload.wikimedia.org/wikipedia/commons/e/ec/Pents11.jpg" },
+        { name: "星幣騎士", element: "土", img: "https://upload.wikimedia.org/wikipedia/commons/d/d5/Pents12.jpg" },
+        { name: "星幣皇后", element: "土", img: "https://upload.wikimedia.org/wikipedia/commons/8/88/Pents13.jpg" },
+        { name: "星幣國王", element: "土", img: "https://upload.wikimedia.org/wikipedia/commons/1/1c/Pents14.jpg" }
     ];
 
     const tgElements = { '甲': '木', '乙': '木', '丙': '火', '丁': '火', '戊': '土', '己': '土', '庚': '金', '辛': '金', '壬': '水', '癸': '水' };
@@ -609,8 +674,8 @@
         const container = document.getElementById('cardContainer');
         container.innerHTML = '';
 
-        // 全大阿爾克那22張一字排開，形成極具史詩感的左右延伸滾動卷軸
-        const totalCards = 22; 
+        // 78 張完整的命運卷軸一字排開
+        const totalCards = 78; 
 
         for (let i = 0; i < totalCards; i++) {
             const cardOpt = document.createElement('div');
@@ -623,17 +688,23 @@
         document.getElementById('resultSectionBox').style.display = 'none';
         document.getElementById('ritualSection').scrollIntoView({ behavior: 'smooth' });
 
-        // 預先自動滾動一段距離，提示用戶這是可以滑動的
+        // 自動稍微滾動一下，引導顧客知道這是可以滑動的
         setTimeout(() => {
             const wrapper = document.querySelector('.scroll-deck-wrapper');
-            wrapper.scrollTo({ left: 80, behavior: 'smooth' });
+            wrapper.scrollTo({ left: 120, behavior: 'smooth' });
         }, 400);
     }
 
     function pickCard(cardElement, index) {
         if (userDrawnCards.length >= 4) return;
 
+        // 從完整的 78 張牌中隨機挑選，且抽過的不重複
         let pool = [...tarotDeck];
+        // 排除已經被抽中的牌名
+        userDrawnCards.forEach(drawn => {
+            pool = pool.filter(c => c.name !== drawn.name);
+        });
+
         let randomTarot = pool[Math.floor(Math.random() * pool.length)];
         let ori = Math.random() > 0.5 ? '正位' : '逆位';
 
@@ -650,7 +721,7 @@
         if (count < 4) {
             document.getElementById('stepHint').innerText = stepHints[count];
         } else {
-            document.getElementById('stepHint').innerText = "✨ 契合成功，正在為您開啟天機大盤...";
+            document.getElementById('stepHint').innerText = "✨ 78張寰宇卡牌契合成功，正在為您開啟天機大盤...";
             setTimeout(executeFinalDivination, 600);
         }
     }
@@ -719,13 +790,13 @@
 
             <div class="divination-card">
                 <div class="card-meta">
-                    <span class="tarot-badge">聖三角時空大對位</span>
+                    <span class="tarot-badge">聖三角78葉天機對位</span>
                     <span class="ziwei-badge">本命日元：${baziData.dayMaster}命</span>
                 </div>
 
                 <div class="analysis-block">
                     <div class="analysis-subtitle">⏳ 【過去軸】（${userDrawnCards[0].name} ${userDrawnCards[0].orientation}）</div>
-                    <div class="analysis-text">這代表你之前在此事上面臨的因果土壤。牌面暗示過去的環境波動或選擇，為你鋪墊了當前的心理與局勢基調。</div>
+                    <div class="analysis-text">這代表你之前在此事上面臨的能量因果土壤。牌面暗示過去的環境波動或選擇，為你鋪墊了當前的心理與局勢基調。</div>
                 </div>
 
                 <div class="analysis-block">
@@ -745,7 +816,7 @@
             </div>
 
             <div style="text-align: center; font-size: 0.8rem; color: var(--brown-accent); margin-top: 15px;">
-                * 時空流轉牌陣已定，願緣主心納乾坤，福慧雙修 *
+                * 時空流轉大牌陣已定，願緣主心納乾坤，福慧雙修 *
             </div>`;
 
         document.getElementById('ritualSection').style.display = 'none';
