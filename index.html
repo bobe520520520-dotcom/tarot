@@ -194,12 +194,12 @@
             margin-top: 15px;
         }
 
-        /* 🔮 弧形抽卡互動區架構 */
+        /* 🔮 卷軸式抽卡互動區 */
         .ritual-section {
             display: none;
             text-align: center;
             margin-top: 30px;
-            padding: 40px 10px;
+            padding: 30px 0; /* 左右內縮設為0，讓卷軸可以貼邊切出 */
             background: var(--cream-light);
             border-radius: 20px;
             border: 1px dashed var(--brown-accent);
@@ -211,76 +211,87 @@
             color: var(--brown-text);
             margin-bottom: 5px;
             font-weight: bold;
+            padding: 0 20px;
         }
 
         .ritual-steps-hint {
             font-size: 1.2rem;
             color: var(--red-alert);
-            margin-bottom: 25px;
+            margin-bottom: 15px;
             font-weight: bold;
             letter-spacing: 1px;
+            padding: 0 20px;
         }
 
-        /* ✨ 核心：卡牌經典 3D 向上弧形（拱橋形）扇面佈局 */
-        .arc-deck-wrapper {
-            position: relative;
-            height: 260px;
-            margin: 20px auto;
-            max-width: 650px;
-        }
-
-        .arc-deck-center {
-            position: absolute;
-            top: 220px; /* 旋轉中心點改在下方，讓卡牌向上挺出形成上弧形 */
-            left: 50%;
-            transform: translateX(-50%);
+        /* ✨ 核心優化：左右延伸循環滾動外殼 */
+        .scroll-deck-wrapper {
             width: 100%;
-            height: 100%;
+            overflow-x: auto; /* 開啟橫向滾動 */
+            overflow-y: hidden;
+            padding: 30px 0; /* 給予卡牌懸浮騰出的上方與下方空間，確保不被截斷 */
+            margin: 10px 0;
+            scrollbar-width: none; /* 隱藏火狐滾動條 */
+            -webkit-overflow-scrolling: touch; /* 讓手機端滑動極度絲滑 */
         }
 
+        /* 隱藏 Chrome/Safari 滾動條 */
+        .scroll-deck-wrapper::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* 卡牌傳送帶 */
+        .scroll-deck-container {
+            display: flex;
+            gap: 15px; /* 卡牌之間的精緻間距 */
+            padding: 0 50px; /* 兩端留白，讓前後卡牌滑動時有呼吸感 */
+            width: max-content; /* 根據卡牌數量自動延伸寬度 */
+        }
+
+        /* 單張卡牌基礎美化 */
         .ritual-card {
-            position: absolute;
-            bottom: 0;
-            left: calc(50% - 45px); /* 置中對齊 */
-            width: 90px;
-            height: 155px;
+            flex-shrink: 0; /* 防止擠壓變形 */
+            width: 95px;
+            height: 165px;
             background: linear-gradient(135deg, #3A2F2E 0%, #1A1211 100%);
             border: 2px solid var(--gold);
-            border-radius: 10px;
+            border-radius: 12px;
             cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-            transform-origin: center 240px; /* 以中軸下方的遠端點為圓心旋轉，達成上拱弧形 */
-            transition: transform 0.3s ease, margin-top 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+            transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s ease, border-color 0.3s ease;
             display: flex;
             align-items: center;
             justify-content: center;
+            position: relative;
         }
 
         .ritual-card::before {
             content: "🔱";
             color: var(--gold);
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             opacity: 0.7;
         }
 
-        /* 懸停往上彈出，配合上弧度做對應縮放與提拔 */
+        /* ✨ 懸停互動：卡牌向上滑出並放大，增加尊榮感 */
         .ritual-card:hover {
-            margin-top: -25px; 
-            box-shadow: 0 15px 30px rgba(197, 168, 128, 0.6);
+            transform: translateY(-20px) scale(1.08);
+            box-shadow: 0 15px 30px rgba(197, 168, 128, 0.5);
             border-color: var(--white);
-            z-index: 999 !important;
+            z-index: 10;
         }
 
-        /* 已被選中抽起的卡片樣式 */
+        /* 已被選中抽起的卡片隱藏 */
         .ritual-card.selected-drawn {
             visibility: hidden;
             pointer-events: none;
         }
 
         .shuffling-text {
+            display: block;
+            margin-top: 10px;
             font-size: 0.85rem;
             color: var(--brown-accent);
             font-style: italic;
+            padding: 0 20px;
         }
 
         /* 最終解盤牌陣展現區 */
@@ -381,9 +392,8 @@
             .container { padding: 25px 20px; }
             .array-display-container { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
             .waite-tarot-card-body { height: 160px; }
-            .arc-deck-wrapper { height: 240px; }
-            .ritual-card { width: 75px; height: 130px; transform-origin: center 180px; }
-            .arc-deck-center { top: 160px; }
+            .ritual-card { width: 80px; height: 140px; }
+            .scroll-deck-container { padding: 0 30px; }
         }
     </style>
 </head>
@@ -495,17 +505,17 @@
         <button type="submit" class="submit-btn" id="initBtn">開始占卜</button>
     </form>
 
-    <!-- 🔮 上弧形洗牌與抽卡區 -->
+    <!-- 🔮 完美優化：左右延伸循環卷軸抽卡區 -->
     <div class="ritual-section" id="ritualSection">
-        <p class="ritual-title">🔮 命運牌組已依據您的磁場呈上弧形鋪開</p>
+        <p class="ritual-title">🔮 命運卷軸已依據您的磁場鋪開</p>
         <div class="ritual-steps-hint" id="stepHint">請憑直覺抽取第 1 張牌：【代表過去】</div>
         
-        <div class="arc-deck-wrapper">
-            <div class="arc-deck-center" id="cardContainer">
-                <!-- 由 JavaScript 動態生成拱橋形牌組 -->
+        <div class="scroll-deck-wrapper">
+            <div class="scroll-deck-container" id="cardContainer">
+                <!-- 由 JavaScript 動態生成完美左右延伸、可自由滑動的卡牌陣容 -->
             </div>
         </div>
-        <span class="shuffling-text">—— 靜心專注，當前已抽取 <span id="drawCount">0</span> / 4 張卡牌 ——</span>
+        <span class="shuffling-text">—— 左右滑動命運卷軸，當前已抽取 <span id="drawCount">0</span> / 4 張卡牌 ——</span>
     </div>
 
     <!-- 最終解盤結果 -->
@@ -543,7 +553,6 @@
 
     const tgElements = { '甲': '木', '乙': '木', '丙': '火', '丁': '火', '戊': '土', '己': '土', '庚': '金', '辛': '金', '壬': '水', '癸': '水' };
     const tgArr = ['甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸'];
-    const dzArr = ['子', '丑', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥'];
 
     let userDrawnCards = [];
     const stepHints = [
@@ -591,7 +600,6 @@
         }
     }
 
-    // 啟動儀式：動態生成上弧形牌組
     function startRitual(event) {
         event.preventDefault();
         userDrawnCards = [];
@@ -601,18 +609,12 @@
         const container = document.getElementById('cardContainer');
         container.innerHTML = '';
 
-        const totalCards = 15;
-        const startAngle = 35; 
-        const endAngle = -35;   
-        const angleStep = (endAngle - startAngle) / (totalCards - 1);
+        // 全大阿爾克那22張一字排開，形成極具史詩感的左右延伸滾動卷軸
+        const totalCards = 22; 
 
         for (let i = 0; i < totalCards; i++) {
             const cardOpt = document.createElement('div');
             cardOpt.className = 'ritual-card';
-            const currentAngle = startAngle + (i * angleStep);
-            
-            cardOpt.style.transform = `rotate(${currentAngle}deg)`;
-            cardOpt.style.zIndex = i;
             cardOpt.setAttribute('onclick', `pickCard(this, ${i})`);
             container.appendChild(cardOpt);
         }
@@ -620,6 +622,12 @@
         document.getElementById('ritualSection').style.display = 'block';
         document.getElementById('resultSectionBox').style.display = 'none';
         document.getElementById('ritualSection').scrollIntoView({ behavior: 'smooth' });
+
+        // 預先自動滾動一段距離，提示用戶這是可以滑動的
+        setTimeout(() => {
+            const wrapper = document.querySelector('.scroll-deck-wrapper');
+            wrapper.scrollTo({ left: 80, behavior: 'smooth' });
+        }, 400);
     }
 
     function pickCard(cardElement, index) {
