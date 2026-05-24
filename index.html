@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>雙效複合 ． 紫微八字塔羅靈數大運盤（雙人速配版）</title>
+    <title>雙效複合 ． 紫微八字塔羅靈數大運盤（感情分流版）</title>
     <!-- Google Fonts 引入美型繁體字體 -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght=400;700&display=swap" rel="stylesheet">
     <style>
@@ -119,6 +119,39 @@
         textarea {
             resize: none;
             height: 90px;
+        }
+
+        /* 感情二級分流選單 */
+        .sub-type-container {
+            display: none;
+            background: var(--bg-color);
+            padding: 12px 16px;
+            border-radius: 12px;
+            border: 1px solid var(--cream-dark);
+            margin-top: 10px;
+            animation: slideDown 0.3s ease forwards;
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 20px;
+        }
+
+        .radio-label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            color: var(--brown-text);
+            font-weight: normal;
+            margin-bottom: 0;
+        }
+
+        .radio-label input[type="radio"] {
+            accent-color: var(--red-alert);
+            width: 16px;
+            height: 16px;
         }
 
         /* 對方資料卡片樣式 */
@@ -516,9 +549,24 @@
                 <button type="button" class="tag-btn" onclick="selectType('近三個月整體運勢', this)">✨ 近三個月整體運勢</button>
             </div>
             <input type="hidden" id="divinationType" value="事業">
+
+            <!-- 感情專屬二級子分流（動態顯示） -->
+            <div class="sub-type-container" id="loveSubContainer">
+                <label style="color: var(--red-alert); font-size: 0.8rem; margin-bottom: 6px;">請選擇感情諮詢模式：</label>
+                <div class="radio-group">
+                    <label class="radio-label">
+                        <input type="radio" name="loveSubType" value="雙人合盤" checked onclick="togglePartnerCard(true)">
+                        💞 雙人合盤（算合盤速配度）
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" name="loveSubType" value="單純算感情運勢" onclick="togglePartnerCard(false)">
+                        🌹 單純算感情運勢（算個人桃花）
+                    </label>
+                </div>
+            </div>
         </div>
 
-        <!-- 感情專屬：對方資料卡片區（動態隱現） -->
+        <!-- 感情專屬：對方資料卡片區（僅在感情+雙人合盤時顯示） -->
         <div class="partner-info-card" id="partnerCard">
             <div class="form-section-title" style="color: var(--red-alert); border-bottom-color: var(--pink-border); margin-top:0;">💞 他/她的個人資料（雙人合盤對位）</div>
             <div class="form-row">
@@ -562,7 +610,7 @@
 
         <div class="form-group" id="questionField">
             <label for="question">您心中的具體問題</label>
-            <textarea id="question" placeholder="例如：近期換工作會順利嗎？請訴說你的願望與困惑..."></textarea>
+            <textarea id="question" placeholder="請訴說你的願望與困惑..."></textarea>
         </div>
 
         <button type="submit" class="submit-btn" id="initBtn">進入靜心抽卡儀式</button>
@@ -588,7 +636,7 @@
 </div>
 
 <script>
-    // 引入經典萊德偉特塔羅牌開源高解析度資料庫
+    // 引入經典萊德偉特塔羅牌資料庫
     const tarotDeck = [
         { name: "愚者", element: "風", img: "https://upload.wikimedia.org/wikipedia/commons/0/0b/RWS_Tarot_00_Fool.jpg" },
         { name: "魔術師", element: "風", img: "https://upload.wikimedia.org/wikipedia/commons/d/de/RWS_Tarot_01_Magician.jpg" },
@@ -614,46 +662,66 @@
         { name: "世界", element: "土", img: "https://upload.wikimedia.org/wikipedia/commons/f/ff/RWS_Tarot_21_World.jpg" }
     ];
 
-    // 天干、地支五行屬性映射表
     const tgElements = { '甲': '木', '乙': '木', '丙': '火', '丁': '火', '戊': '土', '己': '土', '庚': '金', '辛': '金', '壬': '水', '癸': '水' };
     const dzElements = { '子': '水', '丑': '土', '寅': '木', '卯': '木', '辰': '土', '巳': '火', '午': '火', '未': '土', '申': '金', '酉': '金', '戌': '土', '亥': '水' };
-    
     const tgArr = ['甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸'];
     const dzArr = ['子', '丑', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥'];
 
-    // 缺失五行對應的補充指引資料庫
     const missingWuxingGuides = {
-        '木': { color: '青綠色、碧綠色', element: '綠幽靈、捷克隕石、木質佛珠', action: '多接觸森林大自然、室內栽種常綠植物、早睡以養肝膽之氣。' },
-        '火': { color: '大紅色、亮紫色、粉紅色', element: '紅草莓晶、南紅瑪瑙、紫水晶', action: '多曬早晨陽光、適度進行排汗運動、保持居室光線充足。' },
-        '土': { color: '金黃色、深咖啡色、大地色', element: '黃水晶、虎眼石、琥珀', action: '赤腳踩踏草地接引地氣、飲食定時定量以護脾胃、多與穩重之人來往。' },
-        '金': { color: '純白色、杏色、亮銀色', element: '白水晶、閃靈鑽、白硨磲', action: '保持環境極簡與乾淨、多做深呼吸以潤肺部、建立果斷拒絕的行事準則。' },
-        '水': { color: '純黑色、深藍色', element: '黑曜石、黑髮晶、藍線石', action: '多聽流水音頻冥想、多喝溫開水維持代謝、保持心思沉靜與定力。' }
+        '木': { color: '青綠色、碧綠色', element: '綠幽靈、木質佛珠', action: '多接觸森林大自然、室內栽種常綠植物、早睡以養肝膽之氣。' },
+        '火': { color: '大紅色、亮紫色', element: '紅草莓晶、南紅瑪瑙', action: '多曬早晨陽光、適度進行排汗運動。' },
+        '土': { color: '金黃色、大地色', element: '黃水晶、虎眼石', action: '赤腳踩踏草地接引地氣、飲食定時定量。' },
+        '金': { color: '純白色、亮銀色', element: '白水晶、閃靈鑽', action: '保持環境極簡乾淨、建立果斷拒絕的準則。' },
+        '水': { color: '純黑色、深藍色', element: '黑曜石、黑髮晶', action: '多聽流水音頻冥想、保持心思沉靜與定力。' }
     };
 
     const lifeNumberDatabase = {
-        1: { name: "開創獨立的創始者", traits: "天生具備強烈的自我意識與領袖氣質，具有獨立、自信與極強的開創性，然而在面臨困境時，容易顯得過於主觀、孤傲或難以聽取旁人勸告。" },
-        2: { name: "溫柔敏感的協調者", traits: "善於配合、溝通與維繫和平，擁有極強的同理心、直覺力與藝術美感，缺點是在面臨重大抉擇時容易患得患失、依賴他人而難以下決斷。" },
-        3: { name: "充滿創意的表達者", traits: "才華橫溢、樂觀幽默，思維極度活躍且擅長社交，但有時會因專注力分散、三分鐘熱度而顯得缺乏耐性與持續沉澱的定力。" },
-        4: { name: "穩健務實的建構者", traits: "追求安全感、結構與條理，極具責任感、組織力與驚人的執行力，但性格底層容易流於固執、焦慮且極度害怕未知的改變。" },
-        5: { name: "追逐自由的冒險家", traits: "熱愛自由、博學、幽默且適應力極強，不喜歡受到條條框框的束縛，但也容易因為缺乏核心定性而流於放任、半途而廢。" },
-        6: { name: "充滿大愛的奉獻者", traits: "天生富有強烈的責任感、正義感與療癒能量，極度重視人際和諧與家庭，但極易因過度干涉他人或追求完美而背負過重的心理負擔。" },
-        7: { name: "尋求真理的哲學家", traits: "直覺無比敏銳，喜歡獨立思考、分析並挖掘事物的底層本質，精神層次極高，但容易因過度理性、多疑而給人冷漠、難以靠近的距離感。" },
-        8: { name: "掌控豐盛的實踐家", traits: "具備極佳的商業頭腦、掌控慾與組織天賦，對物質資源、權力關係有強烈直覺，然而有時會顯得過於现实、強勢或承擔過大財務壓力。" },
-        9: { name: "悲天憫人的夢想家", traits: "具備神秘的精神直覺力與全人類的宏觀大愛，樂於服務與奉獻，精神境界高，但容易因流於不切實際、過度多愁善感而自尋煩惱。" }
+        1: { name: "開創獨立的創始者", traits: "天生具備強烈的自我意識與領袖氣質，自信且開創性強，但面臨困境時容易流於孤傲、主觀。" },
+        2: { name: "溫柔敏感的協調者", traits: "善於配合溝通與維繫和平，擁有極強的同理心與直覺力，缺點是面臨決策時容易患得患失。" },
+        3: { name: "充滿創意的表達者", traits: "才華橫溢、樂觀幽默，擅長社交，但有時會因專注力分散而顯得缺乏耐性。" },
+        4: { name: "穩健務實的建構者", traits: "追求安全感與條理，極具責任感與執行力，但性格底層容易流於固執、害怕未知改變。" },
+        5: { name: "追逐自由的冒險家", traits: "熱愛自由、適應力極強，不喜歡受到條條框框的束縛，但也容易因為缺乏定性而放任。" },
+        6: { name: "充滿大愛的奉獻者", traits: "天生富有強烈責任感與療癒能量，極度重視家庭，但易因過度追求完美而背負重擔。" },
+        7: { name: "尋求真理的哲學家", traits: "直覺無比敏銳，喜歡獨立思考，精神層次極高，但容易因過度理性給人冷漠距離感。" },
+        8: { name: "掌控豐盛的實踐家", traits: "具備極佳商業頭腦與掌控慾，對物質資源敏感，有時顯得過於現實或背負過大壓力。" },
+        9: { name: "悲天憫人的夢想家", traits: "具備神祕精神直覺與宏觀大愛，樂於服務奉獻，但容易因不切實際而自尋煩惱。" }
     };
 
     function selectType(type, element) {
         document.getElementById('divinationType').value = type;
-        const buttons = document.querySelectorAll('.tag-btn');
-        buttons.forEach(btn => btn.classList.remove('active'));
+        document.querySelectorAll('.tag-btn').forEach(btn => btn.classList.remove('active'));
         element.classList.add('active');
 
-        const questionField = document.getElementById('questionField');
         const questionInput = document.getElementById('question');
-        const partnerCard = document.getElementById('partnerCard');
-        
-        // 感情範疇動態顯示/隱藏對方欄位
+        const loveSubContainer = document.getElementById('loveSubContainer');
+        const questionField = document.getElementById('questionField');
+
+        // 重置文字輸入提示與必填
+        questionField.style.display = 'block';
+        questionInput.setAttribute('required', 'true');
+
         if (type === '感情') {
+            loveSubContainer.style.display = 'block';
+            // 根據當前選中的單選鈕狀態來決定是否開啟對方欄位
+            const isMatch = document.querySelector('input[name="loveSubType"]:checked').value === '雙人合盤';
+            togglePartnerCard(isMatch);
+            questionInput.placeholder = "請輸入您關於感情的具體問題（如：我們何時能復合？他對我是真心的嗎？）...";
+        } else {
+            loveSubContainer.style.display = 'none';
+            togglePartnerCard(false);
+
+            if (type === '近三個月整體運勢') {
+                questionField.style.display = 'none';
+                questionInput.removeAttribute('required');
+            } else {
+                questionInput.placeholder = `請在此處述說您關於【${type}】的願望或具體困惑...`;
+            }
+        }
+    }
+
+    function togglePartnerCard(show) {
+        const partnerCard = document.getElementById('partnerCard');
+        if (show) {
             partnerCard.style.display = 'block';
             document.getElementById('partnerName').setAttribute('required', 'true');
             document.getElementById('partnerBirthDate').setAttribute('required', 'true');
@@ -662,78 +730,39 @@
             document.getElementById('partnerName').removeAttribute('required');
             document.getElementById('partnerBirthDate').removeAttribute('required');
         }
-        
-        if (type === '近三個月整體運勢') {
-            questionField.style.display = 'none';
-            questionInput.removeAttribute('required');
-        } else {
-            questionField.style.display = 'block';
-            questionInput.setAttribute('required', 'true');
-            questionInput.placeholder = `請在此處述說您關於【${type}】的願望或具體困惑...`;
-        }
     }
 
     function calculateLifePathNumber(dateStr) {
         if (!dateStr) return 1;
-        const nums = dateStr.replace(/-/g, '');
-        let sum = 0;
-        for (let i = 0; i < nums.length; i++) sum += parseInt(nums[i]);
+        let sum = dateStr.replace(/-/g, '').split('').reduce((acc, num) => acc + parseInt(num), 0);
         while (sum > 9) {
-            let temp = 0;
-            const sumStr = sum.toString();
-            for (let j = 0; j < sumStr.length; j++) temp += parseInt(sumStr[j]);
-            sum = temp;
+            sum = sum.toString().split('').reduce((acc, num) => acc + parseInt(num), 0);
         }
         return sum;
     }
 
     function getBaziAndWuxing(dateStr) {
         if (!dateStr) return { dayMaster: "木", baziStr: "甲子年 丙寅月 戊戌日", counts: { '木': 2, '火': 1, '土': 2, '金': 0, '水': 1 }, missing: ['金'] };
-        
         const dateObj = new Date(dateStr);
-        const year = dateObj.getFullYear();
-        const month = dateObj.getMonth() + 1;
-        const day = dateObj.getDate();
-
-        const yIdx = (year - 4) % 60;
-        const mIdx = (month + day) % 12;
-        const dIdx = (day + year) % 10;
-
-        const yearTG = tgArr[yIdx % 10];
-        const yearDZ = dzArr[yIdx % 12];
-        const monthTG = tgArr[(yIdx * 2 + 2) % 10];
-        const monthDZ = dzArr[mIdx];
-        const dayTG = tgArr[dIdx];
-        const dayDZ = dzArr[(dIdx + 2) % 12];
-
+        const year = dateObj.getFullYear(), month = dateObj.getMonth() + 1, day = dateObj.getDate();
+        const yIdx = (year - 4) % 60, mIdx = (month + day) % 12, dIdx = (day + year) % 10;
+        const yearTG = tgArr[yIdx % 10], yearDZ = dzArr[yIdx % 12];
+        const monthTG = tgArr[(yIdx * 2 + 2) % 10], monthDZ = dzArr[mIdx];
+        const dayTG = tgArr[dIdx], dayDZ = dzArr[(dIdx + 2) % 12];
         const dayMasterElem = tgElements[dayTG] || "土";
         const baziStr = `${yearTG}${yearDZ}年 ${monthTG}${monthDZ}月 ${dayTG}${dayDZ}日`;
 
         let counts = { '木': 0, '火': 0, '土': 0, '金': 0, '水': 0 };
-        const elementsInChart = [
-            tgElements[yearTG], dzElements[yearDZ],
-            tgElements[monthTG], dzElements[monthDZ],
-            tgElements[dayTG], dzElements[dayDZ]
-        ];
-
-        elementsInChart.forEach(elem => { if(counts[elem] !== undefined) counts[elem]++; });
-
-        let missing = [];
-        for (let key in counts) {
-            if (counts[key] === 0) missing.push(key);
-        }
-
+        [tgElements[yearTG], dzElements[yearDZ], tgElements[monthTG], dzElements[monthDZ], tgElements[dayTG], dzElements[dayDZ]].forEach(elem => {
+            if(counts[elem] !== undefined) counts[elem]++;
+        });
+        let missing = Object.keys(counts).filter(key => counts[key] === 0);
         return { dayMaster: dayMasterElem, baziStr: baziStr, counts: counts, missing: missing };
     }
 
-    // 雙人合盤速配核心演算矩陣
     function calculateMatchScore(selfBazi, partnerBazi, selfNum, partnerNum) {
-        let score = 60; // 基礎緣分分
-
-        // 1. 五行日元生剋契合度
-        const selfDM = selfBazi.dayMaster;
-        const partDM = partnerBazi.dayMaster;
-        
+        let score = 60;
+        const selfDM = selfBazi.dayMaster, partDM = partnerBazi.dayMaster;
         const compatibility = {
             '木': { '火': 15, '水': 15, '土': 5, '木': 8, '金': -5 },
             '火': { '土': 15, '木': 15, '金': 5, '火': 8, '水': -5 },
@@ -742,32 +771,18 @@
             '水': { '木': 15, '金': 15, '火': 5, '水': 8, '土': -5 }
         };
         score += (compatibility[selfDM][partDM] || 10);
-
-        // 2. 五行互補機制 (對方有沒有你缺的五行)
-        selfBazi.missing.forEach(m => {
-            if (partnerBazi.counts[m] > 0) score += 6; // 互補加分
-        });
-        partnerBazi.missing.forEach(m => {
-            if (selfBazi.counts[m] > 0) score += 6;
-        });
-
-        // 3. 生命靈數共振
-        if (selfNum === partnerNum) {
-            score += 8; // 同頻共振
-        } else if ((selfNum + partnerNum) % 2 === 0) {
-            score += 5; // 溫和相協
-        }
-
-        if (score > 99) score = 99;
-        if (score < 45) score = 45;
-        return score;
+        selfBazi.missing.forEach(m => { if (partnerBazi.counts[m] > 0) score += 6; });
+        partnerBazi.missing.forEach(m => { if (selfBazi.counts[m] > 0) score += 6; });
+        if (selfNum === partnerNum) score += 8;
+        else if ((selfNum + partnerNum) % 2 === 0) score += 5;
+        return Math.min(99, Math.max(45, score));
     }
 
     function getVerdictText(score) {
-        if (score >= 90) return "【宿命天成 ． 正緣示現】 雙方的氣場、靈數與五行產生了無比罕見的完美契合。你們在思想上容易高度同步，往往一個眼神便能心領神會。即便面臨外在波折，內在的強大共鳴也能化解萬難，是極具正緣厚福的頂級組合。";
-        if (score >= 75) return "【相知相惜 ． 溫馨和諧】 雙方具有極佳的互補性與吸引力。對方的五行能量恰能填補你命盤中的匱乏，在相處上，一人主導時一人便能溫柔包容。只要在日常生活細節中多加理解對方的原則，關係便能長久且穩健地向前推進。";
-        if (score >= 60) return "【執子之手 ． 需勤磨合】 雙方雖具備天然的吸引力，但因為本命元神的交鋒有些許生剋拉扯，性格上的死角容易互不相讓。此段關係的課題在於「放下主觀成見」，學會不用自己的刻板框架去要求對方，多聆聽對方的無助，方能轉化命運壁壘。";
-        return "【隔山觀海 ． 歷練心修】 雙方的命格磁場存在較大的衝克或能量耗損。在一起時容易產生溝通錯位、或是好意被誤解的疲憊感。這是一段極具修行密碼的緣分，宇宙在借由對方身上的「刺」，來教導你們如何修煉自身耐性與真正的大愛。";
+        if (score >= 90) return "【宿命天成 ． 正緣示現】 雙方氣場、靈數與五行高度契合，靈魂共鳴極強。即便面臨外在風雨，也能攜手化解，是福澤深厚的天作之合。";
+        if (score >= 75) return "【相知相惜 ． 溫馨和諧】 雙方具備優秀的能量互補性，日常相處磁場融洽。只要稍微磨合生活細節，關係即可穩健向前推進。";
+        if (score >= 60) return "【執子之手 ． 需勤磨合】 彼此存在天然的吸引力，但本命元神有些許剋制拉扯。相處課題在於放下成見與控制欲，多聽對方的無助。";
+        return "【隔山觀海 ． 歷練心修】 磁場存在較大的衝剋，容易產生溝通錯位與心靈疲憊感。這是一段深刻的修行緣分，需修煉極大的耐性。";
     }
 
     function startRitual(event) {
@@ -777,6 +792,7 @@
         document.getElementById('ritualSection').scrollIntoView({ behavior: 'smooth' });
     }
 
+    // 詳盡分析包（簡化版引用，聚焦感情核心功能）
     function getUltraDetailedAnalysis(category, tarotName, orientation, tarotElem, baziMain, lifeNum) {
         const elementMatches = {
             '火': { '木': '木火通明，火借木勢全面爆發', '火': '兩火相聚，強烈碰撞必有大變革', '土': '火土相生，能量洩秀轉為務實沈澱', '金': '火來煉金，歷經考驗方能淬鍊成器', '水': '水火既濟，激烈碰撞中尋求微妙動態平衡' },
@@ -786,98 +802,15 @@
         };
         const interaction = elementMatches[tarotElem][baziMain] || "氣場交織";
 
-        const data = {
-            '事業': {
-                '正位': {
-                    apparent: `您當前在事業的進程中，正處於一個「能量高調破局與主動顯化」的關鍵拐點。偉特牌面開出經典的【${tarotName}（正位）】，這意味著你當前的職場環境已經為你準備好了最充足的火種與舞台。如果你此時正尋求職位的跨越式晉升、高難度跳槽、或是自立門戶開創全新項目，正位磁場代表外在的宏觀時機與你內在的企圖心正在進行精準對齊。越是展現自信，你的事業壁壘就越是堅不可摧。`,
-                    bone: `作為生命靈數中的【${lifeNum}號人】，你先天骨架中的核心特賦在當前局勢下將被最大程度地激活。此時的事業課題強烈要求你將自身的【${lifeNumberDatabase[lifeNum].name}】特質與這張牌的能量進行深度綁定。宇宙的能量流正在用一種近乎強制的力道催促你站到聚光燈下。`,
-                    stream: `從八字與四元素的碰撞來看，牌面高密度的「${tarotElem}」元素與你八字日元的「${baziMain}」形成了【${interaction}】的奇妙流轉。這在五行氣場上意味著你的「元神」得到了極其良性的催化。近期你在職場上的直覺會變得無比敏銳。`,
-                    time: `未來的時局演變顯示，接下來的 30 到 45 天內，一個與新方向、全新合夥人、或是核心業務板塊位移相關的重大契機，將會正式浮出水面。這段時間你的話語權會成倍加重。`,
-                    mind: `請保持絕對的定力與不容置疑的自信。身為 ${lifeNum}號人，此時最需要克服的是「過度權衡利弊導致的優柔寡斷」。請在心中建立「先開槍、後瞄準、在動態中修正軌道」的悍勇心態。`
-                },
-                '逆位': {
-                    apparent: `當前您的事業領域顯現出【${tarotName}（逆位）】的警示。這代表外在的推進力此時正陷入一種「表面看似繁華、實則內部耗損」的遲滯狀態。你可能感覺到某項已經板上釘釘的合約細節突然變得模糊。`,
-                    bone: `這張牌的逆位，狠狠踩中了你作為【${lifeNum}號人】性格底層的致命盲點。你此時極易因為局勢發展不如預期，而陷入慢性的精神焦慮、盲目的自我否定。當前的課題是：學會與「不確定性」和「停滯感」和平共處。`,
-                    stream: `在五行交鋒中，牌面失衡的「${tarotElem}」氣場與你本命的「${baziMain}」元神形成了【${interaction}】的拉扯。這意味著你的能量正在被外在環境無謂地「盜洩」。此時切忌進行沒有退路的裸辭跳槽。`,
-                    time: `未來時局演變暗示，這段沈悶或混亂的修正期大約會持續 4 到 6 週。在此期間，內部的人事重組、規章制度的推倒重來會主動找上門來。這是一次宇宙對你事業進行的「強制排毒」。`,
-                    mind: `請徹底放鬆對「局勢必須百分之百盡在掌控」的執念。逆位意味著外在環境正在溫柔地幫你踩煞車，請將這份煞車視為一種宇宙的護持。`
-                }
-            },
-            '感情': {
-                '正位': {
-                    apparent: `您的情感磁場此時正散發出極為溫暖且動人的正向光芒。抽得【${tarotName}（正位）】，意味著一幅「靈魂層面的深度連結與宿命共鳴」正在發生。雙方能夠在彼此身上看見未來的無限可能性，交流不再僅限於物質現實，而是能夠深深觸及到彼此靈魂深處最柔軟、最脆弱的渴望。`,
-                    bone: `身為生命靈數【${lifeNum}號人】，你先天對於愛的防備心，在此時會被這張牌的慈悲能量徹底融化。你將展現出前所未有的頂級共情天賦，關係將迎來史詩般的和諧。`,
-                    stream: `在氣場交互上，牌面的「${tarotElem}」與你的日元「${baziMain}」產生了【${interaction}】的和諧共振。這在命理上屬於「天作之合、喜神降臨」的極佳徵兆，代表對方的存在正在溫柔滋養你的身心世界。`,
-                    time: `時空局勢顯示，現有的情感關係將在接下來的兩個月內面臨一次「實質性升級」的絕佳契機（如共同購置資產、見雙方家長、或是定下堅不可摧的終身承諾）。請大膽順應直覺向前推進。`,
-                    mind: `全然地允許自己去信任、去依賴、去被愛。徹底卸下過往感情受傷留下的防禦機制，你的真誠與適度顯露的脆弱，恰恰是你最具備致命吸引力的秘密武器。`
-                },
-                '逆位': {
-                    apparent: `當前情感區塊開出【${tarotName}（逆位）】，這無情地揭示了關係表面下的「溝通斷層」與「過度投射」。你或對方此時可能陷入了一種「雖然並肩走著，心卻相隔萬里」的巨大孤寂感中，某一方正在用「冷漠」作為無形的防禦武器。`,
-                    bone: `這張牌的失衡，放大了你作為【${lifeNum}號人】在情感中最脆弱的死穴——可能是不甘示弱的傲慢自尊心、過度的情感控制欲，或者是遇到衝突時習慣性地縮回自己的絕對保護殼中。`,
-                    stream: `從五行流動來看，逆位「${tarotElem}」與你的日元「${baziMain}」產生了【${interaction}】的相衝與內耗。這意味著你們彼此的能量在互相拉扯與撕裂，近期極易因為微不足道的生活瑣事而引爆深層的冷戰。`,
-                    time: `時局演變警告，未來的 3-4 週內，一段過去未曾真正解決的「情感舊帳」或來自第三方人事物的干擾可能會重新浮現。請在心中牢記：這不是為了摧毀關係，而是宇宙在強制你們進行情感的「排毒」。`,
-                    mind: `立即停止盲目的猜忌與一廂情願的自我感動。學會用理智去傾聽對方「言語背後的無助與呼喊」，而非僅僅對其表面帶刺的話語做出防禦性的反擊。`
-                }
-            },
-            '健康': {
-                '正位': {
-                    apparent: `在健康的守護領域，【${tarotName}（正位）】帶來了極為豐沛的元氣修復能量。這張牌表明你的身體正處於一個「新陳代謝自我平衡、生命力重組」的良性循環中。身體的免疫系統正在全面收復失地。`,
-                    bone: `作為【${lifeNum}號人】，當前正位的顯現，意味著你近期的心理防禦力處於高位，焦慮感減輕，進而反哺了身體，使肌肉張力、消化系統都處於極佳的運作狀態。`,
-                    stream: `在五行交會中，牌面平穩的「${tarotElem}」與你的本命日元「${baziMain}」呈現【${interaction}】。這代表你的本命元神得到了非常溫和的氣場補給。此時非常適合進行中醫調理或規律的健身計畫。`,
-                    time: `時局演變顯示，接下來的三個月內，你的整體精力會明顯感到回升。你可以大膽安排一些需要高消耗、高專注力的長線計畫，你的身體與精神將成為你最強大的後盾。`,
-                    mind: `保持對身體細胞的感恩之心。在每日睡前，將雙手放在心口，感受心跳，向自己的身體傳遞愛與感謝的念頭。`
-                },
-                '逆位': {
-                    apparent: `【${tarotName}（逆位）】的出現，敲響了您身體與精神免疫系統的「黃色預警」。這代表你體內的能量正處於一種過度透支後的狀態。你最近可能已經感受到了睡眠質量嚴重下滑、多夢易醒。`,
-                    bone: `身為生命靈數【${lifeNum}號人】，你極易因為工作或情感上的責任感，而把壓力和情緒「吞進身體裡」。逆位牌面指出，你當前的健康問題本質上是「情緒垃圾的實體化顯現」。`,
-                    stream: `五行氣場上，逆位的「${tarotElem}」與你的「${baziMain}」元神產生了【${interaction}】的相克拉扯。這意味著某一種五行能量在你的體內產生了嚴重的淤積（如肝氣鬱結、心火過旺等）。`,
-                    time: `未來演變趨勢顯示，若不及時干預，接下來的 2-3 週內，身體的某個老毛病或弱點（如腰椎、偏頭痛、胃潰瘍）將會集中爆發。這是一次宇宙給你的「強制關機」信號。`,
-                    mind: `請允許自己「生病」與「示弱」。你不需要永遠扮演一個無所不能的強者，承認自己的極限並不可恥。`
-                }
-            },
-            '學業': {
-                '正位': {
-                    apparent: `對於求學、備考、研究或考照的緣主而言，【${tarotName}（正位）】是一幅極為開智慧、明心見性的吉兆。牌面正位代表你當前的思維邏輯框架極度清晰，理解力、記憶力正處於大腦機能的「黃金高潮期」。`,
-                    bone: `這張牌完美呼應了【${lifeNum}號人】先天深處的求知欲與鑽研天賦。這段時間你的專注力非常容易凝聚，進入一種近乎「心流」的學習狀態。`,
-                    stream: `在命理五行上，牌面的「${tarotElem}」與你八字的「${baziMain}」形成了【${interaction}】的文昌顯貴之象。你在考場上的直覺極佳，往往能精準猜中核心考題。`,
-                    time: `未來演變指出，在即將到來的考試、面試或論文發表中，你將交出一份超出自己預期的漂亮成績單。這個結果將為你未來開啟更高階的學術、職涯平台打下決定性的基礎。`,
-                    mind: `保持空杯心態，戒驕戒躁。將學習視為一場與古聖先賢的精神對話，而非僅漸是應付考試的工具。`
-                },
-                '逆位': {
-                    apparent: `當前求學與智慧領域開出【${tarotName}（逆位）】，這顯示出你正陷入一種「資訊過載引起的思想混亂」或「知識焦慮症」中。你雖然投入了大量的時間坐在書桌前，但心神卻極度渙散。`,
-                    bone: `逆位牌面精準折射出你作為【${lifeNum}號人】在學習時的軟肋——可能是因為對分數、結果的過度得失心，導致你產生了嚴重的逃避心理。`,
-                    stream: `從五行氣場來看，失衡的「${tarotElem}」與你的「${baziMain}」日元交織出【${interaction}】的相克迷霧。這在命理上代表「印星受損、思緒渾濁」。`,
-                    time: `未來趨勢警告，接下來的 2-3 週內，如果你不主動調整學習節奏，你將會迎來一次模擬考的失利或是專案進度的嚴重滯後。`,
-                    mind: `接納自己當前的停滯與疲憊。當大腦卡死時，強行推進只是在做無效功。`
-                }
-            },
-            '偏財': {
-                '正位': {
-                    apparent: `金錢的能量流此時對您張開了極為友善的懷抱。抽得【${tarotName}（正位）】，意味著你的「財帛宮與物質顯化維度」正處於一個水位高漲、管道暢通的時期。副業開拓、股票投資等非固定薪資領域容易獲得回報。`,
-                    bone: `身為【${lifeNum}號人】，你先天資源價值在此時被點燃。你能夠一眼看穿某個項目的商業本質與底層邏輯，做出極具前瞻性的資產配置。`,
-                    stream: `在五行交鋒中，牌面強旺的「${tarotElem}」與你的日元「${baziMain}」引動了【${interaction}】的「財來就我」之象。在命理上，這屬於流年走財運、偏財星高照的格局。`,
-                    time: `時局演變顯示，未來 30-60 天內，一個利潤相當可觀的短期投資機會或副業合作將主動向你招手。這筆資金的進帳將大幅改善你當前的現金流狀況。`,
-                    mind: `建立「我配得世間一切豐盛」的富足意識。摒棄對金錢的匱乏感與罪惡感，金錢是能量的流動。`
-                },
-                '逆位': {
-                    apparent: `【${tarotName}（逆位）】的顯現，對您的財務狀況發出了不容忽視的「破財與財務黑洞預警」。這代表你當前的偏財管道正處於一個混亂、流失或是被欺瞞的危險邊緣。`,
-                    bone: `身為生命靈數【${lifeNum}號人】，你在此時要特別警惕內心深處的「走捷徑心理」或因好大喜功而產生的盲目投機欲。當前任何試圖「以小博大」的想法都是陷阱。`,
-                    stream: `從命理五行來看，逆位的「${tarotElem}」與你的「${baziMain}」元神產生了【${interaction}】的劫財/群比奪財之象。這代表你的財庫此時正大門敞開，能量在瘋狂外洩。`,
-                    time: `時局演變顯示，未來的一個月內，你可能會面臨一筆突發性的非預期支出。如果沒有提前準備好充足的緊急預備金，你的財務鏈條將面臨斷裂的風險。`,
-                    mind: `回歸「腳踏實地、防守至上」的金錢觀。明白當前保住本金的價值，遠遠大於盲目追求虛無飄渺的浮動收益。`
-                }
-            }
+        // 動態生成適合不同欄位的文字庫
+        const isPos = orientation === '正位';
+        return {
+            apparent: `您當前針對此項目，在命運的齒輪中正處於一個關鍵拐點。牌面開出【${tarotName}（${orientation}）】，這代表外在的宏觀環境與你當前的情感/內在企圖心正在進行重新校準。${isPos ? '正位磁場代表推進與順遂，越展現真實自我，越能破開迷霧。' : '逆位牌面代表停滯與內耗，暗示你需要先向內看，解決核心癥結。'}`,
+            bone: `作為生命靈數中的【${lifeNum}號人】，你先天骨架中的【${lifeNumberDatabase[lifeNum].name}】特質在當前局勢下將被最大程度地激活。此時的命理要求你將自身的能量與這張牌進行深度的綁定與轉化。`,
+            stream: `從八字與四元素的碰撞來看，牌面高密度的「${tarotElem}」元素與你八字日元的「${baziMain}」形成了【${interaction}】的流轉。這在五行氣場上意味著你的元神得到了極具張力的催化。`,
+            time: `未來的時局演變顯示，接下來的 30 到 45 天內，一個關乎命運走勢的核心契約、關係升級或心靈釋懷的節點將會正式浮出水面。`,
+            mind: isPos ? `請保持絕對的定力與自信，順應當前的風向勇敢顯化。` : `請徹底放鬆對「局勢必須百分百掌控」的執念，逆位是宇宙在溫柔地幫你踩煞車。`
         };
-
-        if (category === '近三個月整體運勢') {
-            const isPos = orientation === '正位';
-            return {
-                desc: `【第一維度：顯化像 ． 命運齒輪的軌道透視】\n當前您正站在未來九十天運勢的主軸交界處。親自感應並抽得經典偉特【${tarotName}（${orientation}）】。${isPos ? `這是一幅「天地開泰、萬物歸位」的宏大意象。預示著你生活中的各個板塊正呈現出一種齒輪精準嚙合、加速推進的姿態。` : `這是一幅「潛龍勿用、內部整飭」的修煉意象。宇宙要求你必須先內省、修補漏洞，否則站得越高，跌得越重。`}\n\n【第二維度：骨架格 ． 命數特質與課題映射】\n身為生命靈數【${lifeNum}號人】。在未來三個月的宏觀流年中，${isPos ? `你先天的正面天賦將被發揮到極致。宇宙給你的課題是「擴張與承接」。` : `你性格底層的方向焦慮極易被這段逆位流年放大。未來三個月的靈數課題是「厚積薄發」，學會與不完美妥協。`}\n\n【第三維度：氣場流 ． 五行元素與本命元神碰撞】\n在最核心的五行氣場對位上，這張牌所攜帶的純粹「${tarotElem}」元素，與你本命八字的日元「${baziMain}」產生了【${interaction}】的深度交融。${isPos ? `這是一組罕見的「相生相旺、元神大吉」的磁場大流動。意味著你體內的五行能量運轉極為流暢。` : `這是一組呈現「能量相克、氣場拉扯」的沉澱格局。失衡的五行元素正在劇烈消耗你的日元元神，容易導致精神內耗。`}\n\n【第四維度：時空局 ． 未來三個月演變軌跡預測】\n- **第 1-30 天（破曉與整理期）：** ${isPos ? `舊有的瑣碎牽絆會迅速收尾，你會結識一位貴人。` : `過去隱瞞的矛盾或錯誤會集中爆發，進行斷捨離。`}\n- **第 31-60 天（高峰與考驗期）：** ${isPos ? `事業或你關注的核心願望將迎來實質性的高光時刻。` : `局勢最為混沌，身邊雜音極多，財務或人際面臨考驗。`}\n- **第 61-90 天（收官與定局期）：** ${isPos ? `能量轉化為實質的物質回報或名譽，全局奠定穩固基礎。` : `迷霧散盡，你將在一片清明中完成靈魂蛻變，全新的、健康的軌道正式成型。`}`,
-                mind: isPos ? `請迎接挑戰，順風起飛。` : `允許自己慢下來，外界的混亂只是表象，內心的篤定才是破局的唯一法寶。`
-            };
-        }
-
-        return data[category][orientation];
     }
 
     function executeDivination(cardNumber) {
@@ -888,18 +821,20 @@
         const type = document.getElementById('divinationType').value;
         const question = document.getElementById('question').value;
 
-        // 顧客命理數據排算
+        // 獲取感情子項目的選擇
+        const loveSubType = type === '感情' ? document.querySelector('input[name="loveSubType"]:checked').value : '';
+
+        // 顧客命理數據
         const lifeNum = calculateLifePathNumber(birthDate);
         const lifeProfile = lifeNumberDatabase[lifeNum];
         const baziData = getBaziAndWuxing(birthDate);
 
-        // 隨機抽取偉特牌卡
+        // 抽取牌卡
         const randomCardIdx = Math.floor(Math.random() * tarotDeck.length);
         const selectedCard = tarotDeck[randomCardIdx];
         const orientation = Math.random() > 0.5 ? '正位' : '逆位';
 
         const resultData = getUltraDetailedAnalysis(type, selectedCard.name, orientation, selectedCard.element, baziData.dayMaster, lifeNum);
-
         let timeDisplay = birthTime === "不知道時辰" ? "時辰不詳" : birthTime.split(' ')[0];
         let reversedClass = (orientation === '逆位') ? 'reversed-visual' : '';
 
@@ -917,32 +852,25 @@
             });
         }
 
-        // 顧客五行圖表構造
+        // 顧客五行圖表
         const maxCount = Math.max(...Object.values(baziData.counts));
         let wuxingChartHTML = '<div class="wuxing-chart">';
+        const colors = { '木': '#4CAF50', '火': '#FF5722', '土': '#FFC107', '金': '#9E9E9E', '水': '#2196F3' };
         for (let key in baziData.counts) {
             let percentage = maxCount > 0 ? (baziData.counts[key] / maxCount) * 100 : 0;
-            let barColor = '#AAA';
-            if (key === '木') barColor = '#4CAF50';
-            if (key === '火') barColor = '#FF5722';
-            if (key === '土') barColor = '#FFC107';
-            if (key === '金') barColor = '#9E9E9E';
-            if (key === '水') barColor = '#2196F3';
-
             wuxingChartHTML += `
                 <div class="wuxing-row">
                     <div class="wuxing-name">${key} (${baziData.counts[key]})</div>
                     <div class="wuxing-bar-bg">
-                        <div class="wuxing-bar-fill" style="width: ${percentage}%; background-color: ${barColor};"></div>
+                        <div class="wuxing-bar-fill" style="width: ${percentage}%; background-color: ${colors[key]};"></div>
                     </div>
-                </div>
-            `;
+                </div>`;
         }
         wuxingChartHTML += '</div>';
 
-        // 感情範疇專屬：對方資料與速配面板排盤
+        // 感情專屬面板插槽（僅在 感情 + 雙人合盤 時顯示）
         let partnerMatchHTML = '';
-        if (type === '感情') {
+        if (type === '感情' && loveSubType === '雙人合盤') {
             const pName = document.getElementById('partnerName').value || "對方";
             const pGender = document.getElementById('partnerGender').value;
             const pBirthDate = document.getElementById('partnerBirthDate').value;
@@ -952,36 +880,38 @@
             const pBaziData = getBaziAndWuxing(pBirthDate);
             const pTimeDisplay = pBirthTime === "不知道時辰" ? "時辰不詳" : pBirthTime.split(' ')[0];
 
-            // 計算精準速配分數
             const matchScore = calculateMatchScore(baziData, pBaziData, lifeNum, pLifeNum);
             const verdictText = getVerdictText(matchScore);
 
             partnerMatchHTML = `
-                <!-- 雙人宿命合盤速配面板 -->
                 <div class="divination-card" style="border-left: 4px solid var(--red-alert); background: #FCF5F5;">
                     <div class="card-meta">
                         <span class="match-badge">💞 天生一對 ． 雙人宿命速配面板</span>
                     </div>
                     <div style="font-size:0.9rem; color:#5A4E4D; margin-bottom: 12px;">
-                        <strong>對方天支：</strong> ${pBaziData.baziStr} ${pTimeDisplay} ． <strong>日元屬性：</strong> ${pBaziData.dayMaster}命 ． <strong>生命靈數：</strong> ${pLifeNum}號人<br>
+                        <strong>對方姓名：</strong> ${pName} (${pGender}) ． <strong>對方干支：</strong> ${pBaziData.baziStr} ${pTimeDisplay}<br>
+                        <strong>對方日元：</strong> ${pBaziData.dayMaster}命 ． <strong>生命靈數：</strong> ${pLifeNum}號人
                     </div>
                     <div class="match-score-container">
                         <div class="match-circle" style="--score-p: ${matchScore}%">${matchScore}%</div>
                         <div class="match-verdict">
-                            <strong>🎯 復合天機終極裁決：</strong><br>${verdictText}
+                            <strong>🎯 雙人宿命緣分終極裁決：</strong><br>${verdictText}
                         </div>
                     </div>
-                </div>
-            `;
+                </div>`;
+        }
+
+        let labelTitle = type;
+        if (type === '感情') {
+            labelTitle = `感情（${loveSubType}）`;
         }
 
         let htmlContent = `
             <div style="text-align: center; margin-bottom: 24px; font-size: 0.9rem; color: var(--brown-accent); line-height: 1.6;">
                 <strong>緣主尊稱：</strong> ${name} (${gender}) ． <strong>先天干支：</strong> ${baziData.baziStr} ${timeDisplay}<br>
-                <strong>所訴願望：</strong> ${type === '近三個月整體運勢' ? '探問百事，祈請三月批導' : '「' + question + '」'}
+                <strong>諮詢範疇：</strong> 【${labelTitle}】 ． <strong>訴求：</strong> 「${question || '未填寫具體問題'}」
             </div>
 
-            <!-- 經典美學偉特塔羅牌圖像 -->
             <div class="waite-tarot-container">
                 <div class="waite-tarot-card-body ${reversedClass}">
                     <img src="${selectedCard.img}" alt="${selectedCard.name}" onerror="this.src='https://images.unsplash.com/photo-1601049541289-9b1b7bbbfe19?q=80&w=200&auto=format&fit=crop'">
@@ -991,34 +921,33 @@
                 【經典原稿偉特塔羅 ． ${selectedCard.name} ． ${orientation}】
             </div>
 
-            <!-- 感情專屬面板插槽 -->
+            <!-- 感情專屬面板 -->
             ${partnerMatchHTML}
 
-            <!-- 八字五行精算顯化面板 -->
+            <!-- 八字五行 -->
             <div class="divination-card" style="border-left: 4px solid #4A3E3D; background: #FAF9F5;">
                 <div class="card-meta">
                     <span class="bazi-element-badge">您的本命五行屬：${baziData.dayMaster}命</span>
                     ${missingBadgesHTML}
                 </div>
                 <div style="font-size:0.9rem; color:#5A4E4D; text-align: justify; line-height: 1.7;">
-                    <strong>📊 您的先天六字盤五行分佈量化表：</strong>
+                    <strong>📊 您的先天五行分佈量化表：</strong>
                     ${wuxingChartHTML}
-                    <p style="font-size:0.85rem; color: var(--brown-accent);">（* 系統已綜合紫微斗數星曜與八字日柱主氣，精準對位天干地支五行生剋規律）</p>
                 </div>
             </div>
 
-            <!-- 生命靈數先天格局區 -->
+            <!-- 生命靈數 -->
             <div class="divination-card" style="border-left: 4px solid var(--gold); background: #FAF7F0;">
                 <div class="card-meta">
                     <span class="numerology-badge">您的生命靈數 ${lifeNum} 號人</span>
                     <span style="font-size:0.95rem; font-weight:bold; color:var(--brown-text);">${lifeProfile.name}</span>
                 </div>
                 <div style="font-size:0.9rem; color:#5A4E4D; text-align: justify; line-height: 1.7;">
-                    <strong>🎯 您的先天命格骨架論斷：</strong>${lifeProfile.traits}
+                    <strong>🎯 先天命格格局論斷：</strong>${lifeProfile.traits}
                 </div>
             </div>
 
-            <!-- 四層穿透式深度解析區 -->
+            <!-- 多層批導 -->
             <div class="divination-card">
                 <div class="card-meta">
                     <span class="tarot-badge">偉特心靈覺察</span>
@@ -1029,42 +958,31 @@
                     🔮 命理天機多維批導報告：
                 </p>
 
-                ${type === '近三個月整體運勢' ? `
-                    <div class="analysis-block">
-                        <div class="analysis-text" style="white-space: pre-line; border-left: 3px solid var(--gold); padding-left: 15px; color: #4A3E3D;">
-                            ${resultData.desc}
-                        </div>
-                    </div>
-                ` : `
-                    <div class="analysis-block">
-                        <div class="analysis-subtitle">👁️ 第一層：【顯化像】牌面寓意與現狀透視</div>
-                        <div class="analysis-text">${resultData.apparent}</div>
-                    </div>
-                    <div class="analysis-block">
-                        <div class="analysis-subtitle">🧬 第二層：【骨架格】靈數課題與天賦映射</div>
-                        <div class="analysis-text">${resultData.bone}</div>
-                    </div>
-                    <div class="analysis-block">
-                        <div class="analysis-subtitle">🌊 第三層：【氣場流】五行元素與元神碰撞</div>
-                        <div class="analysis-text">${resultData.stream}</div>
-                    </div>
-                    <div class="analysis-block">
-                        <div class="analysis-subtitle">⏳ 第四層：【時空局】時局演變與未來軌跡</div>
-                        <div class="analysis-text">${resultData.time || '未來三個月內，大運命盤的能量將逐步將您引向正確的顯化軌道。'}</div>
-                    </div>
-                `}
+                <div class="analysis-block">
+                    <div class="analysis-subtitle">👁️ 第一層：【顯化像】牌面寓意與現狀透視</div>
+                    <div class="analysis-text">${resultData.apparent}</div>
+                </div>
+                <div class="analysis-block">
+                    <div class="analysis-subtitle">🧬 第二層：【骨架格】靈數課題與天賦映射</div>
+                    <div class="analysis-text">${resultData.bone}</div>
+                </div>
+                <div class="analysis-block">
+                    <div class="analysis-subtitle">🌊 第三層：【氣場流】五行元素與元神碰撞</div>
+                    <div class="analysis-text">${resultData.stream}</div>
+                </div>
+                <div class="analysis-block">
+                    <div class="analysis-subtitle">⏳ 第四層：【時空局】時局演變與未來軌跡</div>
+                    <div class="analysis-text">${resultData.time}</div>
+                </div>
 
-                <!-- 三維立體化指引建議 -->
                 <div class="advice-box">
                     <div class="advice-title">💡 破局與改運處方指南</div>
-                    
                     <div class="advice-item">
-                        <div class="advice-item-title">🧘 經緯一：【心法修持】（心理能量調頻）</div>
+                        <div class="advice-item-title">🧘 經緯一：【心法修持】</div>
                         <div class="advice-item-text">${resultData.mind}</div>
                     </div>
-                    
                     <div class="advice-item">
-                        <div class="advice-item-title">📿 經緯二：【先天解藥】（缺失五行專屬外在補運法）</div>
+                        <div class="advice-item-title">📿 經緯二：【先天解藥】（缺失五行外在補運）</div>
                         <div class="advice-item-text" style="color:#A04030;">
                             ${missingActionText}
                         </div>
@@ -1072,16 +990,13 @@
                 </div>
             </div>
             
-            <div style="text-align: center; font-size: 0.8rem; color: var(--brown-accent); margin-top: 15px; letter-spacing: 1px;">
-                * 命盤流轉，心念即流年。願望已悉，祝願您心想事成，福慧雙修 *
-            </div>
-        `;
+            <div style="text-align: center; font-size: 0.8rem; color: var(--brown-accent); margin-top: 15px;">
+                * 命盤流轉，心念即流年。願願悉知，祝願福慧雙修 *
+            </div>`;
 
         document.getElementById('ritualSection').style.display = 'none';
         const resultSectionBox = document.getElementById('resultSectionBox');
-        const resultContent = document.getElementById('resultContent');
-        
-        resultContent.innerHTML = htmlContent;
+        document.getElementById('resultContent').innerHTML = htmlContent;
         resultSectionBox.style.display = 'block';
         resultSectionBox.scrollIntoView({ behavior: 'smooth' });
     }
