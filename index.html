@@ -3,23 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>聖殿級時空塔羅 ． 命運大解盤</title>
+    <title>塔羅占卜</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght=400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #FDFBF7;
-            --cream-light: #F7F3EB;
-            --cream-dark: #EADBC8;
-            --brown-text: #4A3E3D;
-            --brown-accent: #8C786E;
+            --bg-color: #F8F6F2;
+            --cream-light: #F3ECE2;
+            --cream-dark: #DFD3C3;
+            --brown-text: #3D3434;
+            --brown-accent: #7A6961;
             --white: #FFFFFF;
-            --gold: #C5A880;
-            --sage: #A39389;
-            --red-alert: #C86B5D;
-            --pink-bg: #FAF2F2;
-            --pink-border: #E8C5C5;
-            --dark-gold: #AA8C60;
-            --purple-indigo: #5A4B6E;
+            --gold: #D4B28C;
+            --sage: #96897F;
+            --red-alert: #BC5E52;
+            --pink-bg: #FDF7F7;
+            --pink-border: #E6B6B6;
+            --dark-gold: #9E7E53;
+            --purple-indigo: #514263;
         }
 
         * {
@@ -33,7 +33,7 @@
             background-color: var(--bg-color);
             color: var(--brown-text);
             line-height: 1.8;
-            padding: 20px 10px;
+            padding: 40px 15px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -42,33 +42,33 @@
 
         .container {
             width: 100%;
-            max-width: 850px;
+            max-width: 880px;
             background: var(--white);
-            border-radius: 24px;
-            padding: 40px 30px;
-            box-shadow: 0 10px 30px rgba(140, 120, 110, 0.08);
-            border: 1px solid var(--cream-light);
+            border-radius: 28px;
+            padding: 50px 40px;
+            box-shadow: 0 12px 40px rgba(122, 105, 97, 0.06);
+            border: 1px solid rgba(223, 211, 195, 0.5);
         }
 
         header {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 45px;
             padding: 10px 0;
         }
 
         header h1 {
-            font-size: 2rem;
+            font-size: 2.4rem;
             color: var(--brown-text);
-            letter-spacing: 4px;
+            letter-spacing: 6px;
             font-weight: 700;
-            margin-bottom: 12px;
+            margin-bottom: 16px;
         }
 
         .title-divider {
-            width: 80px;
+            width: 120px;
             height: 1px;
             background: linear-gradient(90deg, transparent, var(--gold), transparent);
-            margin: 0 auto 16px auto;
+            margin: 0 auto 20px auto;
             position: relative;
         }
         .title-divider::after {
@@ -77,41 +77,40 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            font-size: 0.6rem;
+            font-size: 0.75rem;
             color: var(--gold);
             background-color: var(--white);
-            padding: 0 4px;
+            padding: 0 6px;
         }
 
         header p {
-            font-size: 0.95rem;
+            font-size: 1.1rem;
             color: var(--brown-accent);
-            letter-spacing: 1.5px;
-            line-height: 1.8;
-            max-width: 600px;
-            margin: 0 auto;
-            font-weight: 500;
+            letter-spacing: 2px;
+            font-weight: 400;
+            font-style: italic;
         }
 
         .form-section-title {
-            font-size: 0.95rem;
+            font-size: 1rem;
             font-weight: bold;
             color: var(--brown-text);
-            margin: 25px 0 10px 0;
-            padding-bottom: 5px;
-            border-bottom: 1px solid var(--cream-dark);
+            margin: 30px 0 15px 0;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--cream-light);
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
+            letter-spacing: 1px;
         }
 
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
         .form-row {
             display: flex;
-            gap: 15px;
+            gap: 20px;
         }
 
         .form-row .form-group {
@@ -120,92 +119,98 @@
 
         label {
             display: block;
-            font-size: 0.85rem;
-            margin-bottom: 8px;
-            font-weight: bold;
+            font-size: 0.88rem;
+            margin-bottom: 10px;
+            font-weight: 700;
             color: var(--brown-accent);
+            letter-spacing: 0.5px;
         }
 
-        input[type="text"], input[type="date"], select, textarea {
+        input[type="text"], select, textarea {
             width: 100%;
-            padding: 12px 16px;
+            padding: 14px 18px;
             border: 1px solid var(--cream-dark);
-            border-radius: 12px;
+            border-radius: 14px;
             background-color: var(--bg-color);
             color: var(--brown-text);
-            font-size: 0.95rem;
+            font-size: 0.98rem;
             outline: none;
             transition: all 0.3s ease;
         }
 
         input:focus, select:focus, textarea:focus {
             border-color: var(--brown-accent);
-            box-shadow: 0 0 0 3px rgba(140, 120, 110, 0.15);
+            background-color: var(--white);
+            box-shadow: 0 0 0 4px rgba(122, 105, 97, 0.12);
         }
 
         textarea {
             resize: none;
-            height: 90px;
+            height: 110px;
         }
 
         .sub-type-container {
             display: none;
-            background: var(--bg-color);
-            padding: 12px 16px;
-            border-radius: 12px;
-            border: 1px solid var(--cream-dark);
-            margin-top: 10px;
+            background: var(--pink-bg);
+            padding: 16px 20px;
+            border-radius: 14px;
+            border: 1px solid var(--pink-border);
+            margin-top: 15px;
         }
 
         .radio-group {
             display: flex;
-            gap: 20px;
+            gap: 25px;
         }
 
         .radio-label {
             display: flex;
             align-items: center;
-            gap: 6px;
-            font-size: 0.9rem;
+            gap: 8px;
+            font-size: 0.92rem;
             cursor: pointer;
             color: var(--brown-text);
-            margin-bottom: 0;
+            font-weight: 500;
         }
 
         .radio-label input[type="radio"] {
             accent-color: var(--red-alert);
+            width: 16px;
+            height: 16px;
         }
 
         .partner-info-card {
             display: none;
             background-color: var(--pink-bg);
             border: 1px solid var(--pink-border);
-            padding: 20px;
-            border-radius: 16px;
-            margin-bottom: 20px;
+            padding: 24px;
+            border-radius: 18px;
+            margin-bottom: 25px;
         }
 
         .quick-btn-group {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 8px;
+            gap: 12px;
+            margin-top: 10px;
         }
 
         .tag-btn {
             background-color: var(--cream-light);
             border: 1px solid transparent;
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 0.8rem;
+            padding: 8px 18px;
+            border-radius: 24px;
+            font-size: 0.88rem;
+            font-weight: 500;
             cursor: pointer;
             color: var(--brown-text);
-            transition: all 0.2s;
+            transition: all 0.25s ease;
         }
 
         .tag-btn.active, .tag-btn:hover {
             background-color: var(--brown-accent);
             color: var(--white);
+            box-shadow: 0 4px 10px rgba(122, 105, 97, 0.2);
         }
 
         .submit-btn {
@@ -213,48 +218,51 @@
             background-color: var(--brown-accent);
             color: var(--white);
             border: none;
-            padding: 16px;
-            border-radius: 14px;
-            font-size: 1rem;
+            padding: 18px;
+            border-radius: 16px;
+            font-size: 1.05rem;
             font-weight: bold;
             cursor: pointer;
-            letter-spacing: 2px;
-            margin-top: 15px;
+            letter-spacing: 3px;
+            margin-top: 20px;
+            transition: all 0.3s;
+        }
+        .submit-btn:hover {
+            background-color: var(--brown-text);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
         }
 
         .ritual-section {
             display: none;
             text-align: center;
-            margin-top: 35px;
-            padding: 35px 0 15px 0;
+            margin-top: 40px;
+            padding: 45px 0 25px 0;
             background: var(--cream-light);
-            border-radius: 24px;
+            border-radius: 28px;
             border: 1px dashed var(--brown-accent);
             overflow: hidden;
         }
 
         .ritual-title {
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             color: var(--brown-text);
-            margin-bottom: 5px;
+            margin-bottom: 8px;
             font-weight: bold;
-            padding: 0 20px;
         }
 
         .ritual-steps-hint {
-            font-size: 1.25rem;
+            font-size: 1.35rem;
             color: var(--red-alert);
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             font-weight: bold;
             letter-spacing: 1px;
-            padding: 0 20px;
         }
 
         .scroll-deck-wrapper {
             width: 100%;
             overflow-x: auto;
             overflow-y: hidden;
-            padding: 40px 40px 40px 40px; 
+            padding: 40px; 
             margin: 15px 0;
             scrollbar-width: none;
             -webkit-overflow-scrolling: touch;
@@ -268,25 +276,25 @@
             display: flex;
             width: max-content;
             align-items: flex-end; 
-            height: 280px; 
+            height: 290px; 
             position: relative;
             margin: 0 auto; 
-            padding-left: 60px;
-            padding-right: 60px;
+            padding-left: 80px;
+            padding-right: 80px;
         }
 
         .ritual-card {
             flex-shrink: 0;
-            width: 130px;  
-            height: 220px; 
-            background: linear-gradient(135deg, #2E2423 0%, #140D0C 100%);
+            width: 135px;  
+            height: 230px; 
+            background: linear-gradient(135deg, #2A201F 0%, #110B0A 100%);
             border: 3px solid var(--gold); 
-            border-radius: 16px;
+            border-radius: 18px;
             cursor: pointer;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.35);
             transform: rotate(var(--rot)) translateY(var(--ty));
             transform-origin: center bottom; 
-            transition: transform 0.3s cubic-bezier(0.25, 1, 0.2, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+            transition: transform 0.35s cubic-bezier(0.25, 1, 0.2, 1), box-shadow 0.35s ease, border-color 0.35s ease;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -301,14 +309,14 @@
         .ritual-card::before {
             content: "👁️‍🗨️";
             color: var(--gold);
-            font-size: 2rem; 
-            opacity: 0.75;
+            font-size: 2.2rem; 
+            opacity: 0.8;
             filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
         }
 
         .ritual-card:hover {
-            transform: rotate(var(--rot)) translateY(calc(var(--ty) - 45px)) scale(1.15);
-            box-shadow: 0 25px 50px rgba(197, 168, 128, 0.7); 
+            transform: rotate(var(--rot)) translateY(calc(var(--ty) - 50px)) scale(1.18);
+            box-shadow: 0 25px 55px rgba(212, 178, 140, 0.65); 
             border-color: var(--white);
             z-index: 9999; 
         }
@@ -320,34 +328,33 @@
 
         .shuffling-text {
             display: block;
-            margin-top: 15px;
-            font-size: 0.88rem;
+            margin-top: 20px;
+            font-size: 0.9rem;
             color: var(--brown-accent);
             font-style: italic;
-            padding: 0 20px;
         }
 
         .result-section {
             display: none;
-            margin-top: 40px;
-            padding-top: 30px;
+            margin-top: 50px;
+            padding-top: 40px;
             border-top: 2px dashed var(--cream-dark);
         }
 
         .result-title {
             text-align: center;
-            font-size: 1.5rem;
-            margin-bottom: 25px;
+            font-size: 1.65rem;
+            margin-bottom: 35px;
             color: var(--brown-text);
-            letter-spacing: 2px;
+            letter-spacing: 3px;
             font-weight: 700;
         }
 
         .array-display-container {
             display: flex;
             justify-content: space-between;
-            gap: 12px;
-            margin-bottom: 35px;
+            gap: 16px;
+            margin-bottom: 45px;
         }
 
         .array-card-item {
@@ -356,27 +363,24 @@
         }
 
         .array-card-tag {
-            font-size: 0.8rem;
+            font-size: 0.82rem;
             font-weight: bold;
             color: var(--white);
             background: var(--brown-accent);
-            padding: 4px 8px;
-            border-radius: 4px;
+            padding: 5px 10px;
+            border-radius: 6px;
             display: inline-block;
-            margin-bottom: 8px;
+            margin-bottom: 12px;
             letter-spacing: 1px;
-        }
-        .array-card-tag.conclusion-tag {
-            background: var(--red-alert);
         }
 
         .waite-tarot-card-body {
             width: 100%;
-            height: 200px;
+            height: 220px;
             background: #1A1211;
             border: 3px solid var(--gold);
-            border-radius: 12px;
-            box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+            border-radius: 14px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.18);
             overflow: hidden;
             transition: transform 0.5s ease;
         }
@@ -392,96 +396,68 @@
         }
 
         .array-card-name {
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             font-weight: bold;
-            margin-top: 6px;
+            margin-top: 10px;
             color: var(--brown-text);
         }
 
         .divination-card {
             background: var(--cream-light);
-            border-radius: 18px;
-            padding: 30px;
-            margin-bottom: 25px;
-            box-shadow: inset 0 0 20px rgba(140, 120, 110, 0.03);
-            border: 1px solid rgba(234, 219, 200, 0.6);
+            border-radius: 22px;
+            padding: 35px;
+            margin-bottom: 30px;
+            box-shadow: inset 0 0 25px rgba(122, 105, 97, 0.02);
+            border: 1px solid rgba(223, 211, 195, 0.5);
         }
 
         .card-meta {
             display: flex;
             align-items: center;
             flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 20px;
-            padding-bottom: 12px;
+            gap: 12px;
+            margin-bottom: 22px;
+            padding-bottom: 14px;
             border-bottom: 1px solid var(--cream-dark);
         }
 
-        .tarot-badge { background: var(--purple-indigo); color: var(--white); padding: 4px 14px; border-radius: 6px; font-size: 0.8rem; font-weight: bold;}
-        .direction-badge { background: var(--brown-accent); color: var(--white); padding: 4px 14px; border-radius: 6px; font-size: 0.8rem; font-weight: bold;}
+        .tarot-badge { background: var(--purple-indigo); color: var(--white); padding: 5px 16px; border-radius: 7px; font-size: 0.82rem; font-weight: bold;}
+        .direction-badge { background: var(--brown-accent); color: var(--white); padding: 5px 16px; border-radius: 7px; font-size: 0.82rem; font-weight: bold;}
         .direction-badge.rev-style { background: var(--red-alert); }
 
-        .analysis-block { margin-bottom: 30px; text-align: justify; }
-        .analysis-subtitle { font-weight: bold; color: var(--brown-text); margin-bottom: 10px; font-size: 1.05rem; display: flex; align-items: center; gap: 6px; }
-        .analysis-text { font-size: 0.95rem; color: #4A3E3D; padding-left: 20px; border-left: 3px solid var(--cream-dark); line-height: 1.8; }
-        
-        .timeline-box {
-            display: flex;
-            flex-direction: column;
-            gap: 18px;
-            margin-top: 15px;
-        }
-
-        .timeline-item {
-            background: var(--white);
-            padding: 18px;
-            border-radius: 12px;
-            border: 1px solid var(--cream-dark);
-        }
-
-        .timeline-item-title {
-            font-weight: bold;
-            color: var(--brown-text);
-            font-size: 0.95rem;
-            margin-bottom: 6px;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .timeline-item-title .pos-label {
-            color: var(--red-alert);
-            font-size: 0.85rem;
-        }
+        .analysis-block { margin-bottom: 25px; text-align: justify; }
+        .analysis-subtitle { font-weight: bold; color: var(--brown-text); margin-bottom: 12px; font-size: 1.1rem; display: flex; align-items: center; gap: 6px; }
+        .analysis-text { font-size: 0.98rem; color: #4A3E3D; padding-left: 20px; border-left: 3px solid var(--cream-dark); line-height: 1.8; }
 
         .core-conclusion-card {
-            background: linear-gradient(130deg, #FAF2F2 0%, #F5E6E6 100%); 
-            padding: 25px; 
-            border-radius: 16px;
+            background: linear-gradient(130deg, #FDF7F7 0%, #F5E6E6 100%); 
+            padding: 35px; 
+            border-radius: 22px;
             border: 1px solid var(--pink-border);
         }
 
         .suggestion-list {
-            margin-top: 15px;
+            margin-top: 20px;
             padding-left: 20px;
         }
 
         .suggestion-list li {
-            font-size: 0.95rem;
-            margin-bottom: 12px;
+            font-size: 0.98rem;
+            margin-bottom: 14px;
             color: var(--brown-text);
-            line-height: 1.7;
+            line-height: 1.8;
         }
 
         @media (max-width: 600px) {
             .form-row { flex-direction: column; gap: 0; }
-            .container { padding: 25px 20px; }
+            .container { padding: 35px 20px; }
             .array-display-container { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-            .waite-tarot-card-body { height: 150px; }
-            header h1 { font-size: 1.5rem; }
-            header p { font-size: 0.85rem; }
+            .waite-tarot-card-body { height: 160px; }
+            header h1 { font-size: 1.8rem; letter-spacing: 3px; }
+            header p { font-size: 0.95rem; }
             .ritual-card { width: 100px; height: 170px; margin-left: -50px; }
-            .ritual-card::before { font-size: 1.5rem; }
-            .scroll-deck-container { height: 220px; padding-left: 30px; padding-right: 30px;}
+            .ritual-card::before { font-size: 1.6rem; }
+            .scroll-deck-container { height: 230px; padding-left: 40px; padding-right: 40px;}
             .scroll-deck-wrapper { padding: 20px; }
         }
     </style>
@@ -490,9 +466,9 @@
 
 <div class="container">
     <header>
-        <h1>大師級十字聖殿解盤</h1>
+        <h1>说出你的愿望</h1>
         <div class="title-divider"></div>
-        <p>運用經典偉特奧義秘術，穿透時空潛意識，直擊核心困惑的終極指引。</p>
+        <p>Everything will be okay in the end.</p>
     </header>
 
     <form id="oracleForm" onsubmit="startRitual(event)">
@@ -523,7 +499,7 @@
             <input type="hidden" id="divinationType" value="事業財運">
 
             <div class="sub-type-container" id="loveSubContainer">
-                <label style="color: var(--red-alert); font-size: 0.8rem;">請選擇感情諮詢模式：</label>
+                <label style="color: var(--red-alert); font-size: 0.82rem;">請選擇感情諮詢模式：</label>
                 <div class="radio-group">
                     <label class="radio-label"><input type="radio" name="loveSubType" value="雙人合盤解讀" checked onclick="togglePartnerCard(true)"> 💞 雙人關係能量連結</label>
                     <label class="radio-label"><input type="radio" name="loveSubType" value="單身狀態解讀" onclick="togglePartnerCard(false)"> 🌹 單身狀態/個人桃花</label>
@@ -573,7 +549,6 @@
 </div>
 
 <script>
-    // 包含大阿爾克那與全套小阿爾克那的部分精選代表性牌組，確保78張完整結構可用之隨機原型
     const tarotDeck = [
         { name: "愚者", type: "大阿爾克那", keywords_up: "初生、未知的冒險、純粹與無限可能", keywords_rev: "盲目衝動、不顧後果的逃避、危險的開端", detail_up: "當前局勢正處於極其純粹的起始點。你不需要攜帶沉重的過往，這股能量允許你大膽破局，只要內心保有無畏的信任，新世界的大門正在敞開。", detail_rev: "你可能正在盲目樂觀。當前的行動缺乏宏觀的沙盤推演，一味地追求形式上的自由，反而容易讓自己直接墜入未知的盲點與現實的泥淖。", img: "https://upload.wikimedia.org/wikipedia/commons/0/0b/RWS_Tarot_00_Fool.jpg" },
         { name: "魔術師", type: "大阿爾克那", keywords_up: "極致的專注、萬事俱備、顯化潛能", keywords_rev: "資源錯配、資訊操縱、懷才不遇的幻覺", detail_up: "你手中已經掌握了解決問題的所有核心要素，無論是天賦還是外部資源。現在是全面將意識轉化為行動的黃金期，你的意志將直接塑造現實。", detail_rev: "小心包裝完美的謊言或過度承諾。這暗示身邊存在操縱局面的力量，或者你雖然空有滿腹計畫，卻卡在執行力的致命阻滯中。", img: "https://upload.wikimedia.org/wikipedia/commons/d/de/RWS_Tarot_01_Magician.jpg" },
@@ -585,12 +560,12 @@
         { name: "戰車", type: "大阿爾克那", keywords_up: "強大意志力、跨越衝突的勝利、全速推進", keywords_rev: "方向全然失控、內部嚴重內耗、盲目好勝", detail_up: "局勢中雖然存在兩股截然相反的拉扯力量，但你擁有足夠的意志力去駕馭這輛戰車。保持高密度的專注力，勝利將屬於你的強勢執行。", detail_rev: "方向已經產生嚴重的偏移，你的野心與當前的實際能力互相拉扯，容易因為一頭熱的盲目好勝，導致滿盤皆輸的崩潰。", img: "https://upload.wikimedia.org/wikipedia/commons/9/9b/RWS_Tarot_07_Chariot.jpg" },
         { name: "力量", type: "大阿爾克那", keywords_up: "以柔克剛、深層勇氣、耐心的極致馴服", keywords_rev: "內心深度自疑、情緒失控的火山、外強中乾", detail_up: "真正的強大絕非暴力壓制，而是透過愛、同理心與極致的心理韌性去包容與感化。你有能力馴服眼前的危機，這是一段高維度的精神勝利。", detail_rev: "你對自己的核心價值產生了深刻的懷疑。感到力不從心，被壓抑已久的負面情緒正面臨臨界點，隨時可能以毀滅性的方式爆發。", img: "https://upload.wikimedia.org/wikipedia/commons/f/f5/RWS_Tarot_08_Strength.jpg" },
         { name: "隱者", type: "大阿爾克那", keywords_up: "孤獨尋求真理、內省蓄積、長遠謹慎", keywords_rev: "自我孤立的怨懟、頑固偏執、拒絕外界良言", detail_up: "這是一段主動退回內心世界的重要旅程。世俗的嘈雜無法給你解答，點亮心中那盞微弱卻恆久的明燈，深入自我剖析，蓄積下一次破局的智慧。", detail_rev: "你正在把自己關進與世隔絕的偏執高塔。逃避交流並不能解決現實問題，盲目抗拒外界的理智建議，只會讓孤獨演化為自怨自哀。", img: "https://upload.wikimedia.org/wikipedia/commons/4/4d/RWS_Tarot_09_Hermit.jpg" },
-        { name: "命運之輪", type: "大阿爾克那", keywords_up: "不可逆的宇宙轉折、重大契機、業力好運", keywords_rev: "低谷時期的無奈、抗拒時代轉變、惡性循環", detail_up: "大環境的巨大齒輪已經啟動，局勢正在脫離你個人的微觀掌控，向著更高的維度全面翻轉。不可抗拒的好運與機會即將與你的努力交匯。", detail_rev: "目前正處於能量的下行軌道。越是瘋狂想要死守舊有模式，就越會被命運無情碾壓。必須學會臣服，接受這段必然的沉澱與清洗。", img: "https://upload.wikimedia.org/wikipedia/commons/3/3c/RWS_Tarot_10_Wheel_of_Fortune.jpg" },
+        { name: "命運之輪", type: "大阿爾克那", keywords_up: "不可逆的宇宙轉折、重大契機、業力好運", keywords_rev: "低谷時期的無奈、抗拒時代轉變、惡性循環", detail_up: "大環境的巨大齒輪已經啟動，局勢正在脫離你個人的微觀掌控，向著更高的維度全面翻轉。不可抗拒的好運與機會即將與你的努力交匯。", detail_rev: "目前正處於能量的下行軌道。越是瘋狂想要死守舊有模式，就越會被命運無情碾壓。接受這段必然的沉澱與清洗。", img: "https://upload.wikimedia.org/wikipedia/commons/3/3c/RWS_Tarot_10_Wheel_of_Fortune.jpg" },
         { name: "正義", type: "大阿爾克那", keywords_up: "絕對公平、客觀因果、法律條文的裁決", keywords_rev: "嚴重的失衡、不公正的偏見、推卸責任", detail_up: "這是一張強調因果不爽的牌。你過去付出了多少真實代價，現在就會收穫多對等的公正結果。涉及條約、合約或評估的事務將迎來公道。", detail_rev: "你正面臨一個極其失衡的局面。有被偏見或不公對待的跡象，或者你正試圖逃避自己行為帶來的現實代價，不願承擔必要的清算。", img: "https://upload.wikimedia.org/wikipedia/commons/e/e0/RWS_Tarot_11_Justice.jpg" },
         { name: "倒吊人", type: "大阿爾克那", keywords_up: "甘願的犧牲、高維新視角、用時間換空間", keywords_rev: "無謂的自我感動、抗拒妥協、無價值的瞎忙", detail_up: "表面上的停滯與受困，其實是宇宙給你的最高啟示。換個完全相反的角度來看世界，你會發現那些拼死掙扎的困局，其實有極其簡單的解法。", detail_rev: "你的犧牲根本毫無現實價值，只是在進行一場自我感動的拖延。不肯放下無謂的尊嚴去配合局勢改變，只會延長這段毫无意義的痛苦。", img: "https://upload.wikimedia.org/wikipedia/commons/2/2b/RWS_Tarot_12_Hanged_Man.jpg" },
         { name: "死神", type: "大阿爾克那", keywords_up: "舊結構徹底破滅、陣痛新生、宿命大剪枝", keywords_rev: "抗拒必然的告別、腐爛中的垂死掙扎、執迷不悟", detail_up: "不要恐懼這場終結，不合時宜的腐爛殘渣必須被命運連根拔起，才能為未來騰出最乾淨的土壤。這是一場靈魂層面的破舊立新。", detail_rev: "你死守著已經失去生命力的感情或事業架構不肯放手。這種垂死掙扎只會無限期延長你的痛苦，執迷不悟的代價是迎來更大的反噬。", img: "https://upload.wikimedia.org/wikipedia/commons/d/d7/RWS_Tarot_13_Death.jpg" },
         { name: "節制", type: "大阿爾克那", keywords_up: "精準的調和藝術、細水長流、內在療癒淨化", keywords_rev: "能量严重失調、溝通極度不良、缺乏深度融合", detail_up: "高超的溝通與整合正在發生。你能夠將看似完全互斥的元素融合得恰到好處，身心靈與周遭環境達成了完美的動態平衡，細水長流。", detail_rev: "內部的資源調配、情緒管理或是外部的利益溝通正處於劇烈失調狀態。缺乏深度的淨化，各自為政導致關係或項目推進極其艱難。", img: "https://upload.wikimedia.org/wikipedia/commons/f/f8/RWS_Tarot_14_Temperance.jpg" },
-        { name: "惡魔", type: "大阿爾克那", keywords_up: "物質枷鎖、沉溺慾望、非理性的不健康依賴", keywords_rev: "靈魂的覺醒、打破毒害關係、重獲精神自主", detail_up: "你被某種金錢利益、肉體慾望或是不堪的情感執念給深深套牢了。雖然潛意識感到不自由，但你目前的靈魂卻極度沉溺於這種作繭自縛中。", detail_rev: "這是一個至關重要的自由信號。你終於看清了當前體制或情感對你的深度毒害，下定決心要親手斬斷鎖鏈，重塑乾淨的精神主權。", img: "https://upload.wikimedia.org/wikipedia/commons/5/55/RWS_Tarot_15_Devil.jpg" },
+        { name: "惡魔", type: "大阿爾克那", keywords_up: "物質枷鎖、沉溺慾望、非理性的不健康依賴", keywords_rev: "靈魂的覺醒、打破毒害關係、重獲精神自主", detail_up: "你被某種金錢利益、肉體慾望或是不堪的情感執念給深深套牢了。雖然潛意識感到不自由，但你目前的靈魂卻極度沉溺於這種作繭自縛中。", detail_rev: "這是一個至關重要的自由信號。你終於看清了當前體制或情感對你的深度毒害，下定決心要親手斬斷鎖鏈，重塑乾記的精神主權。", img: "https://upload.wikimedia.org/wikipedia/commons/5/55/RWS_Tarot_15_Devil.jpg" },
         { name: "高塔", type: "大阿爾克那", keywords_up: "虛妄根基的驟然瓦解、震撼的真理、重啟之日", keywords_rev: "危機暗潮洶湧、勉強維持危牆、未完的餘震", detail_up: "那些建立在虛假防禦與謊言上的不穩固根基，正在被突如其來的命運閃電擊碎。這場崩潰極其震撼，但卻是將你從長期的虛假平靜中強行拯救出來。", detail_rev: "災難的餘震並未真正平息。你正在試圖用手去扶住一個已經開裂的危牆，這種勉強維持只會讓你在下一次崩塌時承受更沉重的打擊。", img: "https://upload.wikimedia.org/wikipedia/commons/5/53/RWS_Tarot_16_Tower.jpg" },
         { name: "星星", type: "大阿爾克那", keywords_up: "風暴後的寧靜寧謐、精神療癒、遠大明朗的願景", keywords_rev: "希望的破滅感、陷入悲觀泥潭、空中樓閣的幻想", detail_up: "最核心的療癒能量正在注入你的生命。前方的道路正在逐漸明朗，請保持純粹的信念，當前的願景是受到命運祝福的，未來可期。", detail_rev: "你對未來失去了最基本的信任，將自己困在悲觀沮喪的迷霧中。亦或是你目前的規劃完全脫離了現實基底，淪為自我欺騙的空中樓閣。", img: "https://upload.wikimedia.org/wikipedia/commons/d/db/RWS_Tarot_17_Star.jpg" },
         { name: "月亮", type: "大阿爾克那", keywords_up: "不安與焦慮的幻象、潛意識恐懼、局勢晦暗不明", keywords_rev: "迷霧漸次散去、背叛與謊言露白、克服核心恐懼", detail_up: "局勢正處於極度模糊的盲區。潛意識底層的焦慮被無限放大，此時切記千萬不要做出任何重大決策，小心提防身邊隱藏的欺瞞與陷阱。", detail_rev: "那些曾經讓你感到恐懼與看不清的秘密、背叛或核心謊言，正在逐步顯露真相。雖然過程會經歷幻滅，但你正在重新拿回局勢主導權。", img: "https://upload.wikimedia.org/wikipedia/commons/7/7f/RWS_Tarot_18_Moon.jpg" },
@@ -598,7 +573,6 @@
         { name: "審判", type: "大阿爾克那", keywords_up: "靈魂的重大覺醒、宿命召喚、因果業力的最終判定", keywords_rev: "關鍵時刻的退縮、嚴重的自我懷疑、逃避核心評估", detail_up: "命運的號角在耳邊轟鳴。這是一次對過往所有行為的總清算與靈魂覺醒。你必須做出一個將會徹底改變後半生生命軌跡的史詩級決定。", detail_rev: "你在命運的轉折點前產生了嚴重的畏難情緒與自疑。試圖通過拖延判定來逃避現實，這會讓你面臨徹底錯失生命躍遷良機的巨大危險。", img: "https://upload.wikimedia.org/wikipedia/commons/d/dd/RWS_Tarot_20_Judgement.jpg" },
         { name: "世界", type: "大阿爾克那", keywords_up: "大週期的完美圓滿、旅程終點的成功、內心極致充實", keywords_rev: "美中不足的卡頓、接近完成的阻滯、不願放手的執著", detail_up: "代表某個長達數年的人生大週期正在迎來完美的謝幕。你用汗水換來了應有的社會地位與內心圓滿，這是一個無與倫比的里程碑式成功。", detail_rev: "事情在推進到最後百分之九十九的階段時突然卡住。面臨某種美中不足的遺憾，或者你沉溺在過往的輝煌完滿中，抗拒開啟下一個新篇章。", img: "https://upload.wikimedia.org/wikipedia/commons/f/ff/RWS_Tarot_21_World.jpg" },
         
-        // 精選小阿爾克那核心牌組
         { name: "權杖一", type: "權杖牌組", keywords_up: "強烈意志爆發、全新事業起點、純粹激情", keywords_rev: "計畫胎死腹中、精力過度分散、三分鐘熱度", detail_up: "原始火能量的猛烈爆發。這是一個具有極高創造力的靈感或極佳的破局機會，不要再權衡，立刻採取強勢行動。", detail_rev: "你的熱情正在迅速乾涸。這個新計畫極可能因為前期缺乏現實基底的推演而胎死腹中，或是你的精力放錯了地方，流於瞎忙。", img: "https://upload.wikimedia.org/wikipedia/commons/1/11/Wands01.jpg" },
         { name: "聖杯一", type: "聖杯牌組", keywords_up: "情感滿溢、全新心靈連結、靈感泉湧", keywords_rev: "情感壓抑乾涸、錯失良緣、內心安全感缺失", detail_up: "一個純粹且深厚的心靈連結正在向你敞開。無論是新戀情還是極具共鳴的合作，都將深深填滿你長久以來荒蕪的精神世界。", detail_rev: "你正在對外部的善意與愛閉門謝客。內心情感能量處於嚴重的壓抑狀態，因為害怕受傷而切斷了與外界進行深度情感共鳴的可能。", img: "https://upload.wikimedia.org/wikipedia/commons/3/36/Cups01.jpg" },
         { name: "寶劍一", type: "寶劍牌組", keywords_up: "理智的驚人突破、斬斷亂麻的魄力、真理顯現", keywords_rev: "思想的極度混亂、言詞帶來的毀滅性傷害、決策失誤", detail_up: "你的思維達到了前所未有的清徹度。這是一把刺破偽裝的真理之劍，拿出你的冷酷與魄力，果斷斬斷糾纏長久的利益或情感亂麻。", detail_rev: "你的理智正在被偏激的情緒綁架。做出的決策充滿了破壞性，或者你那充滿攻擊性的言詞，正在親手摧毀你最核心的人際防線。", img: "https://upload.wikimedia.org/wikipedia/commons/1/1a/Swords01.jpg" },
@@ -641,13 +615,11 @@
         const container = document.getElementById('cardContainer');
         container.innerHTML = '';
         
-        // 模擬鋪展78張牌陣（生成隨機扇形排列效果）
         const totalVisualCards = 40; 
         for(let i=0; i<totalVisualCards; i++){
             const card = document.createElement('div');
             card.className = 'ritual-card';
             
-            // 計算弧形矩陣
             const mid = totalVisualCards / 2;
             const rot = (i - mid) * 3; 
             const ty = Math.abs(i - mid) * 1.8;
@@ -663,7 +635,6 @@
         document.getElementById('resultSectionBox').style.display = 'none';
         updateStepHint();
         
-        // 平滑滾動到牌陣中央
         setTimeout(() => {
             const wrapper = document.querySelector('.scroll-deck-wrapper');
             wrapper.scrollLeft = (container.offsetWidth - wrapper.offsetWidth) / 2;
@@ -684,14 +655,11 @@
     function drawCard(cardElement, index) {
         if (drawnCards.length >= 4) return;
         
-        // 從完整的數據庫中隨機挑選一張
         let poolCard = tarotDeck[Math.floor(Math.random() * tarotDeck.length)];
-        // 確保不重複
         while(drawnCards.some(c => c.name === poolCard.name)) {
             poolCard = tarotDeck[Math.floor(Math.random() * tarotDeck.length)];
         }
         
-        // 隨機判定正位 (true) 或逆位 (false)
         const isUpright = Math.random() > 0.35; 
         
         drawnCards.push({
@@ -723,7 +691,6 @@
             <div class="array-display-container">
         `;
         
-        // 四張牌陣的視覺呈現
         drawnCards.forEach(card => {
             html += `
                 <div class="array-card-item">
@@ -737,8 +704,6 @@
         });
         
         html += `</div>`;
-        
-        // 四張牌卡逐一詳細解析
         html += `<h3 style="font-size: 1.2rem; color: var(--brown-text); margin: 35px 0 15px 0; font-weight: 700; text-align: center;">✦ 四大時空象限深度剝離 ✦</h3>`;
         
         drawnCards.forEach(card => {
@@ -763,7 +728,6 @@
             `;
         });
         
-        // 綜合大解析
         html += `
             <div class="divination-card core-conclusion-card" style="margin-top: 40px;">
                 <div class="analysis-subtitle" style="color: var(--purple-indigo); font-size: 1.2rem;">⚜️ 聖殿占卜師全局綜合判詞</div>
@@ -775,7 +739,6 @@
             </div>
         `;
         
-        // 大師提出的10點強勢命運建議
         html += `
             <div class="divination-card" style="border-left: 4px solid var(--red-alert); background: var(--bg-color);">
                 <div class="analysis-subtitle" style="color: var(--red-alert); font-size: 1.15rem;">📌 針對此局大師給予的十點破局天機</div>
@@ -784,7 +747,7 @@
                     <li><strong>第二點：親手斬斷無謂的能量寄生。</strong> 在這個局裡，有些不健康的依賴或人際糾纏正在瘋狂吸食你的創造力，立刻劃清界線。</li>
                     <li><strong>第三點：破除盲目追求形式自由的幼稚幻覺。</strong> 真正的自由是建立在強大的現實紀律與物質基底之上的，否則只是逃避現實的藉口。</li>
                     <li><strong>第四點：啟動內在隱藏的智慧，而非向外盲目求援。</strong> 最核心的答案你其實早就心知肚明，停止在外界的喧囂中尋找合理化藉口。</li>
-                    <li><strong>第五點：高度警惕身邊那些包裝精美的承諾。</strong> 如果有人給予你過度完美的預期，背後極大機率隱藏著高密度的資訊操縱與剝削。</li>
+                    <li><strong>第五點：高度警惕身邊那些包裝精美的承諾。</strong> If有人給予你過度完美的預期，背後極大機率隱藏著高密度的資訊操縱與剝削。</li>
                     <li><strong>第六點：把犧牲用在具有現實價值的刀口上。</strong> 停止無謂的自我感動，那些無法為你帶來實質心靈成長或現實回報的忍耐，全部是瞎忙。</li>
                     <li><strong>第七點：容許不合時宜的舊結構徹底走向寂滅。</strong> 已經死去的感情、項目或思維模式就讓它被埋葬，騰出最乾淨的土壤才能迎接新生。</li>
                     <li><strong>第八點：重新拿回你的理智主權。</strong> 把偏激、委屈與憤怒等情緒全面剝離，用冷酷、客觀的視角重新進行利益與代價的盤點。</li>
@@ -797,11 +760,9 @@
         document.getElementById('resultContent').innerHTML = html;
         document.getElementById('resultSectionBox').style.display = 'block';
         
-        // 重置按鈕
         document.getElementById('initBtn').disabled = false;
         document.getElementById('initBtn').innerText = "凝神 ． 重新校準占卜";
         
-        // 平滑滾動到報告起點
         setTimeout(() => {
             document.getElementById('resultSectionBox').scrollIntoView({ behavior: 'smooth' });
         }, 200);
