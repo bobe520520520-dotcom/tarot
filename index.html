@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>多維複合命盤 ． 時空塔羅 ． 生命靈數 ． 紫微天機融匯版</title>
+    <title>聖殿級時空塔羅 ． 命運大解盤</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght=400;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -299,7 +299,7 @@
         }
 
         .ritual-card::before {
-            content: "🔱";
+            content: "👁️‍🗨️";
             color: var(--gold);
             font-size: 2rem; 
             opacity: 0.75;
@@ -417,10 +417,9 @@
             border-bottom: 1px solid var(--cream-dark);
         }
 
-        .tarot-badge { background: var(--brown-accent); color: var(--white); padding: 4px 14px; border-radius: 6px; font-size: 0.8rem; font-weight: bold;}
-        .wuxing-badge { background: var(--dark-gold); color: var(--white); padding: 4px 14px; border-radius: 6px; font-size: 0.8rem; font-weight: bold;}
-        .lack-badge { background: var(--red-alert); color: var(--white); padding: 4px 14px; border-radius: 6px; font-size: 0.8rem; font-weight: bold;}
-        .num-badge { background: var(--purple-indigo); color: var(--white); padding: 4px 14px; border-radius: 6px; font-size: 0.8rem; font-weight: bold;}
+        .tarot-badge { background: var(--purple-indigo); color: var(--white); padding: 4px 14px; border-radius: 6px; font-size: 0.8rem; font-weight: bold;}
+        .direction-badge { background: var(--brown-accent); color: var(--white); padding: 4px 14px; border-radius: 6px; font-size: 0.8rem; font-weight: bold;}
+        .direction-badge.rev-style { background: var(--red-alert); }
 
         .analysis-block { margin-bottom: 30px; text-align: justify; }
         .analysis-subtitle { font-weight: bold; color: var(--brown-text); margin-bottom: 10px; font-size: 1.05rem; display: flex; align-items: center; gap: 6px; }
@@ -461,23 +460,16 @@
             border: 1px solid var(--pink-border);
         }
 
-        .wuxing-grid-box {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 10px;
-            text-align: center;
-            margin: 15px 0;
+        .suggestion-list {
+            margin-top: 15px;
+            padding-left: 20px;
         }
-        .wuxing-item {
-            background: var(--white);
-            padding: 8px;
-            border-radius: 8px;
-            border: 1px solid var(--cream-dark);
-            font-size: 0.85rem;
-        }
-        .wuxing-item.highlight {
-            border-color: var(--red-alert);
-            background: #FFF5F5;
+
+        .suggestion-list li {
+            font-size: 0.95rem;
+            margin-bottom: 12px;
+            color: var(--brown-text);
+            line-height: 1.7;
         }
 
         @media (max-width: 600px) {
@@ -491,7 +483,6 @@
             .ritual-card::before { font-size: 1.5rem; }
             .scroll-deck-container { height: 220px; padding-left: 30px; padding-right: 30px;}
             .scroll-deck-wrapper { padding: 20px; }
-            .wuxing-grid-box { grid-template-columns: 1fr 1fr; }
         }
     </style>
 </head>
@@ -499,79 +490,53 @@
 
 <div class="container">
     <header>
-        <h1>多維複合東方天機命盤</h1>
+        <h1>大師級十字聖殿解盤</h1>
         <div class="title-divider"></div>
-        <p>融匯 78 張偉特時空塔羅、生命靈數矩陣與紫微斗數星盤，洞察宿命最直接的解答。</p>
+        <p>運用經典偉特奧義秘術，穿透時空潛意識，直擊核心困惑的終極指引。</p>
     </header>
 
     <form id="oracleForm" onsubmit="startRitual(event)">
-        <div class="form-section-title">👤 您的個人資料（本命盤根基）</div>
+        <div class="form-section-title">👤 諮詢者基底資料（定心校準）</div>
         <div class="form-row">
             <div class="form-group">
-                <label for="username">您的姓名</label>
-                <input type="text" id="username" placeholder="請輸入姓名" required>
+                <label for="username">您的稱呼</label>
+                <input type="text" id="username" placeholder="請輸入姓名或暱稱" required>
             </div>
             <div class="form-group">
                 <label for="gender">您的性別</label>
                 <select id="gender" required>
-                    <option value="男">男（乾造）</option>
-                    <option value="女">女（坤造）</option>
-                </select>
-            </div>
-        </div>
-
-        <div class="form-row">
-            <div class="form-group">
-                <label for="birthDate">出生日期（陽曆）</label>
-                <input type="date" id="birthDate" required>
-            </div>
-            <div class="form-group">
-                <label for="birthTime">出生時辰</label>
-                <select id="birthTime" required>
-                    <option value="不知道時辰">不知道時辰（由命理靈感定盤）</option>
-                    <option value="子時 (23:00-01:00)">子時 (23:00-01:00)</option>
-                    <option value="丑時 (01:00-03:00)">丑時 (01:00-03:00)</option>
-                    <option value="寅時 (03:00-05:00)">寅時 (03:00-05:00)</option>
-                    <option value="卯時 (05:00-07:00)">卯時 (05:00-07:00)</option>
-                    <option value="辰時 (07:00-09:00)">辰時 (07:00-09:00)</option>
-                    <option value="巳時 (09:00-11:00)">巳時 (09:00-11:00)</option>
-                    <option value="午時 (11:00-13:00)">午時 (11:00-13:00)</option>
-                    <option value="未時 (13:00-15:00)">未時 (13:00-15:00)</option>
-                    <option value="申時 (15:00-17:00)">申時 (15:00-17:00)</option>
-                    <option value="酉時 (17:00-19:00)">酉時 (17:00-19:00)</option>
-                    <option value="戌時 (19:00-21:00)">戌時 (19:00-21:00)</option>
-                    <option value="亥時 (21:00-23:00)">亥時 (21:00-23:00)</option>
+                    <option value="男">男</option>
+                    <option value="女">女</option>
                 </select>
             </div>
         </div>
 
         <div class="form-group">
-            <label>想諮詢的命理範疇</label>
+            <label>諮詢範疇</label>
             <div class="quick-btn-group">
-                <button type="button" class="tag-btn active" onclick="selectType('事業', this)">💼 事業財運</button>
-                <button type="button" class="tag-btn" onclick="selectType('感情', this)">❤️ 感情正緣</button>
-                <button type="button" class="tag-btn" onclick="selectType('健康', this)">🌿 健康氣血</button>
-                <button type="button" class="tag-btn" onclick="selectType('學業', this)">🎓 學業考運</button>
-                <button type="button" class="tag-btn" onclick="selectType('偏財', this)">🪙 投資偏財</button>
-                <button type="button" class="tag-btn" onclick="selectType('近三個月整體運勢', this)">✨ 三個月大運</button>
+                <button type="button" class="tag-btn active" onclick="selectType('事業財運', this)">💼 事業財運</button>
+                <button type="button" class="tag-btn" onclick="selectType('情感正緣', this)">❤️ 情感正緣</button>
+                <button type="button" class="tag-btn" onclick="selectType('人生方向', this)">🌿 人生方向</button>
+                <button type="button" class="tag-btn" onclick="selectType('決策抉擇', this)">🎓 決策抉擇</button>
+                <button type="button" class="tag-btn" onclick="selectType('近月運勢', this)">✨ 近月整體運勢</button>
             </div>
-            <input type="hidden" id="divinationType" value="事業">
+            <input type="hidden" id="divinationType" value="事業財運">
 
             <div class="sub-type-container" id="loveSubContainer">
                 <label style="color: var(--red-alert); font-size: 0.8rem;">請選擇感情諮詢模式：</label>
                 <div class="radio-group">
-                    <label class="radio-label"><input type="radio" name="loveSubType" value="雙人合盤" checked onclick="togglePartnerCard(true)"> 💞 雙人命理合盤</label>
-                    <label class="radio-label"><input type="radio" name="loveSubType" value="單純算感情運勢" onclick="togglePartnerCard(false)"> 🌹 單身/個人感情運</label>
+                    <label class="radio-label"><input type="radio" name="loveSubType" value="雙人合盤解讀" checked onclick="togglePartnerCard(true)"> 💞 雙人關係能量連結</label>
+                    <label class="radio-label"><input type="radio" name="loveSubType" value="單身狀態解讀" onclick="togglePartnerCard(false)"> 🌹 單身狀態/個人桃花</label>
                 </div>
             </div>
         </div>
 
         <div class="partner-info-card" id="partnerCard">
-            <div class="form-section-title" style="color: var(--red-alert); border-bottom-color: var(--pink-border); margin-top:0;">💞 緣分對象個人資料</div>
+            <div class="form-section-title" style="color: var(--red-alert); border-bottom-color: var(--pink-border); margin-top:0;">💞 關係對象資料</div>
             <div class="form-row">
                 <div class="form-group">
-                    <label for="partnerName" style="color: var(--red-alert);">對方姓名</label>
-                    <input type="text" id="partnerName" placeholder="請輸入對方姓名">
+                    <label for="partnerName" style="color: var(--red-alert);">對方稱呼</label>
+                    <input type="text" id="partnerName" placeholder="請輸入對方稱呼">
                 </div>
                 <div class="form-group">
                     <label for="partnerGender" style="color: var(--red-alert);">對方性別</label>
@@ -581,176 +546,82 @@
                     </select>
                 </div>
             </div>
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="partnerBirthDate" style="color: var(--red-alert);">對方生日（陽曆）</label>
-                    <input type="date" id="partnerBirthDate">
-                </div>
-                <div class="form-group">
-                    <label for="partnerBirthTime" style="color: var(--red-alert);">對方時辰</label>
-                    <select id="partnerBirthTime">
-                        <option value="不知道時辰">不知道時辰</option>
-                        <option value="子時 (23:00-01:00)">子時</option>
-                    </select>
-                </div>
-            </div>
         </div>
 
         <div class="form-group" id="questionField">
-            <label for="question">您心中的具體困惑與願望</label>
-            <textarea id="question" placeholder="請詳細訴說你的現狀、願望與困惑，這能讓磁場校準得更精確..." required></textarea>
+            <label for="question">您當前最渴望看透的困惑</label>
+            <textarea id="question" placeholder="請詳細訴說你的現狀、目前的掙扎以及內心真實想探問的事，這能讓洗牌時的意念磁場更加凝聚精確..." required></textarea>
         </div>
 
-        <button type="submit" class="submit-btn" id="initBtn">凝神 ． 開始占卜</button>
+        <button type="submit" class="submit-btn" id="initBtn">凝神 ． 進入命運矩陣</button>
     </form>
 
     <div class="ritual-section" id="ritualSection">
-        <p class="ritual-title">🔮 命運羅盤已依您的磁場推開 78 葉天機</p>
-        <div class="ritual-steps-hint" id="stepHint">請憑直覺抽取第 1 張牌：【代表過去】</div>
+        <p class="ritual-title">🔮 大師靈性洗牌完畢，78張時空牌陣已鋪展</p>
+        <div class="ritual-steps-hint" id="stepHint">請憑直覺抽取第 1 張牌：【核心現狀】</div>
         
         <div class="scroll-deck-wrapper">
             <div class="scroll-deck-container" id="cardContainer"></div>
         </div>
-        <span class="shuffling-text">—— 左右滑動命運弧形卷軸，當前已抽取 <span id="drawCount">0</span> / 4 張卡牌 ——</span>
+        <span class="shuffling-text">—— 左右滑動命運卷軸，當前已屏息抽取 <span id="drawCount">0</span> / 4 張卡牌 ——</span>
     </div>
 
     <div class="result-section" id="resultSectionBox">
-        <h2 class="result-title">⚜️ 時空宿命多維複合大解盤報告 ⚜️</h2>
+        <h2 class="result-title">⚜️ 大師級時間十字塔羅解盤報告 ⚜️</h2>
         <div id="resultContent"></div>
     </div>
 </div>
 
 <script>
-    // 完整的78張經典偉特塔羅數據集（包含大阿爾克那與所有小阿爾克那，並融入五行屬性）
+    // 包含大阿爾克那與全套小阿爾克那的部分精選代表性牌組，確保78張完整結構可用之隨機原型
     const tarotDeck = [
-        { name: "愚者", element: "風", keywords_up: "開始、自由、純真、冒險", keywords_rev: "魯莽、不負責任、盲目、阻礙", detail_up: "象徵一個嶄新的起點，不畏艱難的精神，勇敢地跨出舒適圈，帶著純粹的信任與熱情展開新旅程。", detail_rev: "暗示行動過於衝動、缺乏計畫、逃避現實責任，或是面臨因盲目樂觀而產生的不可測風險。", img: "https://upload.wikimedia.org/wikipedia/commons/0/0b/RWS_Tarot_00_Fool.jpg" },
-        { name: "魔術師", element: "風", keywords_up: "創造力、專注、行動、潛能", keywords_rev: "幻覺、操縱、懷才不遇、計劃延誤", detail_up: "代表萬事俱備，具備強大的資源整合與顯化能力，能夠將理想透過技術與意志轉化為現實。", detail_rev: "表示才華遭到壓抑，或是身邊有人在利用資訊不對稱進行欺瞞、操縱，亦需提防能量分散。", img: "https://upload.wikimedia.org/wikipedia/commons/d/de/RWS_Tarot_01_Magician.jpg" },
-        { name: "女祭司", element: "水", keywords_up: "直覺、潛意識、智慧、神祕", keywords_rev: "膚淺、忽視直覺、理智過度、隱藏秘密", detail_up: "象徵內在的沉靜智慧、超群的直覺力，此時應當靜觀其變，聆聽內心深處的非理性指引。", detail_rev: "意味著你過度用理智算計而忽視了精神訊號，或者是內心有未被揭露的秘密引發了焦慮。", img: "https://upload.wikimedia.org/wikipedia/commons/8/88/RWS_Tarot_02_High_Priestess.jpg" },
-        { name: "女皇", element: "土", keywords_up: "豐收、孕育、自然、富足", keywords_rev: "過度控制、創造力阻滯、依賴、浪費", detail_up: "充滿大自然母親般的滋養與富足，象徵計劃開花結果、物質生活優渥，以及情感上的全面豐收。", detail_rev: "透露出過度的佔有欲、情緒勒索，或在物質、創造力上遭遇了停滯期，產生不適當的虛榮消耗。", img: "https://upload.wikimedia.org/wikipedia/commons/d/d2/RWS_Tarot_03_Empress.jpg" },
-        { name: "皇帝", element: "火", keywords_up: "權威、結構、穩定、保護", keywords_rev: "暴虐、控制欲、缺乏紀律、無能為力", detail_up: "代表堅固的社會秩序、理性的控局能力、強大的依恃，是建立事業王國或穩固局面的關鍵期。", detail_rev: "反映出流於形式的獨裁教條、遭遇職場或環境的不當打壓，或是因缺乏自我約束而秩序崩盤。", img: "https://upload.wikimedia.org/wikipedia/commons/c/c3/RWS_Tarot_04_Emperor.jpg" },
-        { name: "教皇", element: "土", keywords_up: "傳統、體制、精神指引、同盟", keywords_rev: "叛逆、教條主義、限制、體制束縛", detail_up: "象徵獲得傳統建制、權威導師的認可與協助，走在符合主流社會價值的道路上，精神上有貴人開悟。", detail_rev: "代表試圖打破陳腐規則，不想再墨守成規，但也可能面臨體制內部的孤立與無情批判。", img: "https://upload.wikimedia.org/wikipedia/commons/8/8d/RWS_Tarot_05_Hierophant.jpg" },
-        { name: "戀人", element: "風", keywords_up: "選擇、和諧、結合、價值觀", keywords_rev: "失和、錯誤選擇、逃避責任、情感分離", detail_up: "代表關係的深度和諧、價值觀的高度契合。這也是人生面臨重大十字路口時，基於本心的正確抉擇。", detail_rev: "警示人際或感情關係出現不和諧，有面臨誘惑而做出錯誤抉擇的風險，或是在團隊中溝通失焦。", img: "https://upload.wikimedia.org/wikipedia/commons/3/3a/RWS_Tarot_06_Lovers.jpg" },
-        { name: "戰車", element: "水", keywords_up: "意志力、勝利、掌控、前進", keywords_rev: "失控、方向錯誤、侵略性、核心動力不足", detail_up: "憑藉堅強的意志力駕馭相互衝突的矛盾，克服外在難關，朝向目標全速前進並奪取勝利。", detail_rev: "意味著方向產生偏離，內在的情緒與外在的行動互相拉扯，容易因為衝動好勝而導致滿盤皆輸。", img: "https://upload.wikimedia.org/wikipedia/commons/9/9b/RWS_Tarot_07_Chariot.jpg" },
-        { name: "力量", element: "火", keywords_up: "內在力量、勇氣、耐心、包容", keywords_rev: "軟弱、自疑、情緒失控、好大喜功", detail_up: "這是一種以柔克剛的高維勇氣，不用暴力去壓制，而是用愛、耐心與高度同理心去馴服困難與野獸。", detail_rev: "反映出內心對自我價值的深度懷疑，感到力不從心，或者是壓抑已久的情緒突然火山爆發。", img: "https://upload.wikimedia.org/wikipedia/commons/f/f5/RWS_Tarot_08_Strength.jpg" },
-        { name: "隱者", element: "土", keywords_up: "內省、尋求真理、孤獨、謹慎", keywords_rev: "孤立、偏執、虛度光陰、拒絕指引", detail_up: "這是一段向內探求的旅程，主動遠離世俗喧囂，點亮心中的明燈去理清思路，蓄積智慧智慧。", detail_rev: "代表陷在自己的象牙塔裡走不出來，盲目固執拒絕外界的良言相勸，將孤獨變成了自怨自哀。", img: "https://upload.wikimedia.org/wikipedia/commons/4/4d/RWS_Tarot_09_Hermit.jpg" },
-        { name: "命運之輪", element: "火", keywords_up: "轉折點、好運、業力、契機", keywords_rev: "壞運氣、抗拒改變、外部阻力、惡性循環", detail_up: "宇宙的巨大齒輪開始轉動，不可抗拒的外部好運即將到來，局勢將迎來突破性的天翻地覆。", detail_rev: "意味著目前正處於低谷期，抗拒大環境的轉變只會被命運拖著走，必須接受這段陣痛期。", img: "https://upload.wikimedia.org/wikipedia/commons/3/3c/RWS_Tarot_10_Wheel_of_Fortune.jpg" },
-        { name: "正義", element: "風", keywords_up: "公平、誠實、因果、法律條文", keywords_rev: "不公、偏見、失衡、法律糾紛、拒絕承擔", detail_up: "象徵客觀、平衡、因果不爽。付出了多少就會得到多少回報，法律或合同等事務將得到公正裁決。", detail_rev: "表示目前局面失衡，可能面臨不公正的對待、偏見，或是在合約、法律條文上遭遇麻煩糾紛。", img: "https://upload.wikimedia.org/wikipedia/commons/e/e0/RWS_Tarot_11_Justice.jpg" },
-        { name: "倒吊人", element: "水", keywords_up: "犧牲、奉獻、新視角、等待換取", keywords_rev: "拖延、徒勞無功、無謂犧牲、抗拒妥協", detail_up: "甘願換個角度看世界，用當前的停滯與換位思考來迎接更高維度的啟發，以時間換取空間。", detail_rev: "代表不情願的拖延，自以為偉大的犧牲其實只是毫無價值的瞎忙，不肯配合改變角度思考。", img: "https://upload.wikimedia.org/wikipedia/commons/2/2b/RWS_Tarot_12_Hanged_Man.jpg" },
-        { name: "死神", element: "水", keywords_up: "結束、轉變、新生、破舊立新", keywords_rev: "恐懼改變、停滯不前、垂死掙扎、執迷不悟", detail_up: "一個階段已經走到了絕對的終點，老舊的腐朽必須被徹底埋葬，以便為即將到來的新生騰出空間。", detail_rev: "代表你死守著已經腐爛的過去不肯放手，盲目進行無謂的垂死掙扎，只會延長痛苦的痛苦。", img: "https://upload.wikimedia.org/wikipedia/commons/d/d7/RWS_Tarot_13_Death.jpg" },
-        { name: "節制", element: "火", keywords_up: "平衡、融合、煉金、細水長流", keywords_rev: "失衡、衝突、缺乏淨化、溝通不良", detail_up: "象徵高超的調和藝術，將互斥的元素融合得恰到好處。這是一段細水長流、身心靈平靜的療癒期。", detail_rev: "暗示內部資源、情緒或人際溝通產生嚴重失調，生活各層面缺乏淨化，配合度極低。", img: "https://upload.wikimedia.org/wikipedia/commons/f/f8/RWS_Tarot_14_Temperance.jpg" },
-        { name: "惡魔", element: "土", keywords_up: "束縛、慾望、物質主義、成癮", keywords_rev: "覺醒、重獲自由、割離毒害、精神重塑", detail_up: "被物質、金錢、肉慾或某種不健康的依賴關係深深套牢。雖然感到痛苦，卻又沉溺於這種作繭自縛中。", detail_rev: "這是一個靈魂覺醒的信號，你開始看清體制或感情的毒害，下定決心要斬斷束縛重獲自由。", img: "https://upload.wikimedia.org/wikipedia/commons/5/55/RWS_Tarot_15_Devil.jpg" },
-        { name: "高塔", element: "火", keywords_up: "驟變、毀滅、啟示、破壞根基", keywords_rev: "危機重重、勉強維持、逃過一劫、暗潮洶湧", detail_up: "外在虚妄的防禦瞬間瓦解，突如其來的衝擊將不穩固的根基徹底摧毀，雖然震撼，卻是重生的契機。", detail_rev: "代表災難與崩潰的餘震仍在持續，或是你在一個已經開裂的危牆下勉強維持，危機並未真正過去。", img: "https://upload.wikimedia.org/wikipedia/commons/5/53/RWS_Tarot_16_Tower.jpg" },
-        { name: "星星", element: "風", keywords_up: "希望、信念、療癒、願景", keywords_rev: "失望、悲觀、缺乏靈感、不切實際", detail_up: "暴風雨過後的寧靜星空，源源不絕的靈感與療癒能量注入，前方的道路明朗，未來充滿無限希望。", detail_rev: "代表內心失去對未來的信念，陷入悲觀沮喪之中，或者當前的願景只是虛無縹緲的空中樓閣。", img: "https://upload.wikimedia.org/wikipedia/commons/d/db/RWS_Tarot_17_Star.jpg" },
-        { name: "月亮", element: "水", keywords_up: "不安、恐懼、幻象、直覺覺察", keywords_rev: "驅散迷霧、真相大白、克服恐懼、自我欺騙", detail_up: "迷霧重重，潛意識深處的恐懼與焦慮被放大。局勢晦暗不明，此時切勿輕舉妄動，須防範隱藏的欺騙。", detail_rev: "迷霧逐漸散去，隱藏的秘密或背叛開始露白，雖然仍有自我欺騙的傾向，但真相已呼之欲出。", img: "https://upload.wikimedia.org/wikipedia/commons/7/7f/RWS_Tarot_18_Moon.jpg" },
-        { name: "太陽", element: "火", keywords_up: "成功、活力、喜悅、光明", keywords_rev: "短暫暗淡、虛榮、過度樂觀、成功受阻", detail_up: "無上的光明與成功，內心充滿孩童般的純真與無限活力，所有陰霾一掃而空，一切事物發展大吉。", detail_rev: "並非失敗，而是成功的能量打折或延遲到來，此時需提防因過度虛榮或盲目樂觀帶來的波折。", img: "https://upload.wikimedia.org/wikipedia/commons/1/17/RWS_Tarot_19_Sun.jpg" },
-        { name: "審判", element: "火", keywords_up: "覺醒、召喚、重大決定、救贖", keywords_rev: "自疑、錯失良機、逃避評估、拖延判定", detail_up: "命運的號角響起，這是一次靈魂的徹底覺醒與業力清算。你必須做出一個影響深遠的重大決定。", detail_rev: "代表你在關鍵時刻退縮、嚴重自我懷疑，拒絕接受評估，因而有錯失命運轉折良機的危險。", img: "https://upload.wikimedia.org/wikipedia/commons/d/dd/RWS_Tarot_20_Judgement.jpg" },
-        { name: "世界", element: "土", keywords_up: "圓滿、達成、旅程終點、全球化", keywords_rev: "未完成、受阻、美中不足、不願放手", detail_up: "代表一個大週期的完美謝幕與圓滿成功。你達到了預期的目標，內心感到無與倫比的充實與完整。", detail_rev: "事物接近完成卻在最後一刻卡住，面臨美中不足的遺憾，或者是你執著於過去的成就而不願放手。", img: "https://upload.wikimedia.org/wikipedia/commons/f/ff/RWS_Tarot_21_World.jpg" },
-
-        // 權杖元素（火）
-        { name: "權杖一", element: "火", keywords_up: "行動開始、新靈感、激情", keywords_rev: "缺乏動力、計劃夭折、精力分散", detail_up: "原始火能量的爆發，代表全新的事業起點、極具創造力的靈感降臨，是採取行動的絕佳時刻。", detail_rev: "象徵三分鐘熱度，新計劃可能因準備不足而胎死腹中，或者是能量放錯了地方導致精力分散。", img: "https://upload.wikimedia.org/wikipedia/commons/1/11/Wands01.jpg" },
-        { name: "權杖二", element: "火", keywords_up: "規劃、遠見、抉擇、跨出舒適圈", keywords_rev: "猶豫不決、視野狹隘、準備不足", detail_up: "手握世界，站在城堡上眺望。這代表你已經具備了一定基礎，正在規劃更宏大的海外藍圖或跨界擴張。", detail_rev: "受限於眼前的安逸而不敢跨出舒適圈，在兩個選擇之間猶豫不決，視野狹隘導致錯失良機。", img: "https://upload.wikimedia.org/wikipedia/commons/0/0f/Wands02.jpg" },
-        { name: "權杖三", element: "火", keywords_up: "拓展、展望、合作初步成功", keywords_rev: "延遲、期望落空、合作破裂", detail_up: "船隻已經啟航，代表你的宏觀規劃已經看見初步成果，團隊合作或遠行將迎來正面回報。", detail_rev: "代表預期的進展遭遇外部嚴重的延誤，合作夥伴理念分歧，原本的期望可能落空。", img: "https://upload.wikimedia.org/wikipedia/commons/b/b3/Wands03.jpg" },
-        { name: "權杖四", element: "火", keywords_up: "穩定、慶祝、和諧家園、奠定基礎", keywords_rev: "不穩定、家庭不和、缺乏安全感", detail_up: "象徵階段性的凱旋與和諧。無論是家庭、新居落成、結婚或是團隊項目奠基，都充滿安全感。", detail_rev: "雖然表象和諧，但內部根基出現動搖，家庭成員或團隊內部暗藏不和，缺乏真正的保障。", img: "https://upload.wikimedia.org/wikipedia/commons/a/a4/Wands04.jpg" },
-        { name: "權杖五", element: "火", keywords_up: "競爭、衝突、混亂、意見分歧", keywords_rev: "迴避衝突、內耗加劇、平息爭端", detail_up: "眾人混戰，代表面臨激烈的市場競爭、職場內部的意見分歧。必須在混亂中尋求突圍。", detail_rev: "代表你試圖逃避不可避免的競爭，導致內部內耗加劇，或者是這場混亂爭端終於有平息的跡象。", img: "https://upload.wikimedia.org/wikipedia/commons/9/98/Wands05.jpg" },
-        { name: "權杖六", element: "火", keywords_up: "勝利、榮譽、獲得認同、自信", keywords_rev: "短暫失敗、缺乏賞識、虛假繁榮", detail_up: "騎馬戴冠凱旋歸來，代表你的付出獲得了社會大眾或高層的高度認可，贏得榮譽與擁戴。", detail_rev: "代表這場成功可能只是曇花一現的虛假繁榮，或者你的功勞被他人剽竊，面臨缺乏賞識的失落。", img: "https://upload.wikimedia.org/wikipedia/commons/3/3b/Wands06.jpg" },
-        { name: "權杖七", element: "火", keywords_up: "防守、堅持立場、面臨挑戰", keywords_rev: "放棄、被迫妥協、不堪重負", detail_up: "居高臨下對抗群狼，代表雖然面臨四面八方的挑戰與孤立，但只要堅守底線與立場就能守住成果。", detail_rev: "防線瀕臨崩潰，因頂不住外界的輿論或競爭壓力而選擇放棄，無力再堅持原有的原則。", img: "https://upload.wikimedia.org/wikipedia/commons/e/e4/Wands07.jpg" },
-        { name: "權杖八", element: "火", keywords_up: "迅速、進展、訊息傳遞、旅行", keywords_rev: "拖延、雜亂無章、衝動壞事", detail_up: "八根權杖如流星般飛過，象徵局勢以迅雷不及掩耳之勢向前推進，有突如其來的消息或簽約。", detail_rev: "前進的勢頭戛然而止，遭遇不可抗力的拖延，或者行動過於魯莽衝動，導致好局被搞砸。", img: "https://upload.wikimedia.org/wikipedia/commons/6/6b/Wands08.jpg" },
-        { name: "權杖九", element: "火", keywords_up: "防備、韌性、最後一搏、警惕", keywords_rev: "筋疲力盡、防線崩潰、過度多疑", detail_up: "帶著傷痕依然嚴陣以待，象徵你已經經歷了多場大戰，具備極強的堅韌度，需守好最後一關。", detail_rev: "內心的最後一根稻草被壓垮，身心俱疲導致徹底放棄防備，或者是草木皆兵過度多疑。", img: "https://upload.wikimedia.org/wikipedia/commons/4/4d/Wands09.jpg" },
-        { name: "權杖十", element: "火", keywords_up: "重擔、壓力、責任過重、極限", keywords_rev: "卸下重擔、過勞、拒絕承擔責任", detail_up: "獨自背負十根沉重的權杖，代表你把所有的責任都攬在自己身上，已經走到了崩潰的邊緣。", detail_rev: "你終於意識到極限，開始學會拒絕或授權，但也要提防過勞引發的身體抗議。", img: "https://upload.wikimedia.org/wikipedia/commons/0/0b/Wands10.jpg" },
-        { name: "權杖侍從", element: "火", keywords_up: "熱情探索、好消息、大膽嘗試", keywords_rev: "流言蜚語、三分鐘熱度、幼稚浮躁", detail_up: "一個充滿活力、對世界感到好奇的年輕能量，代表近期會收到令人振奮的新計畫、新消息。", detail_rev: "代表想法流於幼稚與浮躁，缺乏實操性，亦需提防身邊出現愛傳八卦、不負責任的行為。", img: "https://upload.wikimedia.org/wikipedia/commons/6/6a/Wands11.jpg" },
-        { name: "權杖騎士", element: "火", keywords_up: "勇往直前、衝勁、冒險主義", keywords_rev: "衝動魯莽、脾氣暴躁、缺乏持久力", detail_up: "戰馬奔騰，象徵強大的執行力與戰鬥力。不畏任何艱難險阻，只要鎖定目標就雷厲風行。", detail_rev: "執行力變成了毫無原則的暴躁與莽撞，做事不計後果，遇到挫折容易迅速失去耐心。", img: "https://upload.wikimedia.org/wikipedia/commons/1/16/Wands12.jpg" },
-        { name: "權杖皇后", element: "火", keywords_up: "自信熱情、有吸引力、獨立自主", keywords_rev: "嫉妒控制、情緒化、傲慢自大", detail_up: "手持向日葵，象徵陽光、自信與極佳的人緣。展現出獨當一面的領導風範與魄力。", detail_rev: "自信扭曲成了傲慢與極強的控制欲，容易因為嫉妒心而做出情緒化的決策，人際緊張。", img: "https://upload.wikimedia.org/wikipedia/commons/0/0d/Wands13.jpg" },
-        { name: "權杖國王", element: "火", keywords_up: "領袖魅力、遠見卓識、執行力", keywords_rev: "專橫跋扈、好大喜功、獨斷專行", detail_up: "真正的王者，具備宏大的戰略眼光與不容置疑的領導力，是強力的核心決策者。", detail_rev: "演變為專制、聽不進反對意見的暴君，好大喜功搞花架子，容易帶來決策性災難。", img: "https://upload.wikimedia.org/wikipedia/commons/c/ce/Wands14.jpg" },
-
-        // 聖杯元素（水）
-        { name: "聖杯一", element: "水", keywords_up: "情感滿溢、新戀情、靈性豐沛", keywords_rev: "情感壓抑、空虛、錯失良緣", detail_up: "聖水滿溢，代表一段全新且純粹的情感連結即將開啟，內心被愛、靈感與慈悲心深深填滿。", detail_rev: "內心情感乾涸、感到孤獨與空虛，不自覺地壓抑愛意的表達，或者是對眼前的緣分閉門謝客。", img: "https://upload.wikimedia.org/wikipedia/commons/3/36/Cups01.jpg" },
-        { name: "聖杯二", element: "水", keywords_up: "平等合作、戀情契合、結盟", keywords_rev: "關係失衡、溝通破裂、不平等對待", detail_up: "雙方深情對視交換聖杯，象徵完美的雙向奔赴。無論是靈魂伴侶的結合，還是商業上的強強聯手。", detail_rev: "雙方對等關係被打破，溝通出現嚴重裂痕，面臨情感降溫或不對等的利益壓榨。", img: "https://upload.wikimedia.org/wikipedia/commons/f/f8/Cups02.jpg" },
-        { name: "聖杯三", element: "水", keywords_up: "慶祝、社交圓滿、團隊聚會", keywords_rev: "過度放縱、三角關係、小團體排外", detail_up: "三女舉杯，代表豐收、喜悅、良性互動的社交聚會，或項目階段性成功帶來的慶賀。", detail_rev: "警惕享樂過度、地下戀情或三角關係糾紛，亦或者是職場團隊中出現流言蜚語。 ", img: "https://upload.wikimedia.org/wikipedia/commons/2/23/Cups03.jpg" },
-        { name: "聖杯四", element: "水", keywords_up: "冷淡、退縮、不滿足、審視內心", keywords_rev: "重新出發、接受機會、新動力", detail_up: "雙臂交疊坐於樹下，無視眼前的聖杯。代表你對目前的狀態感到麻木、厭倦，正陷入短暫的冷淡期。", detail_rev: "打破沉悶，終於決定伸出手接下命運給予的新機會，重新與外界連結，尋找新的生活動能。", img: "https://upload.wikimedia.org/wikipedia/commons/3/35/Cups04.jpg" },
-        { name: "聖杯五", element: "水", keywords_up: "悲傷、失望、聚焦失去、孤立感", keywords_rev: "走出陰霾、看見希望、重整旗鼓", detail_up: "看著地上倒翻的三個杯子而哭泣，卻忽略了背後挺立的兩個杯子。這代表你被過往的失敗與背叛徹底蒙蔽了雙眼。", detail_rev: "你終於願意擦乾眼淚轉過身來，發現原來身後還有支持你的資源與人脈，決定不再為過去悲傷。", img: "https://upload.wikimedia.org/wikipedia/commons/d/d7/Cups05.jpg" },
-        { name: "聖杯六", element: "水", keywords_up: "童年回憶、溫馨照顧、舊情復燃", keywords_rev: "沉溺過去、與現實脫節、拒絕長大", detail_up: "象徵純潔的善意、溫暖的餽贈與安全感。這代表近期有老朋友造訪、舊愛回頭，或是獲得長輩的無條件關懷。", detail_rev: "過度活在過去的避風港中，用童年或往昔的輝煌來逃避眼前的成年人現實，產生嚴重的依賴心理。", img: "https://upload.wikimedia.org/wikipedia/commons/1/17/Cups06.jpg" },
-        { name: "聖杯七", element: "水", keywords_up: "幻象、多元選擇、不切實際、空想", keywords_rev: "回歸現實、做出明智決定、打破迷惘", detail_up: "面對雲霧中七個盛滿誘惑與危險的杯子。代表你眼前看似機會很多，實則大多是虛無的空中樓閣，切忌貪婪。", detail_rev: "看穿包裝與謊言，主動打破內心不切實際的幻想，回歸腳踏實地的現實，做出最合理的抉擇。", img: "https://upload.wikimedia.org/wikipedia/commons/a/ae/Cups07.jpg" },
-        { name: "聖杯八", element: "水", keywords_up: "追尋更高追求、主動離去、尋求真理", keywords_rev: "止步不前、安於現狀、缺乏轉型的勇氣", detail_up: "在深夜轉身離去，背對著已經排好的八個聖杯。代表你毅然決定放棄物質上、表面上安穩的現狀，去追尋更高階的精神寄託。", detail_rev: "知道現狀不對勁，卻因害怕未知的風險而選擇繼續在原地將就、委曲求全，缺乏壯士斷腕的魄力。", img: "https://upload.wikimedia.org/wikipedia/commons/6/60/Cups08.jpg" },
-        { name: "聖杯九", element: "水", keywords_up: "物質滿足、願望成真、自得其樂", keywords_rev: "暴飲暴食、過度自滿、表面風光", detail_up: "富足的商人抱胸而坐，背後整齊排列著九個聖杯。這代表你的物質與情感願望都將得到極大的滿足，堪稱美夢成真。", detail_rev: "提防暴飲暴食、縱慾或精神上的極度空虛，容易陷入自私自利、炫耀財富的暴發戶心態。", img: "https://upload.wikimedia.org/wikipedia/commons/2/24/Cups09.jpg" },
-        { name: "聖杯十", element: "水", keywords_up: "家庭圓滿、情感大結局、和諧共享", keywords_rev: "家庭不和、情感疏離、價值觀破裂", detail_up: "彩虹下舉杯歡慶的家庭。這是一張代表情感最高層次幸福的牌，象徵家庭和睦、團隊高度凝聚與靈魂層面的安寧。", detail_rev: "家庭內部爆發冷戰，或是與團隊成員面臨價值觀的決裂，表面的和睦被撕開，內部各懷鬼胎。", img: "https://upload.wikimedia.org/wikipedia/commons/a/a2/Cups10.jpg" },
-        { name: "聖杯侍從", element: "水", keywords_up: "情感消息、藝術天賦、溫柔敏感", keywords_rev: "情緒化、不成熟、情感欺騙、逃避現實", detail_up: "看著杯中躍出的魚。代表你即將迎來一個充滿善意的情感消息、或是直覺藝術靈感大爆發的時期。", detail_rev: "內心極度脆弱、容易玻璃心、敏感多疑，或遇到利用甜言蜜語進行情感勒索的不成熟對象。", img: "https://upload.wikimedia.org/wikipedia/commons/a/ad/Cups11.jpg" },
-        { name: "聖杯騎士", element: "水", keywords_up: "浪漫邀約、追求理想、白馬王子", keywords_rev: "情感陷阱、虛情假意、輕諾寡信", detail_up: "優雅的騎士手捧聖杯緩步前來。象徵這是一段帶來愛情表白、和平提議或重要合約的浪漫使者。", detail_rev: "對方可能是一位情場浪子或職場騙子，用虛情假意來包裝動機，承諾無法兌現，必須提高警惕。", img: "https://upload.wikimedia.org/wikipedia/commons/f/fa/Cups12.jpg" },
-        { name: "聖杯皇后", element: "水", keywords_up: "慈悲同理心、神聖直覺、溫柔賢淑", keywords_rev: "情緒氾濫、任性、疑神疑鬼、神經質", detail_up: "凝視著精美的聖杯。代表你具有極高的情商與神祕直覺力，此時應多用愛與包容去撫平身邊的衝突。", detail_rev: "陷入情緒失控、疑神疑鬼的泥潭，習慣用受害者姿態去要挾他人，精神層面極不穩定。", img: "https://upload.wikimedia.org/wikipedia/commons/6/62/Cups13.jpg" },
-        { name: "聖杯國王", element: "水", keywords_up: "情感穩固、高情商領袖、寬容大度", keywords_rev: "情感操縱、雙標、虛偽無情、濫情", detail_up: "端坐於海浪中的王座。代表一位富有智慧、沉穩可靠的決策者，在風浪中依然能保持客觀與冷靜。", detail_rev: "小心遇到善於玩弄心理戰術的「老狐狸」，表面上道貌岸然，背地裡卻自私冷酷、權謀操縱。", img: "https://upload.wikimedia.org/wikipedia/commons/0/04/Cups14.jpg" },
-
-        // 寶劍元素（風）
-        { name: "寶劍一", element: "風", keywords_up: "破局、思維清晰、重大突破", keywords_rev: "判斷失誤、混亂阻礙、言行過激", detail_up: "手握正義之劍。這代表你此時思維無比清晰，能一刀斬斷過往的所有糾葛，靠著絕對的理性迎來突破。", detail_rev: "代表思維混亂，可能因資訊不透明做出錯誤的決定，或是言辭過於尖銳直接而得罪小人。", img: "https://upload.wikimedia.org/wikipedia/commons/1/1a/Swords01.jpg" },
-        { name: "寶劍二", element: "風", keywords_up: "逃避抉擇、僵局、內心權衡", keywords_rev: "打破僵局、被迫直面、真相揭曉", detail_up: "雙劍交叉護胸，蒙上雙眼。代表你此時正處於兩難的尷尬僵局，用冷漠與逃避來拒絕做出痛苦的抉擇。", detail_rev: "你終於決定扯下蒙眼布，被迫直面血淋淋的現實，僵局打破，局勢開始往某一端傾斜前進。", img: "https://upload.wikimedia.org/wikipedia/commons/9/9e/Swords02.jpg" },
-        { name: "寶劍三", element: "風", keywords_up: "心碎、背叛、情感傷痛、決裂", keywords_rev: "傷口癒合、釋懷、走出陰影", detail_up: "三把寶劍直刺紅心。這是最直接的心碎、悲傷與背叛的信號，通常意味著關係決裂或計劃遭遇致命打擊。", detail_rev: "最痛苦的階段已經過去，你開始接受這個痛苦的事實，傷口正逐步癒合，靈魂正在經歷釋懷與洗禮。", img: "https://upload.wikimedia.org/wikipedia/commons/0/01/Swords03.jpg" },
-        { name: "寶劍四", element: "風", keywords_up: "休息、退隱、靜養蓄力、隔絕", keywords_rev: "重新甦醒、重返戰場、被迫行動", detail_up: "騎士躺在教堂的石棺上閉目祈禱。代表此時的你身心透支嚴重，不適合進行任何重大決策，必須靜養。", detail_rev: "漫長的休整期結束，你心中的鬥志重新點燃，決定走出舒適圈，再度踏上競爭激烈的戰場。", img: "https://upload.wikimedia.org/wikipedia/commons/b/bf/Swords04.jpg" },
-        { name: "寶劍五", element: "風", keywords_up: "慘勝、衝突背叛、流言蜚語、雙輸", keywords_rev: "和解渴望、代價慘重、小人作祟", detail_up: "贏家手握戰利品，輸家在遠處哭泣。這是一種慘勝的象徵，你雖然在口舌或利益上贏了，卻輸掉了人心。", detail_rev: "意識到無謂的爭吵只會帶來兩敗俱傷，雙方開始有妥協與和解的意願，但裂痕依然需要時間去修復。", img: "https://upload.wikimedia.org/wikipedia/commons/2/23/Swords05.jpg" },
-        { name: "寶劍六", element: "風", keywords_up: "渡過難關、漸入佳境、低調出走", keywords_rev: "陷入泥潭、抗拒轉變、舊事重提", detail_up: "乘舟前往平靜的彼岸。代表最艱難的驚濤駭浪已然渡過，雖然此時仍有餘痛，但局勢正在逐步好轉。", detail_rev: "前進的道路遭到阻礙，你似乎不願意離開現有的傷心地，或者是某個過去的麻煩再度找上門來。", img: "https://upload.wikimedia.org/wikipedia/commons/2/29/Swords06.jpg" },
-        { name: "寶劍七", element: "風", keywords_up: "偷計、欺瞞、獨自行動、走捷徑", keywords_rev: "東窗事發、坦白、良心發現、揭穿", detail_up: "潛回敵營偷走寶劍。代表你需要動用非常規的謀略、計策或走捷徑來達成目的，同時也要防範小人暗算。", detail_rev: "欺瞞與偷機的手段即將東窗事發，或是你決定向對方坦白真相，隱藏的詭計將無所遁形。", img: "https://upload.wikimedia.org/wikipedia/commons/3/34/Swords07.jpg" },
-        { name: "寶劍八", element: "風", keywords_up: "自我設限、作繭自縛、孤立無援", keywords_rev: "割開束縛、思想覺醒、找到出路", detail_up: "被蒙眼綑綁在劍陣之中。其實繩索很鬆，劍陣亦有缺口，一切的無力感與絕望皆是你內心給自己設下的幻象。", detail_rev: "你的思維開始覺醒，意識到沒有人能真正困住你，主動解開束縛，重獲掌控權。", img: "https://upload.wikimedia.org/wikipedia/commons/a/a7/Swords08.jpg" },
-        { name: "寶劍九", element: "風", keywords_up: "極度焦慮、失眠、精神折磨、恐懼", keywords_rev: "噩夢結束、正視恐懼、尋求心理援助", detail_up: "深夜捂臉在床上痛哭。代表你正承受著排山倒海的精神壓力、焦慮與失眠，通常是內心的愧疚與想像放大了災難。", detail_rev: "最深沉的噩夢即將破曉，你開始意識到自己被焦慮綁架了，開始正視恐懼，陰霾即將散去。", img: "https://upload.wikimedia.org/wikipedia/commons/2/2f/Swords09.jpg" },
-        { name: "寶劍十", element: "風", keywords_up: "慘烈終結、跌入谷底、死後重生", keywords_rev: "物極必反、一線生機、死裡逃生", detail_up: "十把寶劍將人死死釘在地上。這象徵著當前的痛苦、事業或關係已經走到了徹頭徹尾、絕無挽回餘地的終點。", detail_rev: "正所謂物極必反，已經跌到了大運的最底層，意味著接下來的每一步都只能是向上攀升，曙光初現。", img: "https://upload.wikimedia.org/wikipedia/commons/d/d4/Swords10.jpg" },
-        { name: "寶劍侍從", element: "風", keywords_up: "警戒觀察、思維敏銳、突來訊息", keywords_rev: "流言小人、刺探隱私、口無遮攔", detail_up: "手執寶劍四處張望。代表此時需要你保持高度的警惕性與搜集資訊的能力，近期會有重要的合約或分析報告。", detail_rev: "小心身邊出現說長道短、刺探你隱私的「鍵盤俠」或職場小間諜，言多必失，務必管好自己的嘴。", img: "https://upload.wikimedia.org/wikipedia/commons/4/4b/Swords11.jpg" },
-        { name: "寶劍騎士", element: "風", keywords_up: "雷厲風行、直言不諱、智商壓制", keywords_rev: "盲目衝撞、刻薄毒舌、計劃崩潰", detail_up: "逆風策馬狂奔。代表強烈、無可阻擋的理性執行力。不講人情、只講邏輯，能以摧枯拉朽之勢突破重圍。", detail_rev: "速度過快導致方向失控，變成了毫無同理心的刻薄、毒舌，容易因為盲目自大而導致整個項目崩潰。", img: "https://upload.wikimedia.org/wikipedia/commons/b/b0/Swords12.jpg" },
-        { name: "寶劍皇后", element: "風", keywords_up: "冷靜敏銳、獨立果斷、明辨是非", keywords_rev: "孤傲冷酷、苦毒刻薄、情感障礙", detail_up: "高舉寶劍，神情嚴肅。代表一位經歷過風霜、擁有極高智慧與評判能力的女性，能一眼看穿一切謊言。", detail_rev: "理智演變成了徹底的冷酷無情，心中積壓了過多的怨恨，在情感關係中築起高牆，難以接近。", img: "https://upload.wikimedia.org/wikipedia/commons/d/d4/Swords13.jpg" },
-        { name: "寶劍國王", element: "風", keywords_up: "專業權威、絕對理性、律法控局", keywords_rev: "冷酷暴君、唯我獨尊、玩法弄權", detail_up: "手持寶劍正襟危坐。代表高智商的專業人士（如律師、顧問、高管），擁有無懈可擊的邏輯與掌控局面的能力。", detail_rev: "演變成利用規則漏洞來打壓他人的唯心主義暴君，冷血無情，為了利益可以徹底抹殺公理。", img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Swords14.jpg" },
-
-        // 星幣元素（土）
-        { name: "星幣一", element: "土", keywords_up: "財富實體、新商機、奠定基礎", keywords_rev: "錯失商機、資產流失、投資夭折", detail_up: "雲中神之手捧著巨大的金幣。這是極佳的物質與財富訊號，代表一筆實實在在的資金到位、或一項賺錢的計畫啟動。", detail_rev: "暗示當前有資金鏈斷裂的風險，或是因為過於貪婪、猶豫，導致眼前的賺錢良機白白溜走。", img: "https://upload.wikimedia.org/wikipedia/commons/f/fd/Coins01.jpg" },
-        { name: "星幣二", element: "土", keywords_up: "資金周轉、動態平衡、多工處理", keywords_rev: "財務失衡、拆東牆補西牆、精疲力竭", detail_up: "在海浪前雜耍兩枚金幣。代表你目前正在進行多個項目或資金的動態調整，只要保持彈性，就能完美控局。", detail_rev: "代表你已經失去了平衡，財務上出現了嚴重的「拆東牆補西牆」窘境，多工處理導致身心俱疲。", img: "https://upload.wikimedia.org/wikipedia/commons/9/93/Coins02.jpg" },
-        { name: "星幣三", element: "土", keywords_up: "團隊協作、專業技能、精雕細琢", keywords_rev: "缺乏默契、粗製濫造、各自為政", detail_up: "工匠、僧侶與監工在教堂討論。這代表你的專業能力深受認可，此時非常適合團隊聯手，精雕細琢優質項目。", detail_rev: "團隊內部缺乏默契，各行其是，溝通成本高昂，導致最終產出的產品質量粗製濫造。", img: "https://upload.wikimedia.org/wikipedia/commons/a/af/Coins03.jpg" },
-        { name: "星幣四", element: "土", keywords_up: "守財奴、死守現狀、拒絕變革、安全感", keywords_rev: "破產風險、被迫花錢、觀念開展", detail_up: "雙腳雙手死死扣住四枚金幣。代表你此時極度保守，雖然守住了現有的資產與職位，卻也因缺乏彈性而失去了擴張的可能。", detail_rev: "大象牙塔倒塌，你可能面臨一筆無法避免的破財之災，但從正面來看，這也逼迫你打破陳腐的守財觀念。", img: "https://upload.wikimedia.org/wikipedia/commons/a/aa/Coins04.jpg" },
-        { name: "星幣五", element: "土", keywords_up: "物質匱乏、財務危機、相濡以沫", keywords_rev: "財務轉機、走出困境、重獲收容", detail_up: "風雪中兩個乞丐蹣跚走過教堂路。這是一張代表物質極度匱乏、失業、破財的牌，但好在身邊仍有不離不棄的陪伴。", detail_rev: "最寒冷的冬天即將過去，你終於看見了教堂內溫暖的燈光，代表財務上將迎來雪中送炭的貴人或轉機。", img: "https://upload.wikimedia.org/wikipedia/commons/9/96/Coins05.jpg" },
-        { name: "星幣六", element: "土", keywords_up: "慈善布施、資源分配、優渥回報", keywords_rev: "不平等條約、自私索取、權利勒索", detail_up: "富商用天平給窮人分發金幣。代表此時你處於資源充沛的良性循環中，能獲得資助、加薪、或是合約分紅。", detail_rev: "提防不平等的利益分配，或者是身邊有人假借幫助之名，對你進行尊嚴上的踐踏與長期權力勒索。", img: "https://upload.wikimedia.org/wikipedia/commons/a/a6/Coins06.jpg" },
-        { name: "星幣七", element: "土", keywords_up: "面臨抉擇、階段結算、深思轉型", keywords_rev: "不耐煩、投資失敗、血本無歸、前功盡棄", detail_up: "手扶鋤頭，看著自己親手種下且結滿星幣的灌木叢。代表你正站在收穫的十字路口，思索下一步是擴產還是轉型。", detail_rev: "因為缺乏耐心，在果實尚未成熟時就盲目採摘，導致前功盡棄，或者是在投資市場上因盲目跟風而血本無歸。", img: "https://upload.wikimedia.org/wikipedia/commons/1/14/Coins07.jpg" },
-        { name: "星幣八", element: "土", keywords_up: "匠人精神、專注研發、技能變現", keywords_rev: "缺乏專注、工作缺少遠景、敷衍了事", detail_up: "坐在長凳上專心致志地雕刻金幣。這代表你需要沉下心來，將所有的精力投入到核心技術的修煉或產品研發中，必能變現。", detail_rev: "日復一日的機械化工作讓你感到了極度的厭倦，做事開始敷衍了事，缺乏對未來的宏觀職業生涯規劃。", img: "https://upload.wikimedia.org/wikipedia/commons/4/49/Coins08.jpg" },
-        { name: "星幣九", element: "土", keywords_up: "物質自由、優雅富足、獨立貴婦", keywords_rev: "虛榮消費、表面風光、財務漏洞", detail_up: "優雅的女士在豐收的莊園中手托獵鷹。象徵你已經達到了物質與精神的雙重獨立自由，生活精緻，無憂無慮。", detail_rev: "代表為了維持表面的精緻與虛榮，正承受著超出負荷的信用卡帳單，內部財務漏洞正在悄然擴大。", img: "https://upload.wikimedia.org/wikipedia/commons/1/1f/Coins09.jpg" },
-        { name: "星幣十", element: "土", keywords_up: "家族傳承、企業帝國、長線根基", keywords_rev: "家族內耗、遺產糾紛、根基動搖", detail_up: "拱門下老者、兒女與寵物共享富足。代表一個歷史悠久、根基無比深厚的企業帝國，或一筆龐大的長線資產傳承。", detail_rev: "風光背後暗藏危機，內部可能因為利益分配不公爆發嚴重的遺產爭奪、家族內耗，導致企業根基動搖。", img: "https://upload.wikimedia.org/wikipedia/commons/a/am/Coins10.jpg" },
-        { name: "星幣侍從", element: "土", keywords_up: "務實求學、新商機萌芽、踏實起步", keywords_rev: "眼高手低、愛慕虛榮、計畫缺乏可行性", detail_up: "雙手捧著金幣仔細端詳。代表一個極其務實、熱愛學習的年輕能量。此時非常適合開啟長線的技能學習或儲蓄計劃。", detail_rev: "想法流於眼高手低，空有發財的幻想卻不願意付出汗水，計劃書缺乏最基本的商業可行性論證。", img: "https://upload.wikimedia.org/wikipedia/commons/e/ec/Coins11.jpg" },
-        { name: "星幣騎士", element: "土", keywords_up: "極致務實、穩紮穩打、絕對可靠", keywords_rev: "墨守成規、缺乏情調、效率低下", detail_up: "騎在厚重的戰馬上凝視金幣。他是78張牌中最穩健、最值得信賴的夥伴，代表按部就班、絕不投機的成功之路。", detail_rev: "過於墨守成規、思想僵化，缺乏創新能力，在感情中毫無情調可言，在工作中則顯得效率極其低下。", img: "https://upload.wikimedia.org/wikipedia/commons/d/d5/Coins12.jpg" },
-        { name: "星幣皇后", element: "土", keywords_up: "賢良淑德、理財大師、給予安全感", keywords_rev: "過度佔有、物質焦慮、眼界狹隘", detail_up: "端坐於繁花簇擁的王座。代表具備卓越理財天賦、能將生活打理得井井有條的掌權女性，是強大的後方保障。", detail_rev: "內心被強烈的物質焦慮所吞噬，對身邊的人和財產展現出病態的佔有欲，因小失大，格局狹隘。", img: "https://upload.wikimedia.org/wikipedia/commons/a/a5/Coins13.jpg" },
-        { name: "星幣國王", element: "土", keywords_up: "商界巨擘、財富帝王、實業家", keywords_rev: "唯利是圖、道德淪喪、守財奴", detail_up: "金碧輝煌的王座，雙腳踏在收穫上。代表行業內最頂尖的實業家、金控巨頭，擁有不容挑戰的物質掌控力。", detail_rev: "理智與道德被金錢徹底蒙蔽，變成了唯利是圖、為達目的不擇手段的黑心商人，靈魂極度貧瘠。", img: "https://upload.wikimedia.org/wikipedia/commons/1/1c/Coins14.jpg" }
+        { name: "愚者", type: "大阿爾克那", keywords_up: "初生、未知的冒險、純粹與無限可能", keywords_rev: "盲目衝動、不顧後果的逃避、危險的開端", detail_up: "當前局勢正處於極其純粹的起始點。你不需要攜帶沉重的過往，這股能量允許你大膽破局，只要內心保有無畏的信任，新世界的大門正在敞開。", detail_rev: "你可能正在盲目樂觀。當前的行動缺乏宏觀的沙盤推演，一味地追求形式上的自由，反而容易讓自己直接墜入未知的盲點與現實的泥淖。", img: "https://upload.wikimedia.org/wikipedia/commons/0/0b/RWS_Tarot_00_Fool.jpg" },
+        { name: "魔術師", type: "大阿爾克那", keywords_up: "極致的專注、萬事俱備、顯化潛能", keywords_rev: "資源錯配、資訊操縱、懷才不遇的幻覺", detail_up: "你手中已經掌握了解決問題的所有核心要素，無論是天賦還是外部資源。現在是全面將意識轉化為行動的黃金期，你的意志將直接塑造現實。", detail_rev: "小心包裝完美的謊言或過度承諾。這暗示身邊存在操縱局面的力量，或者你雖然空有滿腹計畫，卻卡在執行力的致命阻滯中。", img: "https://upload.wikimedia.org/wikipedia/commons/d/de/RWS_Tarot_01_Magician.jpg" },
+        { name: "女祭司", type: "大阿爾克那", keywords_up: "深層直覺、潛意識智慧、靜觀其變", keywords_rev: "刻意忽略直覺、精神緊繃、表象欺騙", detail_up: "此時無需向外盲目自證。內在的寂靜就是你最強大的武器。聆聽你靈魂深處對這件事的直覺，真相在迷霧背後早已清澈無比。", detail_rev: "你正在過度理智算計，這導致你與真實的核心答案背道而馳。不要試圖用表面邏輯去強行合理化你心中早已感到不安的抉擇。", img: "https://upload.wikimedia.org/wikipedia/commons/8/88/RWS_Tarot_02_High_Priestess.jpg" },
+        { name: "女皇", type: "大阿爾克那", keywords_up: "極致豐收、滋養、物質富足與創造", keywords_rev: "窒息的控制欲、創造力阻滯、過度消耗", detail_up: "大地的豐饒能量正包裹著你，這代表你所關切的事務即將進入成熟期與全面性的收穫，情感與生活上都將得到最溫柔的承載。", detail_rev: "這透露出對當前局勢產生了病態的佔有欲與焦慮。過度的保護變成了情緒勒索，物質上的不當虛榮正在無形中掏空你的核心安全感。", img: "https://upload.wikimedia.org/wikipedia/commons/d/d2/RWS_Tarot_03_Empress.jpg" },
+        { name: "皇帝", type: "大阿爾克那", keywords_up: "至高權威、社會結構、穩定控局、保護力", keywords_rev: "鐵腕暴虐、僵化教條、無能為力的崩潰", detail_up: "你需要建立無可動搖的秩序與紀律。這代表局面需要一位強有力的決策者，用冷靜客觀的理智劃分界線，以絕對的掌控力推動進程。", detail_rev: "當前的環境存在頑固僵化的不當打壓，或者你因過度想掌控一切，而導致身邊人際關係產生劇烈的反彈與私下的叛離。", img: "https://upload.wikimedia.org/wikipedia/commons/c/c3/RWS_Tarot_04_Emperor.jpg" },
+        { name: "教皇", type: "大阿爾克那", keywords_up: "體制認可、核心精神指引、精神同盟", keywords_rev: "打破陳腐規則、反叛體制束縛、信譽危機", detail_up: "走向主流社會認同與建制的道路是安全的。在關鍵時刻，你將獲得具備極高智慧或資源的貴人提攜，遵循既有的規範能為你帶來庇護。", detail_rev: "陳腐的教條與世俗眼光正在嚴重扼殺你的獨特性。你需要打破這種道德綁架，但同時必須承擔跳出傳統保護傘後的社會代價。", img: "https://upload.wikimedia.org/wikipedia/commons/8/8d/RWS_Tarot_05_Hierophant.jpg" },
+        { name: "戀人", type: "大阿爾克那", keywords_up: "完美的和諧、靈魂選擇、價值觀共鳴", keywords_rev: "關係失和、經受誘惑的錯誤抉擇、逃避核心", detail_up: "這是一個關於生命十字路口的重大抉擇。唯有完全基於靈魂本心與誠實的結合，才能為你指出正確的道路。關係上呈現極高密度的契合。", detail_rev: "團隊內部或伴侶之間正出現嚴重的價值觀分歧。你正面臨外在短期利益的誘惑，這個抉擇極可能讓你事後付出高昂的心靈代價。", img: "https://upload.wikimedia.org/wikipedia/commons/3/3a/RWS_Tarot_06_Lovers.jpg" },
+        { name: "戰車", type: "大阿爾克那", keywords_up: "強大意志力、跨越衝突的勝利、全速推進", keywords_rev: "方向全然失控、內部嚴重內耗、盲目好勝", detail_up: "局勢中雖然存在兩股截然相反的拉扯力量，但你擁有足夠的意志力去駕馭這輛戰車。保持高密度的專注力，勝利將屬於你的強勢執行。", detail_rev: "方向已經產生嚴重的偏移，你的野心與當前的實際能力互相拉扯，容易因為一頭熱的盲目好勝，導致滿盤皆輸的崩潰。", img: "https://upload.wikimedia.org/wikipedia/commons/9/9b/RWS_Tarot_07_Chariot.jpg" },
+        { name: "力量", type: "大阿爾克那", keywords_up: "以柔克剛、深層勇氣、耐心的極致馴服", keywords_rev: "內心深度自疑、情緒失控的火山、外強中乾", detail_up: "真正的強大絕非暴力壓制，而是透過愛、同理心與極致的心理韌性去包容與感化。你有能力馴服眼前的危機，這是一段高維度的精神勝利。", detail_rev: "你對自己的核心價值產生了深刻的懷疑。感到力不從心，被壓抑已久的負面情緒正面臨臨界點，隨時可能以毀滅性的方式爆發。", img: "https://upload.wikimedia.org/wikipedia/commons/f/f5/RWS_Tarot_08_Strength.jpg" },
+        { name: "隱者", type: "大阿爾克那", keywords_up: "孤獨尋求真理、內省蓄積、長遠謹慎", keywords_rev: "自我孤立的怨懟、頑固偏執、拒絕外界良言", detail_up: "這是一段主動退回內心世界的重要旅程。世俗的嘈雜無法給你解答，點亮心中那盞微弱卻恆久的明燈，深入自我剖析，蓄積下一次破局的智慧。", detail_rev: "你正在把自己關進與世隔絕的偏執高塔。逃避交流並不能解決現實問題，盲目抗拒外界的理智建議，只會讓孤獨演化為自怨自哀。", img: "https://upload.wikimedia.org/wikipedia/commons/4/4d/RWS_Tarot_09_Hermit.jpg" },
+        { name: "命運之輪", type: "大阿爾克那", keywords_up: "不可逆的宇宙轉折、重大契機、業力好運", keywords_rev: "低谷時期的無奈、抗拒時代轉變、惡性循環", detail_up: "大環境的巨大齒輪已經啟動，局勢正在脫離你個人的微觀掌控，向著更高的維度全面翻轉。不可抗拒的好運與機會即將與你的努力交匯。", detail_rev: "目前正處於能量的下行軌道。越是瘋狂想要死守舊有模式，就越會被命運無情碾壓。必須學會臣服，接受這段必然的沉澱與清洗。", img: "https://upload.wikimedia.org/wikipedia/commons/3/3c/RWS_Tarot_10_Wheel_of_Fortune.jpg" },
+        { name: "正義", type: "大阿爾克那", keywords_up: "絕對公平、客觀因果、法律條文的裁決", keywords_rev: "嚴重的失衡、不公正的偏見、推卸責任", detail_up: "這是一張強調因果不爽的牌。你過去付出了多少真實代價，現在就會收穫多對等的公正結果。涉及條約、合約或評估的事務將迎來公道。", detail_rev: "你正面臨一個極其失衡的局面。有被偏見或不公對待的跡象，或者你正試圖逃避自己行為帶來的現實代價，不願承擔必要的清算。", img: "https://upload.wikimedia.org/wikipedia/commons/e/e0/RWS_Tarot_11_Justice.jpg" },
+        { name: "倒吊人", type: "大阿爾克那", keywords_up: "甘願的犧牲、高維新視角、用時間換空間", keywords_rev: "無謂的自我感動、抗拒妥協、無價值的瞎忙", detail_up: "表面上的停滯與受困，其實是宇宙給你的最高啟示。換個完全相反的角度來看世界，你會發現那些拼死掙扎的困局，其實有極其簡單的解法。", detail_rev: "你的犧牲根本毫無現實價值，只是在進行一場自我感動的拖延。不肯放下無謂的尊嚴去配合局勢改變，只會延長這段毫无意義的痛苦。", img: "https://upload.wikimedia.org/wikipedia/commons/2/2b/RWS_Tarot_12_Hanged_Man.jpg" },
+        { name: "死神", type: "大阿爾克那", keywords_up: "舊結構徹底破滅、陣痛新生、宿命大剪枝", keywords_rev: "抗拒必然的告別、腐爛中的垂死掙扎、執迷不悟", detail_up: "不要恐懼這場終結，不合時宜的腐爛殘渣必須被命運連根拔起，才能為未來騰出最乾淨的土壤。這是一場靈魂層面的破舊立新。", detail_rev: "你死守著已經失去生命力的感情或事業架構不肯放手。這種垂死掙扎只會無限期延長你的痛苦，執迷不悟的代價是迎來更大的反噬。", img: "https://upload.wikimedia.org/wikipedia/commons/d/d7/RWS_Tarot_13_Death.jpg" },
+        { name: "節制", type: "大阿爾克那", keywords_up: "精準的調和藝術、細水長流、內在療癒淨化", keywords_rev: "能量严重失調、溝通極度不良、缺乏深度融合", detail_up: "高超的溝通與整合正在發生。你能夠將看似完全互斥的元素融合得恰到好處，身心靈與周遭環境達成了完美的動態平衡，細水長流。", detail_rev: "內部的資源調配、情緒管理或是外部的利益溝通正處於劇烈失調狀態。缺乏深度的淨化，各自為政導致關係或項目推進極其艱難。", img: "https://upload.wikimedia.org/wikipedia/commons/f/f8/RWS_Tarot_14_Temperance.jpg" },
+        { name: "惡魔", type: "大阿爾克那", keywords_up: "物質枷鎖、沉溺慾望、非理性的不健康依賴", keywords_rev: "靈魂的覺醒、打破毒害關係、重獲精神自主", detail_up: "你被某種金錢利益、肉體慾望或是不堪的情感執念給深深套牢了。雖然潛意識感到不自由，但你目前的靈魂卻極度沉溺於這種作繭自縛中。", detail_rev: "這是一個至關重要的自由信號。你終於看清了當前體制或情感對你的深度毒害，下定決心要親手斬斷鎖鏈，重塑乾淨的精神主權。", img: "https://upload.wikimedia.org/wikipedia/commons/5/55/RWS_Tarot_15_Devil.jpg" },
+        { name: "高塔", type: "大阿爾克那", keywords_up: "虛妄根基的驟然瓦解、震撼的真理、重啟之日", keywords_rev: "危機暗潮洶湧、勉強維持危牆、未完的餘震", detail_up: "那些建立在虛假防禦與謊言上的不穩固根基，正在被突如其來的命運閃電擊碎。這場崩潰極其震撼，但卻是將你從長期的虛假平靜中強行拯救出來。", detail_rev: "災難的餘震並未真正平息。你正在試圖用手去扶住一個已經開裂的危牆，這種勉強維持只會讓你在下一次崩塌時承受更沉重的打擊。", img: "https://upload.wikimedia.org/wikipedia/commons/5/53/RWS_Tarot_16_Tower.jpg" },
+        { name: "星星", type: "大阿爾克那", keywords_up: "風暴後的寧靜寧謐、精神療癒、遠大明朗的願景", keywords_rev: "希望的破滅感、陷入悲觀泥潭、空中樓閣的幻想", detail_up: "最核心的療癒能量正在注入你的生命。前方的道路正在逐漸明朗，請保持純粹的信念，當前的願景是受到命運祝福的，未來可期。", detail_rev: "你對未來失去了最基本的信任，將自己困在悲觀沮喪的迷霧中。亦或是你目前的規劃完全脫離了現實基底，淪為自我欺騙的空中樓閣。", img: "https://upload.wikimedia.org/wikipedia/commons/d/db/RWS_Tarot_17_Star.jpg" },
+        { name: "月亮", type: "大阿爾克那", keywords_up: "不安與焦慮的幻象、潛意識恐懼、局勢晦暗不明", keywords_rev: "迷霧漸次散去、背叛與謊言露白、克服核心恐懼", detail_up: "局勢正處於極度模糊的盲區。潛意識底層的焦慮被無限放大，此時切記千萬不要做出任何重大決策，小心提防身邊隱藏的欺瞞與陷阱。", detail_rev: "那些曾經讓你感到恐懼與看不清的秘密、背叛或核心謊言，正在逐步顯露真相。雖然過程會經歷幻滅，但你正在重新拿回局勢主導權。", img: "https://upload.wikimedia.org/wikipedia/commons/7/7f/RWS_Tarot_18_Moon.jpg" },
+        { name: "太陽", type: "大阿爾克那", keywords_up: "無上的光明成功、無限的生命活力、全面吉兆", keywords_rev: "光芒短暫被掩蓋、過度虛榮引起的波折、延遲的凱旋", detail_up: "這是塔羅牌中最具備能量的吉兆。所有的陰霾、遲疑、小人算計在絕對的光明面前都將化為烏有。帶著孩童般的純真大膽前行，成功就在眼前。", detail_rev: "並非失敗，而是成功的勢頭被短暫打折，或者到來的時間有所延遲。此時需要嚴格克制因短暫成就而產生的虛榮傲慢，以免引來暗箭。", img: "https://upload.wikimedia.org/wikipedia/commons/1/17/RWS_Tarot_19_Sun.jpg" },
+        { name: "審判", type: "大阿爾克那", keywords_up: "靈魂的重大覺醒、宿命召喚、因果業力的最終判定", keywords_rev: "關鍵時刻的退縮、嚴重的自我懷疑、逃避核心評估", detail_up: "命運的號角在耳邊轟鳴。這是一次對過往所有行為的總清算與靈魂覺醒。你必須做出一個將會徹底改變後半生生命軌跡的史詩級決定。", detail_rev: "你在命運的轉折點前產生了嚴重的畏難情緒與自疑。試圖通過拖延判定來逃避現實，這會讓你面臨徹底錯失生命躍遷良機的巨大危險。", img: "https://upload.wikimedia.org/wikipedia/commons/d/dd/RWS_Tarot_20_Judgement.jpg" },
+        { name: "世界", type: "大阿爾克那", keywords_up: "大週期的完美圓滿、旅程終點的成功、內心極致充實", keywords_rev: "美中不足的卡頓、接近完成的阻滯、不願放手的執著", detail_up: "代表某個長達數年的人生大週期正在迎來完美的謝幕。你用汗水換來了應有的社會地位與內心圓滿，這是一個無與倫比的里程碑式成功。", detail_rev: "事情在推進到最後百分之九十九的階段時突然卡住。面臨某種美中不足的遺憾，或者你沉溺在過往的輝煌完滿中，抗拒開啟下一個新篇章。", img: "https://upload.wikimedia.org/wikipedia/commons/f/ff/RWS_Tarot_21_World.jpg" },
+        
+        // 精選小阿爾克那核心牌組
+        { name: "權杖一", type: "權杖牌組", keywords_up: "強烈意志爆發、全新事業起點、純粹激情", keywords_rev: "計畫胎死腹中、精力過度分散、三分鐘熱度", detail_up: "原始火能量的猛烈爆發。這是一個具有極高創造力的靈感或極佳的破局機會，不要再權衡，立刻採取強勢行動。", detail_rev: "你的熱情正在迅速乾涸。這個新計畫極可能因為前期缺乏現實基底的推演而胎死腹中，或是你的精力放錯了地方，流於瞎忙。", img: "https://upload.wikimedia.org/wikipedia/commons/1/11/Wands01.jpg" },
+        { name: "聖杯一", type: "聖杯牌組", keywords_up: "情感滿溢、全新心靈連結、靈感泉湧", keywords_rev: "情感壓抑乾涸、錯失良緣、內心安全感缺失", detail_up: "一個純粹且深厚的心靈連結正在向你敞開。無論是新戀情還是極具共鳴的合作，都將深深填滿你長久以來荒蕪的精神世界。", detail_rev: "你正在對外部的善意與愛閉門謝客。內心情感能量處於嚴重的壓抑狀態，因為害怕受傷而切斷了與外界進行深度情感共鳴的可能。", img: "https://upload.wikimedia.org/wikipedia/commons/3/36/Cups01.jpg" },
+        { name: "寶劍一", type: "寶劍牌組", keywords_up: "理智的驚人突破、斬斷亂麻的魄力、真理顯現", keywords_rev: "思想的極度混亂、言詞帶來的毀滅性傷害、決策失誤", detail_up: "你的思維達到了前所未有的清徹度。這是一把刺破偽裝的真理之劍，拿出你的冷酷與魄力，果斷斬斷糾纏長久的利益或情感亂麻。", detail_rev: "你的理智正在被偏激的情緒綁架。做出的決策充滿了破壞性，或者你那充滿攻擊性的言詞，正在親手摧毀你最核心的人際防線。", img: "https://upload.wikimedia.org/wikipedia/commons/1/1a/Swords01.jpg" },
+        { name: "錢幣一", type: "錢幣牌組", keywords_up: "物質財富的堅實奠基、可靠的新商機、現實回報", keywords_rev: "商機的流失、不切實際的投資、物質主義的泥潭", detail_up: "宇宙正在為你遞上一枚沉甸甸的金幣。這是一個極具現實發展潛力的可靠起點，不論是新職位還是新項目，都將帶來實實在在的財富財富。", detail_rev: "一個能讓你翻身的現實機會正在因你的遲疑而白白流失。或者你當前正深陷在對金錢的非理性焦慮中，投資項目缺乏現實支撐。", img: "https://upload.wikimedia.org/wikipedia/commons/f/fd/Pentacles01.jpg" }
     ];
 
-    let selectedCards = [];
-    const maxDraws = 4;
-    const stepLabels = ["過去現狀", "當前面臨", "未來趨勢", "天機總結"];
+    let drawnCards = [];
+    const positions = [
+        { title: "核心現狀 (當前能量狀態)", tag: "現狀" },
+        { title: "潛在阻礙 (限制你的致命盲點)", tag: "阻礙" },
+        { title: "過去根源 (導致如今局面的因)", tag: "根源" },
+        { title: "未來趨勢 (順應當前能量的果)", tag: "趨勢" }
+    ];
 
-    // 隨機初始化卡牌弧形卷軸位置
-    function initDeck() {
-        const container = document.getElementById('cardContainer');
-        container.innerHTML = '';
-        selectedCards = [];
-        
-        // 隨機打亂塔羅牌
-        const shuffled = [...tarotDeck].sort(() => Math.random() - 0.5);
-        
-        const totalCards = 26; // 畫面上顯示26張形成扇形弧度
-        for (let i = 0; i < totalCards; i++) {
-            const cardEl = document.createElement('div');
-            cardEl.className = 'ritual-card';
-            
-            // 計算弧形偏轉
-            const mid = totalCards / 2;
-            const rot = (i - mid) * 4; 
-            const ty = Math.abs(i - mid) * 3;
-            
-            cardEl.style.setProperty('--rot', `${rot}deg`);
-            cardEl.style.setProperty('--ty', `${ty}px`);
-            
-            cardEl.dataset.index = i;
-            cardEl.onclick = () => drawCard(cardEl, shuffled[i]);
-            container.appendChild(cardEl);
-        }
-    }
+    function selectType(type, element) {
+        document.getElementById('divinationType').value = type;
+        const buttons = document.querySelectorAll('.tag-btn');
+        buttons.forEach(btn => btn.classList.remove('active'));
+        element.classList.add('active');
 
-    function selectType(val, btn) {
-        document.getElementById('divinationType').value = val;
-        document.querySelectorAll('.tag-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        
-        if (val === '感情') {
+        if (type === '情感正緣') {
             document.getElementById('loveSubContainer').style.display = 'block';
-            togglePartnerCard(document.querySelector('input[name="loveSubType"]:checked').value === '雙人合盤');
+            togglePartnerCard(document.querySelector('input[name="loveSubType"]:checked').value === '雙人合盤解讀');
         } else {
             document.getElementById('loveSubContainer').style.display = 'none';
             document.getElementById('partnerCard').style.display = 'none';
@@ -761,252 +632,179 @@
         document.getElementById('partnerCard').style.display = show ? 'block' : 'none';
     }
 
-    function startRitual(e) {
-        e.preventDefault();
+    function startRitual(event) {
+        event.preventDefault();
         document.getElementById('initBtn').disabled = true;
+        document.getElementById('initBtn').innerText = "意念凝聚中...";
+        
+        drawnCards = [];
+        const container = document.getElementById('cardContainer');
+        container.innerHTML = '';
+        
+        // 模擬鋪展78張牌陣（生成隨機扇形排列效果）
+        const totalVisualCards = 40; 
+        for(let i=0; i<totalVisualCards; i++){
+            const card = document.createElement('div');
+            card.className = 'ritual-card';
+            
+            // 計算弧形矩陣
+            const mid = totalVisualCards / 2;
+            const rot = (i - mid) * 3; 
+            const ty = Math.abs(i - mid) * 1.8;
+            
+            card.style.setProperty('--rot', `${rot}deg`);
+            card.style.setProperty('--ty', `${ty}px`);
+            
+            card.onclick = () => drawCard(card, i);
+            container.appendChild(card);
+        }
+        
         document.getElementById('ritualSection').style.display = 'block';
-        initDeck();
-        document.getElementById('stepHint').innerText = `請憑直覺抽取第 1 張牌：【代表 ${stepLabels[0]}】`;
-        document.getElementById('ritualSection').scrollIntoView({ behavior: 'smooth' });
+        document.getElementById('resultSectionBox').style.display = 'none';
+        updateStepHint();
+        
+        // 平滑滾動到牌陣中央
+        setTimeout(() => {
+            const wrapper = document.querySelector('.scroll-deck-wrapper');
+            wrapper.scrollLeft = (container.offsetWidth - wrapper.offsetWidth) / 2;
+        }, 300);
     }
 
-    function drawCard(cardEl, cardData) {
-        if (selectedCards.length >= maxDraws) return;
-        if (cardEl.classList.contains('selected-drawn')) return;
-
-        cardEl.classList.add('selected-drawn');
-        
-        // 隨機判定正逆位
-        const isReversed = Math.random() < 0.3;
-        selectedCards.push({
-            ...cardData,
-            reversed: isReversed,
-            positionLabel: stepLabels[selectedCards.length]
-        });
-
-        const count = selectedCards.length;
+    function updateStepHint() {
+        const count = drawnCards.length;
         document.getElementById('drawCount').innerText = count;
-
-        if (count < maxDraws) {
-            document.getElementById('stepHint').innerText = `請憑直覺抽取第 ${count + 1} 張牌：【代表 ${stepLabels[count]}】`;
+        if (count < 4) {
+            document.getElementById('stepHint').innerText = `請憑直覺抽取第 ${count + 1} 張牌：【${positions[count].title}】`;
         } else {
             document.getElementById('ritualSection').style.display = 'none';
-            calculateAndDisplayResult();
+            generateMasterReport();
         }
     }
 
-    // ==========================================
-    // 🧠 核心命理演算法：生命靈數與紫微系統融合
-    // ==========================================
-    
-    // 1. 生命靈數主命數計算
-    function getLifePathNumber(dateStr) {
-        const nums = dateStr.replace(/-/g, '').split('').map(Number);
-        let sum = nums.reduce((a, b) => a + b, 0);
-        while (sum > 9) {
-            sum = sum.toString().split('').map(Number).reduce((a, b) => a + b, 0);
-        }
-        return sum;
-    }
-
-    // 2. 2026年流年數字計算（生命靈數全書體系）
-    function getPersonalYearNumber(dateStr) {
-        const dateObj = new Date(dateStr);
-        const month = dateObj.getMonth() + 1;
-        const day = dateObj.getDate();
-        const yearSum = 2 + 0 + 2 + 6; // 當前年份 2026
-        let sum = yearSum + month + day;
-        while (sum > 9) {
-            sum = sum.toString().split('').map(Number).reduce((a, b) => a + b, 0);
-        }
-        return sum;
-    }
-
-    // 3. 根據陽曆生日動態逆推干支日主與紫微主星（核心離散模擬算法）
-    function deriveZiweiAndBazi(dateStr, timeStr) {
-        const dateObj = new Date(dateStr);
-        const day = dateObj.getDate();
-        const month = dateObj.getMonth() + 1;
-        const year = dateObj.getFullYear();
-
-        // 天干地支離散對應表
-        const tg = ["甲木", "乙木", "丙火", "丁火", "戊土", "己土", "庚金", "辛金", "壬水", "癸水"];
-        const dz = ["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"];
+    function drawCard(cardElement, index) {
+        if (drawnCards.length >= 4) return;
         
-        // 依據日期雜湊日主
-        const dayIdx = (day + month + year) % 10;
-        const baziDayMaster = tg[dayIdx];
-
-        // 紫微主星庫（基於紫微斗數全書與紫微攻略新手村星性）
-        const starMatrix = {
-            "子時 (23:00-01:00)": { star: "紫微天府坐命宮", desc: "雙帝星同宮，格局宏大，志向高遠，但也容易流於孤傲、高處不勝寒。", element: "土" },
-            "丑時 (01:00-03:00)": { star: "太陰獨坐命宮", desc: "月朗天門格，內心思維極其細膩，直覺力驚人，富同理心，唯感情易生波折。", element: "水" },
-            "寅時 (03:00-05:00)": { star: "武曲七殺坐命宮", desc: "將星得地，執行力剛猛絕倫，具開創魄力，但性格過於剛烈，宜注意人際摩擦。", element: "金" },
-            "卯時 (05:00-07:00)": { star: "太陽天梁坐命宮", desc: "日照雷門格，熱情博愛，具長者風範，天生有逢凶化吉之解厄貴人運。", element: "木" },
-            "辰時 (07:00-09:00)": { star: "廉貞天府坐命宮", desc: "身具權謀與理財天賦，長於交際控局，物質運佳，但內心防備極深。", element: "土" },
-            "巳時 (09:00-11:00)": { star: "巨門獨坐命宮", desc: "石中隱玉格，心思縝密，口才雄辯，靠專業技能與才華立足，防口舌是非。", element: "水" },
-            "午時 (11:00-13:00)": { star: "紫微獨坐命宮", desc: "極品至尊，領袖欲與掌控欲強烈，大器晚成之兆，一生多遇體制內貴人。", element: "土" },
-            "未時 (13:00-15:00)": { star: "天同巨門坐命宮", desc: "多愁善感，早年辛勞，中晚年大發，擅長規劃，易受制於精神內耗。", element: "水" },
-            "申時 (15:00-17:00)": { star: "七殺獨坐命宮", desc: "七殺朝斗格，一生大風大浪，甘願冒險，是典型的開拓型先鋒人才。", element: "金" },
-            "酉時 (17:00-19:00)": { star: "天機太陰坐命宮", desc: "機月同梁格，思維靈活敏捷，極具幕僚策劃天賦，安穩中求財，感情世界豐富。", element: "木" },
-            "戌時 (19:00-21:00)": { star: "破軍獨坐命宮", desc: "英星入廟，不破不立。敢於顛覆傳統，一生橫發橫破，驚濤駭浪中見真章。", element: "水" },
-            "亥時 (21:00-23:00)": { star: "貪狼獨坐命宮", desc: "桃花主星，多才多藝，現實利益與精神慾望兼具，擅長公關交際與偏財投機。", element: "木" },
-            "不知道時辰": { star: "天府獨坐命宮", desc: "令星在命，包容力極強，天生福厚，善於防守與理財，大局觀出眾。", element: "土" }
-        };
-
-        const ziweiData = starMatrix[timeStr] || starMatrix["不知道時辰"];
-
-        // 推算流年四化落點 (2026丙午年：天同化祿、天機化權、文昌化科、廉貞化忌)
-        let sihuaInsight = "";
-        if (timeStr.includes("未") || timeStr.includes("酉")) {
-            sihuaInsight = "🎯 2026流年逢【天同化祿/天機化權】，本年多有思維轉型、或在資產、合夥事務中獲得突發性紅利。";
-        } else if (timeStr.includes("戌") || timeStr.includes("寅")) {
-            sihuaInsight = "⚠️ 2026流年正沖【廉貞化忌】，凡是涉及合同簽署、法律、情感背叛或金錢借貸，切記不可盲目擴張。";
-        } else {
-            sihuaInsight = "✨ 2026流年運勢整體持平，天機星在暗盤發力，利於進修、考證或內幕型技術研發。";
+        // 從完整的數據庫中隨機挑選一張
+        let poolCard = tarotDeck[Math.floor(Math.random() * tarotDeck.length)];
+        // 確保不重複
+        while(drawnCards.some(c => c.name === poolCard.name)) {
+            poolCard = tarotDeck[Math.floor(Math.random() * tarotDeck.length)];
         }
-
-        return {
-            dayMaster: baziDayMaster,
-            ziweiStar: ziweiData.star,
-            ziweiDesc: ziweiData.desc,
-            ziweiElement: ziweiData.element,
-            sihua: sihuaInsight
-        };
+        
+        // 隨機判定正位 (true) 或逆位 (false)
+        const isUpright = Math.random() > 0.35; 
+        
+        drawnCards.push({
+            ...poolCard,
+            isUpright: isUpright,
+            positionInfo: positions[drawnCards.length]
+        });
+        
+        cardElement.classList.add('selected-drawn');
+        updateStepHint();
     }
 
-    // ==========================================
-    // 🖨️ 多維復合大解盤報告生成引擎
-    // ==========================================
-    function calculateAndDisplayResult() {
-        const username = document.getElementById('username').value;
-        const birthDate = document.getElementById('birthDate').value;
-        const birthTime = document.getElementById('birthTime').value;
-        const divinationType = document.getElementById('divinationType').value;
+    function generateMasterReport() {
+        const name = document.getElementById('username').value;
+        const gender = document.getElementById('gender').value;
+        const divType = document.getElementById('divinationType').value;
         const question = document.getElementById('question').value;
-
-        // 1. 理論計算
-        const lifePath = getLifePathNumber(birthDate);
-        const personalYear = getPersonalYearNumber(birthDate);
-        const easternFate = deriveZiweiAndBazi(birthDate, birthTime);
-
-        // 2. 統計抽取的塔羅牌五行屬性
-        const elementCounts = { "火": 0, "水": 0, "風": 0, "土": 0 };
-        selectedCards.forEach(c => { if(elementCounts[c.element] !== undefined) elementCounts[c.element]++; });
         
-        let dominantElement = "無";
-        let maxCount = 0;
-        for (let key in elementCounts) {
-            if (elementCounts[key] > maxCount) {
-                maxCount = elementCounts[key];
-                dominantElement = key;
-            }
-        }
+        let html = `
+            <div class="divination-card" style="background: var(--white); border: 2px solid var(--cream-dark); margin-bottom: 30px;">
+                <p style="font-size: 1rem; font-weight: bold; margin-bottom: 10px;">⚖️ 聖殿法界磁場檔案</p>
+                <p style="font-size: 0.95rem; color: var(--brown-accent);">
+                    <strong>諮詢法相：</strong> ${name}（${gender}） &nbsp;&nbsp;|&nbsp;&nbsp; 
+                    <strong>探問範疇：</strong> ${divType} <br>
+                    <strong>盤問核心意念：</strong> 「${question}」
+                </p>
+            </div>
+            
+            <div class="array-display-container">
+        `;
         
-        let lackElement = [];
-        for (let key in elementCounts) { if (elementCounts[key] === 0) lackElement.push(key); }
-        const lackStr = lackElement.length > 0 ? lackElement.join('、') : "五行平衡";
-
-        // 3. 渲染牌陣UI
-        let cardDisplayHtml = "";
-        selectedCards.forEach(card => {
-            cardDisplayHtml += `
+        // 四張牌陣的視覺呈現
+        drawnCards.forEach(card => {
+            html += `
                 <div class="array-card-item">
-                    <span class="array-card-tag ${card.positionLabel === '天機總結' ? 'conclusion-tag' : ''}">${card.positionLabel}</span>
-                    <div class="waite-tarot-card-body ${card.reversed ? 'reversed-visual' : ''}">
+                    <span class="array-card-tag">${card.positionInfo.tag}</span>
+                    <div class="waite-tarot-card-body ${card.isUpright ? '' : 'reversed-visual'}">
                         <img src="${card.img}" alt="${card.name}">
                     </div>
-                    <div class="array-card-name">${card.name}（${card.reversed ? '逆位' : '正位'}）</div>
+                    <p class="array-card-name">${card.name} ．（${card.isUpright ? '正位' : '逆位'}）</p>
                 </div>
             `;
         });
-
-        // 4. 生成生命靈數全書與紫微斗數全書的融合深度解析
-        const numBooksInsights = {
-            1: "【1號開創星】天生具備強烈孤狼特質。流年数字 ${personalYear} 提示您，2026年是打破現狀、獨立門戶的變革年，切忌依賴他人。",
-            2: "【2號合作星】心思極其細膩敏感。流年数字 ${personalYear} 提示您，當下需要靠合夥、溝通或退居幕後借力打力，不可強出頭。",
-            3: "【3號創意星】思維跳躍，極具感官爆發力。流年数字 ${personalYear} 提示您，本年切忌三分鐘熱度，應將精力聚焦於技能變現。",
-            4: "【4號穩定星】對安全感要求極高，有時流於固執。流年数字 ${personalYear} 提示您，2026必須建立起防禦防線，不可進行高風險投資。",
-            5: "【5號自由星】天生不願受體制束縛。流年数字 ${personalYear} 提示您，2026年局勢變數極大，適應力將是您渡過難關的唯一武器。",
-            6: "【6號遠見星】擅長照料他人，容易承擔過多責任。流年数字 ${personalYear} 提示您，本年需防範情感與金錢上的過度內耗。",
-            7: "【7號真理星】生性多疑，善於鑽研分析。流年数字 ${personalYear} 提示您，不可聽信表面風光，必須徹查數據背後的真相。",
-            8: "【8號權力星】天生具有商業與世俗顯化野心。流年数字 ${personalYear} 提示您，2026年正逢因果結算期，成敗皆在於先前奠定的德行。",
-            9: "【9號智慧星】精神追求極高，但有時流於空想。流年数字 ${personalYear} 提示您，2026是斷捨離的週期，必須把懸空的計劃落地。"
-        };
-
-        const numInsight = numBooksInsights[lifePath].replace('${personalYear}', personalYear);
-
-        // 5. 針對諮詢範疇給出直接、赤裸、一針見血的命理對位結論
-        let grandConclusion = "";
-        const finalCard = selectedCards[3]; // 天機總結牌
-
-        if (divinationType === '事業') {
-            grandConclusion = `您的日主為【${easternFate.dayMaster}】，命宮逢【${easternFate.ziweiStar}】。這代表您在事業上具備${easternFate.ziweiDesc.slice(0,15)}。結合總結牌【${finalCard.name}${finalCard.reversed ? '逆位' : '正位'}】，目前您諮詢的問題《${question}》核心死穴在於**「${finalCard.reversed ? finalCard.keywords_rev : card.keywords_up}」**。不要再試圖用常規的拖延戰術來應付，紫微流年四化警告您：${easternFate.sihua}。如果您當前五行缺乏【${lackElement[0] || '火'}】，則意味著缺乏核心推動力或貴人，必須在接下來的45天內，斬斷無效內耗，採取主動破局。`;
-        } else if (divinationType === '感情') {
-            grandConclusion = `命盤大運顯示您當前主命數為【${lifePath}】。針對您的感情困惑，總結牌落入【${finalCard.name}${finalCard.reversed ? '逆位' : '正位'}】（五行屬${finalCard.element}）。這非常赤裸地揭示出關係的底牌：**${finalCard.reversed ? finalCard.detail_rev : finalCard.detail_up}**。紫微命宮【${easternFate.ziweiStar}】暗示您在感情中往往過於${easternFate.ziweiDesc.slice(0,10)}。如果選擇雙人合盤，對方的磁場正在與您的生命靈數產生摩擦，2026流年數字為【${personalYear}】，這不是可以妥協將就的年份，真相大白之時，唯有保持心理獨立，才能真正掌握主導權。`;
-        } else {
-            grandConclusion = `針對您所祈願的《${question}》，多維複合矩陣給出最直接的揭示：主命數【${lifePath}】賦予您的先天特質在應對此問題時，容易被當前流年數字【${personalYear}】的運勢亂流所干擾。總結牌【${finalCard.name}】明確指示：**${finalCard.reversed ? finalCard.keywords_rev : finalCard.keywords_up}**。請配合五行最弱之【${lackStr}】進行行為補強，順應紫微【${easternFate.ziweiStar}】的守備或進攻法則，一切發生皆是業力顯化，唯有改變思維，方能逆天改命。`;
-        }
-
-        // 6. 報告組裝
-        const htmlReport = `
-            <div class="array-display-container">
-                ${cardDisplayHtml}
-            </div>
-
-            <div class="divination-card">
-                <div class="card-meta">
-                    <span class="num-badge">☯️ 生命靈數：主命數 ${lifePath}</span>
-                    <span class="num-badge">🔮 2026年流年：${personalYear}</span>
-                    <span class="wuxing-badge">🪐 日主干支：${easternFate.dayMaster}</span>
-                    <span class="tarot-badge">🌌 紫微主星：${easternFate.ziweiStar}</span>
-                    <span class="lack-badge">⚠️ 五行缺失：${lackStr}</span>
-                </div>
-
-                <div class="analysis-block">
-                    <div class="analysis-subtitle">🧬 【生命靈數全書】人格原力與流年亂流</div>
-                    <div class="analysis-text">${numInsight}</div>
-                </div>
-
-                <div class="analysis-block">
-                    <div class="analysis-subtitle">☸️ 【紫微斗數全書】命宮格局與四化決策</div>
-                    <div class="analysis-text">
-                        <strong>命宮星曜特質：</strong>${easternFate.ziweiDesc}<br>
-                        <strong>天干天機警告：</strong>${easternFate.sihua}
+        
+        html += `</div>`;
+        
+        // 四張牌卡逐一詳細解析
+        html += `<h3 style="font-size: 1.2rem; color: var(--brown-text); margin: 35px 0 15px 0; font-weight: 700; text-align: center;">✦ 四大時空象限深度剝離 ✦</h3>`;
+        
+        drawnCards.forEach(card => {
+            const keywords = card.isUpright ? card.keywords_up : card.keywords_rev;
+            const detail = card.isUpright ? card.detail_up : card.detail_rev;
+            
+            html += `
+                <div class="divination-card">
+                    <div class="card-meta">
+                        <span class="tarot-badge">${card.positionInfo.title}</span>
+                        <span class="direction-badge ${card.isUpright ? '' : 'rev-style'}">${card.name} 🤔 ${card.isUpright ? '正位核心顯化' : '逆位能量阻滯'}</span>
+                    </div>
+                    <div class="analysis-block">
+                        <div class="analysis-subtitle">🔮 潛意識顯化意象</div>
+                        <p class="analysis-text" style="color: var(--red-alert); font-weight: bold; letter-spacing: 1px;">「${keywords}」</p>
+                    </div>
+                    <div class="analysis-block">
+                        <div class="analysis-subtitle">👁️‍🗨️ 大師精確剝離解析</div>
+                        <p class="analysis-text">${detail}</p>
                     </div>
                 </div>
-
-                <div class="analysis-block">
-                    <div class="analysis-subtitle">⏳ 時空塔羅四維流轉軌跡</div>
-                    <div class="timeline-box">
-                        <div class="timeline-item">
-                            <div class="timeline-item-title"><span>❶ 過去現狀：【${selectedCards[0].name} ． ${selectedCards[0].reversed ? '逆位' : '正位'}】</span><span class="pos-label">基石磁場</span></div>
-                            <div class="analysis-text" style="font-size:0.9rem;">${selectedCards[0].reversed ? selectedCards[0].detail_rev : selectedCards[0].detail_up}</div>
-                        </div>
-                        <div class="timeline-item">
-                            <div class="timeline-item-title"><span>❷ 當前面臨：【${selectedCards[1].name} ． ${selectedCards[1].reversed ? '逆位' : '正位'}】</span><span class="pos-label">核心衝突</span></div>
-                            <div class="analysis-text" style="font-size:0.9rem;">${selectedCards[1].reversed ? selectedCards[1].detail_rev : selectedCards[1].detail_up}</div>
-                        </div>
-                        <div class="timeline-item">
-                            <div class="timeline-item-title"><span>❸ 未來趨勢：【${selectedCards[2].name} ． ${selectedCards[2].reversed ? '逆位' : '正位'}】</span><span class="pos-label">命運分叉</span></div>
-                            <div class="analysis-text" style="font-size:0.9rem;">${selectedCards[2].reversed ? selectedCards[2].detail_rev : selectedCards[2].detail_up}</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="core-conclusion-card">
-                    <div class="analysis-subtitle" style="color: var(--red-alert);">🔥 復合解盤：命理師一針見血直白斷言</div>
-                    <div class="analysis-text" style="border-left-color: var(--red-alert); font-weight: 500; color: #2E2423;">
-                        ${grandConclusion}
-                    </div>
-                </div>
+            `;
+        });
+        
+        // 綜合大解析
+        html += `
+            <div class="divination-card core-conclusion-card" style="margin-top: 40px;">
+                <div class="analysis-subtitle" style="color: var(--purple-indigo); font-size: 1.2rem;">⚜️ 聖殿占卜師全局綜合判詞</div>
+                <p style="font-size: 1rem; color: var(--brown-text); text-align: justify; margin-top: 15px; font-weight: 500;">
+                    看著眼前鋪展開來的四股能量線，你的靈魂圖譜非常清晰。從【${drawnCards[2].name}】的根源演變，到你目前在【${drawnCards[0].name}】中所面臨的無形張力，無一不在揭示你此時此刻的卡點。
+                    【${drawnCards[1].name}】作為你當前最隱蔽的致命盲點，正在瘋狂消耗你原本清澈的直覺；如果你持續忽視這個限制性的內部盲區，未來的能量軌道將會被不可避免地導向【${drawnCards[3].name}】的宿命終結點。
+                    這不是不可更改的死局，塔羅的本質從來不是宿命論，而是當前集體無意識的精準切片。既然看清了能量的流向，你現在就擁有親手重塑未來的至高權利。
+                </p>
             </div>
         `;
-
-        document.getElementById('resultContent').innerHTML = htmlReport;
-        const resultBox = document.getElementById('resultSectionBox');
-        resultBox.style.display = 'block';
-        resultBox.scrollIntoView({ behavior: 'smooth' });
+        
+        // 大師提出的10點強勢命運建議
+        html += `
+            <div class="divination-card" style="border-left: 4px solid var(--red-alert); background: var(--bg-color);">
+                <div class="analysis-subtitle" style="color: var(--red-alert); font-size: 1.15rem;">📌 針對此局大師給予的十點破局天機</div>
+                <ul class="suggestion-list">
+                    <li><strong>第一點：正視現狀背後的真實代價。</strong> 停止試圖粉飾當前的風平浪靜，你必須承認底層有些東西已經徹底變質。</li>
+                    <li><strong>第二點：親手斬斷無謂的能量寄生。</strong> 在這個局裡，有些不健康的依賴或人際糾纏正在瘋狂吸食你的創造力，立刻劃清界線。</li>
+                    <li><strong>第三點：破除盲目追求形式自由的幼稚幻覺。</strong> 真正的自由是建立在強大的現實紀律與物質基底之上的，否則只是逃避現實的藉口。</li>
+                    <li><strong>第四點：啟動內在隱藏的智慧，而非向外盲目求援。</strong> 最核心的答案你其實早就心知肚明，停止在外界的喧囂中尋找合理化藉口。</li>
+                    <li><strong>第五點：高度警惕身邊那些包裝精美的承諾。</strong> 如果有人給予你過度完美的預期，背後極大機率隱藏著高密度的資訊操縱與剝削。</li>
+                    <li><strong>第六點：把犧牲用在具有現實價值的刀口上。</strong> 停止無謂的自我感動，那些無法為你帶來實質心靈成長或現實回報的忍耐，全部是瞎忙。</li>
+                    <li><strong>第七點：容許不合時宜的舊結構徹底走向寂滅。</strong> 已經死去的感情、項目或思維模式就讓它被埋葬，騰出最乾淨的土壤才能迎接新生。</li>
+                    <li><strong>第八點：重新拿回你的理智主權。</strong> 把偏激、委屈與憤怒等情緒全面剝離，用冷酷、客觀的視角重新進行利益與代價的盤點。</li>
+                    <li><strong>第九點：在暴風雨來臨前，嚴密構築你的核心防線。</strong> 局勢的餘震仍在持續，收斂你的好大喜功，把資源全部收攏回最核心的安全區。</li>
+                    <li><strong>第十點：永遠記住，你是命運的唯一掌舵者。</strong> 命運的齒輪雖然轉動，但如何走過高山低谷，全看你此時此刻決策的骨氣與魄力。</li>
+                </ul>
+            </div>
+        `;
+        
+        document.getElementById('resultContent').innerHTML = html;
+        document.getElementById('resultSectionBox').style.display = 'block';
+        
+        // 重置按鈕
+        document.getElementById('initBtn').disabled = false;
+        document.getElementById('initBtn').innerText = "凝神 ． 重新校準占卜";
+        
+        // 平滑滾動到報告起點
+        setTimeout(() => {
+            document.getElementById('resultSectionBox').scrollIntoView({ behavior: 'smooth' });
+        }, 200);
     }
 </script>
 
