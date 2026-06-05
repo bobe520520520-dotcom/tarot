@@ -306,12 +306,13 @@
             margin-left: 0;
         }
 
+        /* 將原本的眼球圖案替換為六芒星，並優化定位與色調 */
         .ritual-card::before {
-            content: "👁️‍🗨️";
+            content: "🔯";
             color: var(--gold);
-            font-size: 2.2rem; 
-            opacity: 0.8;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+            font-size: 2.4rem; 
+            opacity: 0.85;
+            filter: drop-shadow(0 0 8px rgba(212, 178, 140, 0.4)) drop-shadow(0 2px 4px rgba(0,0,0,0.6));
         }
 
         .ritual-card:hover {
@@ -456,7 +457,7 @@
             header h1 { font-size: 1.8rem; letter-spacing: 3px; }
             header p { font-size: 0.95rem; }
             .ritual-card { width: 100px; height: 170px; margin-left: -50px; }
-            .ritual-card::before { font-size: 1.6rem; }
+            .ritual-card::before { font-size: 1.7rem; }
             .scroll-deck-container { height: 230px; padding-left: 40px; padding-right: 40px;}
             .scroll-deck-wrapper { padding: 20px; }
         }
@@ -565,7 +566,7 @@
         { name: "倒吊人", type: "大阿爾克那", keywords_up: "甘願的犧牲、高維新視角、用時間換空間", keywords_rev: "無謂的自我感動、抗拒妥協、無價值的瞎忙", detail_up: "表面上的停滯與受困，其實是宇宙給你的最高啟示。換個完全相反的角度來看世界，你會發現那些拼死掙扎的困局，其實有極其簡單的解法。", detail_rev: "你的犧牲根本毫無現實價值，只是在進行一場自我感動的拖延。不肯放下無謂的尊嚴去配合局勢改變，只會延長這段毫无意義的痛苦。", img: "https://upload.wikimedia.org/wikipedia/commons/2/2b/RWS_Tarot_12_Hanged_Man.jpg" },
         { name: "死神", type: "大阿爾克那", keywords_up: "舊結構徹底破滅、陣痛新生、宿命大剪枝", keywords_rev: "抗拒必然的告別、腐爛中的垂死掙扎、執迷不悟", detail_up: "不要恐懼這場終結，不合時宜的腐爛殘渣必須被命運連根拔起，才能為未來騰出最乾淨的土壤。這是一場靈魂層面的破舊立新。", detail_rev: "你死守著已經失去生命力的感情或事業架構不肯放手。這種垂死掙扎只會無限期延長你的痛苦，執迷不悟的代價是迎來更大的反噬。", img: "https://upload.wikimedia.org/wikipedia/commons/d/d7/RWS_Tarot_13_Death.jpg" },
         { name: "節制", type: "大阿爾克那", keywords_up: "精準的調和藝術、細水長流、內在療癒淨化", keywords_rev: "能量严重失調、溝通極度不良、缺乏深度融合", detail_up: "高超的溝通與整合正在發生。你能夠將看似完全互斥的元素融合得恰到好處，身心靈與周遭環境達成了完美的動態平衡，細水長流。", detail_rev: "內部的資源調配、情緒管理或是外部的利益溝通正處於劇烈失調狀態。缺乏深度的淨化，各自為政導致關係或項目推進極其艱難。", img: "https://upload.wikimedia.org/wikipedia/commons/f/f8/RWS_Tarot_14_Temperance.jpg" },
-        { name: "惡魔", type: "大阿爾克那", keywords_up: "物質枷鎖、沉溺慾望、非理性的不健康依賴", keywords_rev: "靈魂的覺醒、打破毒害關係、重獲精神自主", detail_up: "你被某種金錢利益、肉體慾望或是不堪的情感執念給深深套牢了。雖然潛意識感到不自由，但你目前的靈魂卻極度沉溺於這種作繭自縛中。", detail_rev: "這是一個至關重要的自由信號。你終於看清了當前體制或情感對你的深度毒害，下定決心要親手斬斷鎖鏈，重塑乾記的精神主權。", img: "https://upload.wikimedia.org/wikipedia/commons/5/55/RWS_Tarot_15_Devil.jpg" },
+        { name: "惡魔", type: "大阿爾克那", keywords_up: "物質枷鎖、沉溺慾望、非理性的不健康依賴", keywords_rev: "靈魂的覺醒、打破毒害關係、重獲精神自主", detail_up: "你被某種金錢利益、肉體慾望或是不堪的情感執念給深深套牢了。雖然潛意識感到不自由，管你目前的靈魂卻極度沉溺於這種作繭自縛中。", detail_rev: "這是一個至關重要的自由信號。你終於看清了當前體制或情感對你的深度毒害，下定決心要親手斬斷鎖鏈，重塑乾記的精神主權。", img: "https://upload.wikimedia.org/wikipedia/commons/5/55/RWS_Tarot_15_Devil.jpg" },
         { name: "高塔", type: "大阿爾克那", keywords_up: "虛妄根基的驟然瓦解、震撼的真理、重啟之日", keywords_rev: "危機暗潮洶湧、勉強維持危牆、未完的餘震", detail_up: "那些建立在虛假防禦與謊言上的不穩固根基，正在被突如其來的命運閃電擊碎。這場崩潰極其震撼，但卻是將你從長期的虛假平靜中強行拯救出來。", detail_rev: "災難的餘震並未真正平息。你正在試圖用手去扶住一個已經開裂的危牆，這種勉強維持只會讓你在下一次崩塌時承受更沉重的打擊。", img: "https://upload.wikimedia.org/wikipedia/commons/5/53/RWS_Tarot_16_Tower.jpg" },
         { name: "星星", type: "大阿爾克那", keywords_up: "風暴後的寧靜寧謐、精神療癒、遠大明朗的願景", keywords_rev: "希望的破滅感、陷入悲觀泥潭、空中樓閣的幻想", detail_up: "最核心的療癒能量正在注入你的生命。前方的道路正在逐漸明朗，請保持純粹的信念，當前的願景是受到命運祝福的，未來可期。", detail_rev: "你對未來失去了最基本的信任，將自己困在悲觀沮喪的迷霧中。亦或是你目前的規劃完全脫離了現實基底，淪為自我欺騙的空中樓閣。", img: "https://upload.wikimedia.org/wikipedia/commons/d/db/RWS_Tarot_17_Star.jpg" },
         { name: "月亮", type: "大阿爾克那", keywords_up: "不安與焦慮的幻象、潛意識恐懼、局勢晦暗不明", keywords_rev: "迷霧漸次散去、背叛與謊言露白、克服核心恐懼", detail_up: "局勢正處於極度模糊的盲區。潛意識底層的焦慮被無限放大，此時切記千萬不要做出任何重大決策，小心提防身邊隱藏的欺瞞與陷阱。", detail_rev: "那些曾經讓你感到恐懼與看不清的秘密、背叛或核心謊言，正在逐步顯露真相。雖然過程會經歷幻滅，但你正在重新拿回局勢主導權。", img: "https://upload.wikimedia.org/wikipedia/commons/7/7f/RWS_Tarot_18_Moon.jpg" },
