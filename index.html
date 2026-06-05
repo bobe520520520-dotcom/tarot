@@ -466,7 +466,7 @@
 
 <div class="container">
     <header>
-        <h1>说出你的愿望</h1>
+        <h1>說出你的願望</h1>
         <div class="title-divider"></div>
         <p>Everything will be okay in the end.</p>
     </header>
@@ -529,7 +529,7 @@
             <textarea id="question" placeholder="請詳細訴說你的現狀、目前的掙扎以及內心真實想探問的事，這能讓洗牌時的意念磁場更加凝聚精確..." required></textarea>
         </div>
 
-        <button type="submit" class="submit-btn" id="initBtn">凝神 ． 進入命運矩陣</button>
+        <button type="submit" class="submit-btn" id="initBtn">開始占卜</button>
     </form>
 
     <div class="ritual-section" id="ritualSection">
@@ -576,7 +576,7 @@
         { name: "權杖一", type: "權杖牌組", keywords_up: "強烈意志爆發、全新事業起點、純粹激情", keywords_rev: "計畫胎死腹中、精力過度分散、三分鐘熱度", detail_up: "原始火能量的猛烈爆發。這是一個具有極高創造力的靈感或極佳的破局機會，不要再權衡，立刻採取強勢行動。", detail_rev: "你的熱情正在迅速乾涸。這個新計畫極可能因為前期缺乏現實基底的推演而胎死腹中，或是你的精力放錯了地方，流於瞎忙。", img: "https://upload.wikimedia.org/wikipedia/commons/1/11/Wands01.jpg" },
         { name: "聖杯一", type: "聖杯牌組", keywords_up: "情感滿溢、全新心靈連結、靈感泉湧", keywords_rev: "情感壓抑乾涸、錯失良緣、內心安全感缺失", detail_up: "一個純粹且深厚的心靈連結正在向你敞開。無論是新戀情還是極具共鳴的合作，都將深深填滿你長久以來荒蕪的精神世界。", detail_rev: "你正在對外部的善意與愛閉門謝客。內心情感能量處於嚴重的壓抑狀態，因為害怕受傷而切斷了與外界進行深度情感共鳴的可能。", img: "https://upload.wikimedia.org/wikipedia/commons/3/36/Cups01.jpg" },
         { name: "寶劍一", type: "寶劍牌組", keywords_up: "理智的驚人突破、斬斷亂麻的魄力、真理顯現", keywords_rev: "思想的極度混亂、言詞帶來的毀滅性傷害、決策失誤", detail_up: "你的思維達到了前所未有的清徹度。這是一把刺破偽裝的真理之劍，拿出你的冷酷與魄力，果斷斬斷糾纏長久的利益或情感亂麻。", detail_rev: "你的理智正在被偏激的情緒綁架。做出的決策充滿了破壞性，或者你那充滿攻擊性的言詞，正在親手摧毀你最核心的人際防線。", img: "https://upload.wikimedia.org/wikipedia/commons/1/1a/Swords01.jpg" },
-        { name: "錢幣一", type: "錢幣牌組", keywords_up: "物質財富的堅實奠基、可靠的新商機、現實回報", keywords_rev: "商機的流失、不切實際的投資、物質主義的泥潭", detail_up: "宇宙正在為你遞上一枚沉甸甸的金幣。這是一個極具現實發展潛力的可靠起點，不論是新職位還是新項目，都將帶來實實在在的財富財富。", detail_rev: "一個能讓你翻身的現實機會正在因你的遲疑而白白流失。或者你當前正深陷在對金錢的非理性焦慮中，投資項目缺乏現實支撐。", img: "https://upload.wikimedia.org/wikipedia/commons/f/fd/Pentacles01.jpg" }
+        { name: "錢幣一", type: "錢幣牌組", keywords_up: "物質財富的堅實奠基、可靠的新商機、现实回報", keywords_rev: "商機的流失、不切實際的投資、物質主義的泥潭", detail_up: "宇宙正在為你遞上一枚沉甸甸的金幣。這是一個極具現實發展潛力的可靠起點，不論是新職位還是新項目，都將帶來實實在在的財富財富。", detail_rev: "一個能讓你翻身的現實機會正在因你的遲疑而白白流失。或者你當前正深陷在對金錢的非理性焦慮中，投資項目缺乏現實支撐。", img: "https://upload.wikimedia.org/wikipedia/commons/f/fd/Pentacles01.jpg" }
     ];
 
     let drawnCards = [];
@@ -761,7 +761,7 @@
         document.getElementById('resultSectionBox').style.display = 'block';
         
         document.getElementById('initBtn').disabled = false;
-        document.getElementById('initBtn').innerText = "凝神 ． 重新校準占卜";
+        document.getElementById('initBtn').innerText = "重新校準占卜";
         
         setTimeout(() => {
             document.getElementById('resultSectionBox').scrollIntoView({ behavior: 'smooth' });
